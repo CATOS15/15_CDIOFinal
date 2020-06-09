@@ -1,0 +1,51 @@
+<div class="navbar">
+    <div class="left">
+        <div ng-click="changeLocation('/')">HJEM</div>
+        <div ng-click="changeLocation('/brugere')">BRUGERE</div>
+        <div ng-click="changeLocation('/recepter')">RECEPTER</div>
+        <div ng-click="changeLocation('/raavarebatches')">RÅVAREBATCHES</div>
+        <div ng-click="changeLocation('/produktionsbatch')">PRODUKTIONSBATCHES</div>
+        <div ng-click="changeLocation('/afvejning')">AFVEJNING</div>
+    </div>
+    <div class="right">
+        <div class="username">ID:000001</div>
+    </div>
+</div>
+
+<style>
+    .navbar{
+        height: 100%;
+        width: 100%;
+        background-color: rgb(66, 75, 89);
+        box-shadow: inset 0 0 2px #000000;
+    }
+    .navbar > .left{
+        float:left;
+        width:calc(100% - 200px);
+        height:100%;
+    }
+    .navbar > .right{
+        float:left;
+        width:200px;
+        height:100%;
+    }
+    .navbar > .right > div{
+        float:right;
+    }
+    .navbar > div > div{
+        color:white;
+        width:auto;
+        float:left;
+        padding:14px;
+        transition: 0.2s;
+        font-size:20px;
+        height:100%;
+        box-sizing: border-box;
+    }
+    .navbar > div > div:hover:not(.username){
+        background-color: rgb(54, 185, 224);
+        cursor: pointer;
+        box-shadow: inset 0 0 2px #000000;
+        user-select: none;
+    }
+</style>

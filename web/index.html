@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DTU GRUPPE 15 FINAL</title>
+
+    <!-- EXTERNAL FILER -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="external/reset.css">
+    <script type="text/javascript" src ="external/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src ="external/angular.min.js"></script>
+    <script type="text/javascript" src ="external/angular-route.min.js"></script>
+
+    <!-- EGNE SCRIPTS OG CSS (Det ville være smart have en bundle config her som kunne indlæse script filerne automatisk) -->
+    <script type="text/javascript" src ="content/app.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="content/global/CDIOFinal/style.css" />
+    <script type="text/javascript" src ="content/global/CDIOFinal/model.js"></script>
+    <script type="text/javascript" src ="content/global/CDIOFinal/service.js"></script>
+    <script type="text/javascript" src ="content/global/CDIOFinal/controller.js"></script>
+
+    <script type="text/javascript" src ="content/global/navbar/model.js"></script>
+    <script type="text/javascript" src ="content/global/navbar/service.js"></script>
+    <script type="text/javascript" src ="content/global/navbar/controller.js"></script>
+
+    <script type="text/javascript" src ="content/pages/login/model.js"></script>
+    <script type="text/javascript" src ="content/pages/login/service.js"></script>
+    <script type="text/javascript" src ="content/pages/login/controller.js"></script>
+
+    <script type="text/javascript" src ="content/pages/hjem/model.js"></script>
+    <script type="text/javascript" src ="content/pages/hjem/service.js"></script>
+    <script type="text/javascript" src ="content/pages/hjem/controller.js"></script>
+
+    <script type="text/javascript" src ="content/pages/afvejning/model.js"></script>
+    <script type="text/javascript" src ="content/pages/afvejning/service.js"></script>
+    <script type="text/javascript" src ="content/pages/afvejning/controller.js"></script>
+
+    <script type="text/javascript" src ="content/pages/brugere/model.js"></script>
+    <script type="text/javascript" src ="content/pages/brugere/service.js"></script>
+    <script type="text/javascript" src ="content/pages/brugere/controller.js"></script>
+
+    <script type="text/javascript" src ="content/pages/produktionsbatch/model.js"></script>
+    <script type="text/javascript" src ="content/pages/produktionsbatch/service.js"></script>
+    <script type="text/javascript" src ="content/pages/produktionsbatch/controller.js"></script>
+
+    <script type="text/javascript" src ="content/pages/raavarebatches/model.js"></script>
+    <script type="text/javascript" src ="content/pages/raavarebatches/service.js"></script>
+    <script type="text/javascript" src ="content/pages/raavarebatches/controller.js"></script>
+
+    <script type="text/javascript" src ="content/pages/recepter/model.js"></script>
+    <script type="text/javascript" src ="content/pages/recepter/service.js"></script>
+    <script type="text/javascript" src ="content/pages/recepter/controller.js"></script>
+</head>
+<body ng-app="CDIOFinal" ng-controller="CDIOFinalController">
+    <div ng-include="'content/global/navbar/page.html'" ng-controller="navbarController" class="navbarContainer"></div>
+    <div ng-view class="pageContainer"></div>
+</body>
+</html>
