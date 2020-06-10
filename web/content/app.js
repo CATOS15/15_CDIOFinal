@@ -18,6 +18,10 @@ CDIOFinal.config(['$routeProvider', function ($routeProvider) {
             templateUrl: "content/pages/produktionsbatch/page.html",
             controller: "produktionsbatchController"
         })
+        .when("/raavare", {
+            templateUrl: "content/pages/raavare/page.html",
+            controller: "raavareController"
+        })
         .when("/raavarebatches", {
             templateUrl: "content/pages/raavarebatches/page.html",
             controller: "raavarebatchesController"
