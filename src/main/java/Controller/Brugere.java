@@ -9,15 +9,6 @@ import javax.ws.rs.Path;
 public class Brugere {
     @GET
     public String getBrugere() {
-        try{
-            Database db = new Database();
-            db.connect();
-            db.disconnect();
-            return "Der er hul igennem til databasen";
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return "Der er IKKE hul igennem til databasen";
+        return "blah";
     }
 }

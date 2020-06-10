@@ -1,10 +1,43 @@
 <div>
-    Dette er login siden
+    <div class="login">
+        <label>
+            Brugernavn: <input type="text" ng-model="loginUser.userName" />
+        </label>
+        <label>
+            Password: <input type="password" ng-model="loginUser.password">
+        </label>
+        <label>
+            <input type="button" ng-click="login()" value="Login" />
+        </label>
+    </div>
+
+    <div class="createUser">
+        <label>
+            ID: <input type="number" ng-model="newUser.userId" />
+        </label>
+        <label>
+            Brugernavn: <input type="text" ng-model="newUser.userName" />
+        </label>
+        <label>
+            Password: <input type="password" ng-model="newUser.password">
+        </label>
+        <label>
+            Initialer: <input type="text" ng-model="newUser.userIni" />
+        </label>
+        <label>
+            CPR nummer: <input type="text" ng-model="newUser.cprnummer" />
+        </label>
+        <label>
+            <input type="button" ng-click="createUser()" value="Opret bruger" />
+        </label>
+    </div>
+
+    <div>{{loginModel.error}}</div>
 </div>
 
 
 <style>
-    .dummy{
-        color:red;
+    .login, .createUser{
+        margin: 5px;
     }
 </style>

@@ -1,9 +1,14 @@
-angular.module('CDIOFinal').controller('loginController', ['$scope', 'loginModel', 'loginService', function ($scope, loginModel, loginService) {
+angular.module('CDIOFinal').controller('loginController', ['$scope', 'loginModel', 'CDIOFinalModel', 'loginService', function ($scope, loginModel, CDIOFinalModel, loginService) {
     $scope.loginModel = loginModel;
+    $scope.CDIOFinalModel = CDIOFinalModel;
 
-    $scope.init = function(){
-        loginService.login();
+    $scope.loginUser = angular.copy(CDIOFinalModel.user);
+    $scope.newUser = angular.copy(CDIOFinalModel.user);
+
+    $scope.login = function(){
+        loginService.login($scope.loginUser);
     };
-
-    $scope.init();
+    $scope.createUser = function(){
+        loginService.createUser($scope.newUser);
+    };
 }]);

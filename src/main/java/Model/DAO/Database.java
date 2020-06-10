@@ -1,19 +1,25 @@
 package Model.DAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
-public class Database implements IDatabase {
+abstract public class Database {
     private Connection con;
 
-    @Override
-    public void connect() throws ClassNotFoundException, SQLException {
+    protected void connect() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/CDIOFinal?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "kagemand123");
     }
 
-    @Override
+    ResultSet executeSelect(String statement) throws SQLException{
+        Statement stmt = con.createStatement();
+        return stmt.executeQuery(statement);
+    }
+
+    void executeUpdate(String statement) throws SQLException{
+        Statement stmt = con.createStatement();
+        stmt.executeUpdate(statement);
+    }
+
     public void disconnect() throws SQLException {
         con.close();
     }
