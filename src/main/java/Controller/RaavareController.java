@@ -2,6 +2,7 @@ package Controller;
 
 
 import Model.DTO.Raavare;
+import Security.Authenticated;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.*;
@@ -9,6 +10,7 @@ import javax.ws.rs.*;
 @Path("/Raavare")
 public class RaavareController {
     @GET
+    @Authenticated
     public String getRaavare(String JSON_raavare)
     {
 
@@ -23,6 +25,7 @@ public class RaavareController {
     }
 
     @POST
+    @Authenticated
     public String setRaavare(String JSON_raavare)
     {
         try{
@@ -36,6 +39,7 @@ public class RaavareController {
     }
 
     @PUT
+    @Authenticated
     public String editRaavare(String a)
     {
 
@@ -43,6 +47,7 @@ public class RaavareController {
     }
 
     @DELETE
+    @Authenticated
     public String deleteRaavare()
     {
 

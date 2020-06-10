@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.DTO.User;
+import Security.Authenticated;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.DELETE;
@@ -11,12 +12,14 @@ import javax.ws.rs.Path;
 @Path("/afvejning")
 public class AfvejningController {
     @GET
+    @Authenticated
     public String getAfvejning()
     {
 
         return "get Afvejning";
     }
     @POST
+    @Authenticated
     public String setAfvejning(String JSON_afvejning)
     {
         try{
@@ -31,6 +34,7 @@ public class AfvejningController {
     }
 
     @DELETE
+    @Authenticated
     public String deleteAfvejning()
     {
 

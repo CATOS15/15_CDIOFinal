@@ -9,7 +9,8 @@
         <div ng-click="changeLocation('/afvejning')">AFVEJNING</div>
     </div>
     <div class="right">
-        <div class="username">ID:000001</div>
+        <div ng-click="logout()">Log ud</div>
+        <div class="username">ID:{{CDIOFinalModel.user.userId}}</div>
     </div>
 </div>
 
@@ -22,12 +23,12 @@
     }
     .navbar > .left{
         float:left;
-        width:calc(100% - 200px);
+        width:calc(100% - 250px);
         height:100%;
     }
     .navbar > .right{
         float:left;
-        width:200px;
+        width:250px;
         height:100%;
     }
     .navbar > .right > div{

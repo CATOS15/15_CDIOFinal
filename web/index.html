@@ -41,6 +41,10 @@
     <script type="text/javascript" src ="content/pages/produktionsbatch/service.js"></script>
     <script type="text/javascript" src ="content/pages/produktionsbatch/controller.js"></script>
 
+    <script type="text/javascript" src ="content/pages/raavare/model.js"></script>
+    <script type="text/javascript" src ="content/pages/raavare/service.js"></script>
+    <script type="text/javascript" src ="content/pages/raavare/controller.js"></script>
+
     <script type="text/javascript" src ="content/pages/raavarebatches/model.js"></script>
     <script type="text/javascript" src ="content/pages/raavarebatches/service.js"></script>
     <script type="text/javascript" src ="content/pages/raavarebatches/controller.js"></script>
@@ -50,7 +54,7 @@
     <script type="text/javascript" src ="content/pages/recepter/controller.js"></script>
 </head>
 <body ng-app="CDIOFinal" ng-controller="CDIOFinalController">
-    <div ng-include="'content/global/navbar/page.html'" ng-controller="navbarController" class="navbarContainer"></div>
+    <div ng-include="'content/global/navbar/page.html'" ng-controller="navbarController" class="navbarContainer" ng-if="CDIOFinalModel.user"></div>
     <div ng-view class="pageContainer"></div>
 </body>
 </html>

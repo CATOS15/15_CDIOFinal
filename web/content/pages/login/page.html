@@ -1,10 +1,10 @@
 <div>
     <div class="login">
         <label>
-            Brugernavn: <input type="text" ng-model="loginUser.userName" />
+            Brugernavn: <input type="text" ng-model="loginModel.loginUser.userName" />
         </label>
         <label>
-            Password: <input type="password" ng-model="loginUser.password">
+            Password: <input type="password" ng-model="loginModel.loginUser.password">
         </label>
         <label>
             <input type="button" ng-click="login()" value="Login" />
@@ -13,26 +13,26 @@
 
     <div class="createUser">
         <label>
-            ID: <input type="number" ng-model="newUser.userId" />
+            ID: <input type="number" ng-model="loginModel.newUser.userId" />
         </label>
         <label>
-            Brugernavn: <input type="text" ng-model="newUser.userName" />
+            Brugernavn: <input type="text" ng-model="loginModel.newUser.userName" />
         </label>
         <label>
-            Password: <input type="password" ng-model="newUser.password">
+            Password: <input type="password" ng-model="loginModel.newUser.password">
         </label>
         <label>
-            Initialer: <input type="text" ng-model="newUser.userIni" />
+            Initialer: <input type="text" ng-model="loginModel.newUser.userIni" />
         </label>
         <label>
-            CPR nummer: <input type="text" ng-model="newUser.cprnummer" />
+            CPR nummer: <input type="text" ng-model="loginModel.newUser.cprnummer" />
         </label>
         <label>
             <input type="button" ng-click="createUser()" value="Opret bruger" />
         </label>
     </div>
-
-    <div>{{loginModel.error}}</div>
+    <div ng-if="loginModel.msg">{{loginModel.msg}}</div>
+    <div style="color:red;" ng-if="loginModel.error">{{loginModel.error}}</div>
 </div>
 
 

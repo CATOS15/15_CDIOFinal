@@ -5,7 +5,9 @@ angular.module('CDIOFinal').service('loginService', ['$http', 'loginModel', 'CDI
             url: CDIOFinalModel.apiURL + "authentication/login",
             data: user
         }).then(function (resp) {
-            debugger;
+            CDIOFinalModel.userToken = resp.data.substr(1, resp.data.length-2);
+            $http.defaults.headers.common.Authorization = 'Bearer ' + CDIOFinalModel.userToken;
+            loginModel.msg = "Successfuldt logget ind!";
         }, function (errorResp) {
             loginModel.error = errorResp.data;
         });
@@ -16,7 +18,7 @@ angular.module('CDIOFinal').service('loginService', ['$http', 'loginModel', 'CDI
             url: CDIOFinalModel.apiURL + "authentication/createuser",
             data: user
         }).then(function (resp) {
-            debugger;
+            loginModel.msg = "Bruger oprettet " + resp.data.userName;
         }, function (errorResp) {
             loginModel.error = errorResp.data;
         });

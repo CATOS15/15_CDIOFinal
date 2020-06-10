@@ -6,6 +6,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import java.math.BigInteger;
@@ -29,24 +30,26 @@ public class Security {
             throw new RuntimeException(e);
         }
     }
-    public static String generateToken() throws DALException {
+    public static String generateToken(String username) throws DALException {
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             return JWT.create()
                     .withIssuer("auth0")
+                    .withClaim("user", username)
                     .sign(algorithm);
         } catch (JWTCreationException exception){
             throw new DALException("Kunne ikke oprette token");
         }
     }
-    public static boolean verifyToken(String token) throws DALException {
+    public static String verifyToken(String token) throws DALException {
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             JWTVerifier verifier = JWT.require(algorithm)
                     .withIssuer("auth0")
                     .build();
             DecodedJWT jwt = verifier.verify(token);
-            return true;
+            Claim claim = jwt.getClaim("user");
+            return claim.asString();
         } catch (JWTVerificationException exception){
             throw new DALException("Invalid token");
         }

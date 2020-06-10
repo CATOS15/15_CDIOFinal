@@ -3,7 +3,7 @@ package Controller;
 import Model.DAO.IUserDAO;
 import Model.DAO.UserDAO;
 import Model.DTO.User;
-import Security.Security;
+import Security.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.*;
@@ -13,19 +13,24 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 
 @Path("/authentication")
-public class Authentication {
+public class AuthenticationController {
     private IUserDAO iUserDAO;
+    private ObjectMapper mapper;
 
-    public Authentication() throws SQLException, ClassNotFoundException {
+    public AuthenticationController() throws SQLException, ClassNotFoundException {
+        mapper = new ObjectMapper();
         iUserDAO = new UserDAO();
     }
 
     @GET
-    @Path("/test/{token}")
-    public Response test(@PathParam("token") String token) {
+    @Authenticated
+    @Path("/getLogin")
+    public Response getLogin(@HeaderParam(HttpHeaders.AUTHORIZATION) String token) {
         try{
-            boolean isok = Security.verifyToken(token);
-            return Response.ok().build();
+            token = token.substring("Bearer".length()).trim();
+            String username = Security.verifyToken(token);
+            User user = iUserDAO.GetUser(username);
+            return Response.ok(mapper.writeValueAsString(user)).build();
         }
         catch (Exception e){
             return Response.serverError().entity(e.getMessage()).build();
@@ -36,11 +41,11 @@ public class Authentication {
     @Path("/login")
     public Response login(String JSON_user) {
         try{
-            ObjectMapper mapper = new ObjectMapper();
             User user = mapper.readValue(JSON_user, User.class);
-            user = iUserDAO.Login(user);
+            iUserDAO.Login(user);
             iUserDAO.end();
-            return Response.ok(mapper.writeValueAsString(Security.generateToken())).build();
+            String token = Security.generateToken(user.getUserName());
+            return Response.ok(mapper.writeValueAsString(token)).build();
         }
         catch (Exception e){
             return Response.serverError().entity(e.getMessage()).build();
@@ -51,7 +56,6 @@ public class Authentication {
     @Path("/createuser")
     public Response createUser(String JSON_user) {
         try{
-            ObjectMapper mapper = new ObjectMapper();
             User user = mapper.readValue(JSON_user, User.class);
             user = iUserDAO.CreateUser(user);
             iUserDAO.end();

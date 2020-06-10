@@ -12,6 +12,26 @@ public class UserDAO extends Database implements IUserDAO {
         this.connect();
     }
 
+    @Override
+    public User GetUser(String username) throws DALException {
+        try{
+            ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer FROM Users WHERE userName = \"" + username + "\"");
+            if(rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt(1));
+                user.setUserName(rs.getString(2));
+                user.setUserIni(rs.getString(3));
+                user.setCPRnummer(rs.getString(4));
+                return user;
+            }else{
+                throw new DALException("Brugeren eksisterer ikke");
+            }
+        }
+        catch(SQLException sqlEx){
+            throw new DALException("Fejl ved hent af bruger");
+        }
+    }
+
     public User CreateUser(User user) throws DALException {
         try{
             this.executeUpdate("INSERT INTO Users VALUES ("+user.getUserId()+", \""+user.getUserName()+"\", \""+user.getUserIni()+"\", \""+user.getCPRnummer()+"\", \""+crypt(user.getPassword())+"\");");
@@ -25,7 +45,7 @@ public class UserDAO extends Database implements IUserDAO {
     @Override
     public User UpdateUser(User user) throws DALException {
         try{
-            ResultSet rs = this.executeSelect("SELECT * FROM Users WHERE userName = " + user.getUserName() + " AND password = " + crypt(user.getPassword()));
+            ResultSet rs = this.executeSelect("SELECT userId FROM Users WHERE userId = " + user.getUserId());
             if(rs.next()) {
                 executeUpdate("UPDATE users SET userName=\""+user.getUserName()+"\", password=\""+crypt(user.getPassword())+"\", userIni=\""+user.getUserIni()+"\", CPRnummer=\""+user.getCPRnummer()+"\" WHERE id=\""+user.getUserId()+"\";");
                 return user;
@@ -40,7 +60,7 @@ public class UserDAO extends Database implements IUserDAO {
 
     public User Login(User user) throws DALException {
         try{
-            ResultSet rs = this.executeSelect("SELECT * FROM Users WHERE userName = \"" + user.getUserName() + "\" AND password = \"" + crypt(user.getPassword()) + "\"");
+            ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer, password FROM Users WHERE userName = \"" + user.getUserName() + "\" AND password = \"" + crypt(user.getPassword()) + "\"");
             if(rs.next()) {
                 user.setUserId(rs.getInt(1));
                 user.setUserName(rs.getString(2));

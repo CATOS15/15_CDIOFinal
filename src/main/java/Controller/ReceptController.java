@@ -3,6 +3,7 @@ package Controller;
 import Model.DAO.IReceptDAO;
 import Model.DAO.ReceptDAO;
 import Model.DTO.Recept;
+import Security.Authenticated;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.*;
@@ -18,6 +19,7 @@ public class ReceptController {
         iReceptDAO = new ReceptDAO();
     }
     @GET
+    @Authenticated
     public Response getRecept(String JSON_recept)
     {
 
@@ -33,6 +35,7 @@ public class ReceptController {
         }
     }
     @POST
+    @Authenticated
     public Response setRecept(String JSON_recept)
     {
 
@@ -48,6 +51,7 @@ public class ReceptController {
         }
     }
     @DELETE
+    @Authenticated
     public Response deleteRecept(String JSON_recept)
     {
 
@@ -64,6 +68,7 @@ public class ReceptController {
     }
 
     @PUT
+    @Authenticated
     public Response updateRecept(String JSON_recept)
     {
         try{
