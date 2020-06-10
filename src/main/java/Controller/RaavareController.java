@@ -3,7 +3,6 @@ package Controller;
 
 import Model.DTO.Raavare;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jdk.nashorn.internal.objects.annotations.Setter;
 
 import javax.ws.rs.*;
 
