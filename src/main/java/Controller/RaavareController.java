@@ -1,17 +1,15 @@
 package Controller;
 
-import Model.Database;
+
 import jdk.nashorn.internal.objects.annotations.Setter;
 
 import javax.ws.rs.*;
 
 @Path("/Raavare")
-public class Raavare {
+public class RaavareController {
     @GET
     public String getRaavare()
     {
-
-
         return "get Raavare";
     }
 
@@ -27,6 +25,13 @@ public class Raavare {
     {
 
         return "Ændret";
+    }
+
+    @DELETE
+    public String deleteRaavare()
+    {
+
+        return "delete Raavare";
     }
 
 }

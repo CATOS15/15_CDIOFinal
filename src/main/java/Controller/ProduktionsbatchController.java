@@ -1,11 +1,12 @@
 package Controller;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
 @Path("/produktionsbatch")
-public class Produktionsbatch {
+public class ProduktionsbatchController {
     @GET
     public String getProduktionsbatch()
     {
@@ -15,5 +16,11 @@ public class Produktionsbatch {
     public String setProduktionsbatch()
     {
         return "set Produktionsbatch";
+    }
+    @DELETE
+    public String deleteProduktionsbatch()
+    {
+
+        return "delete Produktionsbatch";
     }
 }
