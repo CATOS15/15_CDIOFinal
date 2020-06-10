@@ -2,12 +2,10 @@ package Model.DAO;
 
 import Model.DTO.User;
 import Model.Exception.DALException;
-
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import static Security.Security.crypt;
 
 public class UserDAO extends Database implements IUserDAO {
     public UserDAO() throws SQLException, ClassNotFoundException {
@@ -64,23 +62,6 @@ public class UserDAO extends Database implements IUserDAO {
             this.disconnect();
         } catch (SQLException e) {
             throw new DALException("Forbindelsen til databasen kunne ikke lukkes");
-        }
-    }
-
-    private String crypt(String password){
-        try {
-            password = "missetand" + password;
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            byte[] messageDigest = md.digest(password.getBytes());
-            BigInteger no = new BigInteger(1, messageDigest);
-            StringBuilder hashtext = new StringBuilder(no.toString(16));
-            while (hashtext.length() < 32) {
-                hashtext.insert(0, "0");
-            }
-            return hashtext.toString();
-        }
-        catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
         }
     }
 }
