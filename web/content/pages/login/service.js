@@ -3,7 +3,7 @@ angular.module('CDIOFinal').service('loginService', ['$http', 'loginModel', 'CDI
         $http({
             method: "POST",
             url: CDIOFinalModel.apiURL + "login",
-            data: {username: 'kage', password: 'lokumspapir'}
+            data: {userName: 'kage', password: 'lokumspapir'}
         }).then(function (resp) {
             debugger;
         }, function (errorResp) {
