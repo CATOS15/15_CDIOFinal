@@ -56,7 +56,24 @@ public class ReceptDAO extends Database implements IReceptDAO {
     @Override
     public Recept SelectRecept(Recept recept) throws DALException {
         try{
-            this.executeSelect("SELECT * FROM Recept WHERE ReceptID = " + recept.getReceptId());
+            ResultSet rs = this.executeSelect("SELECT * FROM Recept WHERE ReceptID = " + recept.getReceptId());
+            if(rs.next())
+            {
+                recept.setReceptId(rs.getInt(1));
+                recept.setReceptNavn(rs.getString(2));
+                recept.setRaavareId(rs.getInt(3));
+                recept.setNonNetto(rs.getDouble(4));
+                recept.setTolerance(rs.getDouble(5));
+                if(rs.getString(2).length() < 2 || rs.getString(2).length() > 20)
+                {
+                    throw new DALException("Navnet skal være mellem 2-20");
+                }
+            }
+            else
+            {
+                throw new DALException("Forkert recept id");
+
+            }
 
             return recept;
         }
