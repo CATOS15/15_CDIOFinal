@@ -1,4 +1,4 @@
-angular.module('CDIOFinal').service('loginService', ['$http', 'loginModel', 'CDIOFinalModel', function ($http, loginModel, CDIOFinalModel) {
+angular.module('CDIOFinal').service('loginService', ['$http', 'loginModel', 'CDIOFinalModel', '$location', function ($http, loginModel, CDIOFinalModel, $location) {
     this.login = function(user){
         $http({
             method: "POST",
@@ -7,7 +7,7 @@ angular.module('CDIOFinal').service('loginService', ['$http', 'loginModel', 'CDI
         }).then(function (resp) {
             CDIOFinalModel.userToken = resp.data.substr(1, resp.data.length-2);
             $http.defaults.headers.common.Authorization = 'Bearer ' + CDIOFinalModel.userToken;
-            loginModel.msg = "Successfuldt logget ind!";
+            $location.path("/");
         }, function (errorResp) {
             loginModel.error = errorResp.data;
         });
