@@ -1,6 +1,8 @@
 package Controller;
 
 
+import Model.DTO.Raavare;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jdk.nashorn.internal.objects.annotations.Setter;
 
 import javax.ws.rs.*;
@@ -8,16 +10,30 @@ import javax.ws.rs.*;
 @Path("/Raavare")
 public class RaavareController {
     @GET
-    public String getRaavare()
+    public String getRaavare(String JSON_raavare)
     {
-        return "get Raavare";
+
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            Raavare user = mapper.readValue(JSON_raavare, Raavare.class);
+            return mapper.writeValueAsString(user);
+        }
+        catch (Exception e){
+            return "Fejl i backend: " + e.toString();
+        }
     }
 
     @POST
-    public String setRaavare(String a)
+    public String setRaavare(String JSON_raavare)
     {
-
-        return "set Raavare";
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            Raavare user = mapper.readValue(JSON_raavare, Raavare.class);
+            return mapper.writeValueAsString(user);
+        }
+        catch (Exception e){
+            return "Fejl i backend: " + e.toString();
+        }
     }
 
     @PUT

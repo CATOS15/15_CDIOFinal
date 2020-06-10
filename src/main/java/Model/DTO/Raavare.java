@@ -8,14 +8,9 @@ public class Raavare {
         return raavareNavn;
     }
 
-    public void setRaavareNavn(String raavareNavn) {
-        this.raavareNavn = raavareNavn;
-    }
+    public void setRaavareNavn(String raavareNavn) {this.raavareNavn = raavareNavn; }
 
-
-    public int getRaavareId() {
-        return raavareId;
-    }
+    public int getRaavareId() {return raavareId;}
 
     public void setRaavareId(int raavareId) {
         this.raavareId = raavareId;
