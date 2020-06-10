@@ -2,7 +2,32 @@
     Dette er råvareadministatration siden
 </div>
 
+<div>
+    <table>
+        <tr>
+            <th ng-click="orderByMe('raavareId')">Råvare id</th>
+            <th ng-click="orderByMe('raavareName')">Råvare Navn </th>
+        </tr>
+        <tr ng-repeat="x in raavareModel.raavare">
+            <td>{{ x.raavareId }}</td>
+            <td>{{ x.raavareName }}</td>
+        </tr>
+    </table>
+</div>
+
 <style>
+    view_raavare table, td, th {
+        border: 1px solid grey;
+        border-collapse: collapse;
+        padding: 5px;
+    }
+
+    table tr:nth-child(odd) {
+        background-color: #f1f1f1;
+    }
+    table tr:nth-child(even) {
+        background-color: #ffffff;
+    }
     .dummy{
         color:red;
     }
