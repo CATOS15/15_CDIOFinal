@@ -1,8 +1,50 @@
+<div class="create_batch">
+    <div>
+        <p>Opret Produktbatch</p>
+    </div>
+
+    <div>
+        <input type="text" placeholder="Enter RåvareBatchID" name="rbId" required>
+        <input type="text" placeholder="Enter råvareId" name="raavareId" required>
+        <input type="text" placeholder="Enter Mængde" name="maengde" required>
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</div>
 <div>
-    Dette er råvarebatches siden
+    <table>
+        <tr>
+            <th ng-click="orderByMe('rbId')">Råvare batch id</th>
+            <th ng-click="orderByMe('raavareId')">Råvare id</th>
+            <th ng-click="orderByMe('maengde')">Lagerbeholdning </th>
+        </tr>
+        <tr ng-repeat="x in raavarebatchesModel.batches | orderBy:myOrderBy">
+            <td>{{ x.rbId }}</td>
+            <td>{{ x.raavareId }}</td>
+            <td>{{ x.maengde }}</td>
+        </tr>
+    </table>
 </div>
 
+<script>
+
+</script>
+
 <style>
+    .view_batches table, td, th {
+        border: 1px solid grey;
+        border-collapse: collapse;
+        padding: 5px;
+    }
+
+    table tr:nth-child(odd) {
+        background-color: #f1f1f1;
+    }
+    table tr:nth-child(even) {
+        background-color: #ffffff;
+    }
+
     .dummy{
         color:red;
     }
