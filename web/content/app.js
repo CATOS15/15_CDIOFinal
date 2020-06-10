@@ -68,11 +68,3 @@ CDIOFinal.config(['$routeProvider', '$httpProvider', function ($routeProvider, $
             };
         }]);
 }]);
-
-CDIOFinal.run(['$http', 'CDIOFinalModel', function($http, CDIOFinalModel) {
-    var token = localStorage.getItem('token');
-    if(token) {
-        CDIOFinalModel.userToken = token;
-        $http.defaults.headers.common.Authorization = 'Bearer ' + CDIOFinalModel.userToken;
-    }
-}]);

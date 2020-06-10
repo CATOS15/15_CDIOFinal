@@ -6,7 +6,6 @@ angular.module('CDIOFinal').service('loginService', ['$http', 'loginModel', 'CDI
             data: user
         }).then(function (resp) {
             CDIOFinalModel.userToken = resp.data.substr(1, resp.data.length-2);
-            $http.defaults.headers.common.Authorization = 'Bearer ' + CDIOFinalModel.userToken;
             $location.path("/");
         }, function (errorResp) {
             loginModel.error = errorResp.data;
