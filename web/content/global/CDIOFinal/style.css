@@ -23,3 +23,35 @@ body{
     padding: 15px 200px 0px 200px;
     box-sizing:border-box;
 }
+
+/* loading */
+.loading{
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    opacity: 0.6;
+}
+.loading .spinnerContainer{
+    position: absolute;
+    left: calc(50% - 60px);
+    top: calc(50% - 100px);
+    text-align: center;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 2.0;
+}
+.loading .spinnerContainer .spinner {
+    border: 8px solid #c1c1c1;
+    border-top: 8px solid #090e92;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spinLoading 2s linear infinite;
+}
+@keyframes spinLoading {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

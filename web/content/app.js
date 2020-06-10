@@ -39,9 +39,26 @@ CDIOFinal.config(['$routeProvider', '$httpProvider', function ($routeProvider, $
             templateUrl: "content/pages/404/404.html"
         });
 
-        $httpProvider.interceptors.push(['$rootScope', '$q', function($rootScope, $q) {
+        $httpProvider.interceptors.push(['$rootScope', '$q', 'CDIOFinalModel', '$timeout', function($rootScope, $q, CDIOFinalModel, $timeout) {
             return {
+                'request': function(config) {
+                    $timeout(function(){
+                        CDIOFinalModel.loadingCounter++;
+                    }, 200);
+                    return config;
+                },
+                'requestError': function(rejection) {
+                    $timeout(function(){
+                        CDIOFinalModel.loadingCounter++;
+                    }, 200);
+                    return $q.reject(rejection);
+                },
+                'response': function(response) {
+                    CDIOFinalModel.loadingCounter--;
+                    return response;
+                },
                 'responseError': function(response) {
+                    CDIOFinalModel.loadingCounter--;
                     var status = response.status;
                     if (status === 401) {
                         $rootScope.$emit('loginRequired');
