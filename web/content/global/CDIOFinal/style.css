@@ -1,4 +1,7 @@
 /* Hvis vi skal lave noget der gælder globalt så laves det her (Dvs 2. sider eller flere) */
+*{
+    box-sizing: border-box;
+}
 html{
     width:100%;
     height:100%;
