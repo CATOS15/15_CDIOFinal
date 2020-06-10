@@ -6,7 +6,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
 @Path("/brugere")
-public class Brugere {
+public class BrugereController {
     @GET
     public String getBrugere() {
         return "blah";
