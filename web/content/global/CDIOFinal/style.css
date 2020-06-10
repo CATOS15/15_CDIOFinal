@@ -20,6 +20,7 @@ body{
 .pageContainer{
     width:100%;
     height:calc(100% - 50px);
-    padding-top:15px;
-    padding-left:5px;
+    padding: 15px 200px 0px 200px;
+    box-sizing:border-box;
+    background-color:rgb(48, 51, 56);
 }
