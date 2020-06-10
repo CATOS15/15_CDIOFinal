@@ -1,10 +1,9 @@
 package Controller;
 
-import Model.Database;
+import Model.DAO.Database;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 
 @Path("/brugere")
 public class Brugere {
