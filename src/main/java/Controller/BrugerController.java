@@ -4,11 +4,9 @@ import Model.DAO.IUserDAO;
 import Model.DAO.UserDAO;
 import Model.DTO.User;
 import Security.Authenticated;
-import Security.Security;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.List;
@@ -27,7 +25,7 @@ public class BrugerController {
     @GET
     public Response getBrugerer() {
         try{
-            List<User> users = iUserDAO.GetUsers();
+            List<User> users = iUserDAO.getUsers();
             return Response.ok(mapper.writeValueAsString(users)).build();
         }
         catch (Exception e){
@@ -39,7 +37,7 @@ public class BrugerController {
     @Path("{brugerId}")
     public Response getBruger(@PathParam("brugerId") String brugerId) {
         try{
-            User user = iUserDAO.GetUser(brugerId);
+            User user = iUserDAO.getUser(brugerId);
             return Response.ok(mapper.writeValueAsString(user)).build();
         }
         catch (Exception e){
@@ -51,7 +49,7 @@ public class BrugerController {
     public Response createBruger(String JSON_user) {
         try{
             User user = mapper.readValue(JSON_user, User.class);
-            iUserDAO.CreateUser(user);
+            iUserDAO.createUser(user);
             return Response.ok("Bruger oprettet").build();
         }
         catch (Exception e){
@@ -63,7 +61,7 @@ public class BrugerController {
     public Response updateBruger(String JSON_user) {
         try{
             User user = mapper.readValue(JSON_user, User.class);
-            iUserDAO.UpdateUser(user);
+            iUserDAO.updateUser(user);
             return Response.ok("Bruger opdateret").build();
         }
         catch (Exception e){
@@ -75,7 +73,7 @@ public class BrugerController {
     @Path("{brugerId}")
     public Response deleteBruger(@PathParam("brugerId") String brugerId) {
         try{
-            iUserDAO.DeleteUser(brugerId);
+            iUserDAO.deleteUser(brugerId);
             return Response.ok("Bruger deaktiveret").build();
         }
         catch (Exception e){
