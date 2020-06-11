@@ -1,21 +1,20 @@
+<div>
 <div class="produktbatches_header">
     <p>Produktionsbatches</p>
 </div>
 <div class="create_batch">
 
-    <accordian>
-        <button class="accordion">Opret Produktbatch</button>
-        <div class="accordian_panel">
-            <div>
-                <input type="text" placeholder="Enter RåvareBatchID" name="rbId" required>
-                <input type="text" placeholder="Enter råvareId" name="raavareId" required>
-                <input type="text" placeholder="Enter Mængde" name="maengde" required>
-            </div>
-            <div>
-                <button type="submit">Submit</button>
-            </div>
+    <button class="accordion" ng-click="showAccordian = !showAccordian">Opret Produktbatch</button>
+    <div class="accordian-panel" ng-if="showAccordian">
+        <div>
+            <input type="text" placeholder="Enter RåvareBatchID" name="rbId" required>
+            <input type="text" placeholder="Enter råvareId" name="raavareId" required>
+            <input type="text" placeholder="Enter Mængde" name="maengde" required>
         </div>
-    </accordian>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </div>
 </div>
 <div class="produktbatches_view">
     <div style="box-sizing:border-box; padding:5px 0px 10px 0px;">
@@ -34,25 +33,8 @@
         </tr>
     </table>
 </div>
+</div>
 
-<!--
-<script>
-    var acc = document.getElementsByClassName("accordion");
-    var i;
-
-    for (i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var panel = this.nextElementSibling;
-            if (panel.style.display === "block") {
-                panel.style.display = "none";
-            } else {
-                panel.style.display = "block";
-            }
-        });
-    }
-</script>
--->
 <style>
     .view_batches table, td, th {
         border: 1px solid grey;
@@ -98,9 +80,8 @@
         background-color: #ccc;
     }
 
-    .accordian_panel {
+    .accordian-panel {
         padding: 18px;
-        display: none;
         background-color: #eee;
         overflow: hidden;
         border-color:black;

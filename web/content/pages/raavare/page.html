@@ -1,18 +1,44 @@
 <div>
-    Råvare
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Navn</th>
-        </tr>
-        <tr ng-repeat="raavare in raavareModel.raavarer">
-            <td>{{raavare.raavareId}}</td>
-            <td>{{raavare.raavareName}}</td>
-        </tr>
-    </table>
+    <div class="header">Råvare</div>
+    <div class="tableContent">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Navn</th>
+            </tr>
+            <tr ng-repeat="raavare in raavareModel.raavarer" ng-click="">
+                <td>{{raavare.raavareId}}</td>
+                <td>{{raavare.raavareName}}</td>
+            </tr>
+        </table>
+    </div>
     {{raavareModel.error}}
 </div>
 
 <style>
-
+    .header{
+        font-weight: 600;
+        font-size:24px;
+        margin-bottom: 5px;
+    }
+    .tableContent{
+        max-height: 400px;
+        overflow-y: scroll;
+    }
+    table{
+        width:100%;
+        text-align: center;
+        font-size:18px;
+    }
+    table tr{
+        background: white;
+    }
+    table tr:nth-child(1){
+        background: #424b59;
+        font-weight: 600;
+        color:white;
+    }
+    table tr:nth-child(even){
+        background: gainsboro;
+    }
 </style>
