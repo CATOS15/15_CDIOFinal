@@ -1,57 +1,87 @@
 package Controller;
 
 
+import Model.DAO.IRaavareDAO;
+import Model.DAO.RaavareDAO;
 import Model.DTO.Raavare;
 import Security.Authenticated;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+import java.sql.SQLException;
 
 @Path("/Raavare")
 public class RaavareController {
+
+    private IRaavareDAO iRaavareDAO;
+
+    public RaavareController() throws SQLException, ClassNotFoundException {
+        iRaavareDAO = new RaavareDAO();
+    }
     @GET
     @Authenticated
-    public String getRaavare(String JSON_raavare)
+    public Response getRaavare(String JSON_raavare)
     {
-
         try{
             ObjectMapper mapper = new ObjectMapper();
-            Raavare user = mapper.readValue(JSON_raavare, Raavare.class);
-            return mapper.writeValueAsString(user);
+            Raavare raavare = mapper.readValue(JSON_raavare, Raavare.class);
+            raavare = iRaavareDAO.SelectRaavare(raavare);
+            iRaavareDAO.end();
+            return Response.ok(mapper.writeValueAsString(raavare)).build();
         }
         catch (Exception e){
-            return "Fejl i backend: " + e.toString();
+            return Response.serverError().entity(e.getMessage()).build();
         }
     }
 
     @POST
     @Authenticated
-    public String setRaavare(String JSON_raavare)
+    public Response setRaavare(String JSON_raavare)
     {
         try{
             ObjectMapper mapper = new ObjectMapper();
-            Raavare user = mapper.readValue(JSON_raavare, Raavare.class);
-            return mapper.writeValueAsString(user);
+            Raavare raavare = mapper.readValue(JSON_raavare, Raavare.class);
+            raavare = iRaavareDAO.CreateRaavare(raavare);
+            iRaavareDAO.end();
+            return Response.ok(mapper.writeValueAsString(raavare)).build();
         }
         catch (Exception e){
-            return "Fejl i backend: " + e.toString();
+            return Response.serverError().entity(e.getMessage()).build();
         }
     }
 
     @PUT
     @Authenticated
-    public String editRaavare(String a)
+    public Response editRaavare(String JSON_raavare)
     {
-
-        return "Ændret";
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            Raavare raavare = mapper.readValue(JSON_raavare, Raavare.class);
+            raavare = iRaavareDAO.UpdateRaavare(raavare);
+            iRaavareDAO.end();
+            return Response.ok(mapper.writeValueAsString(raavare)).build();
+        }
+        catch (Exception e){
+            return Response.serverError().entity(e.getMessage()).build();
+        }
     }
 
     @DELETE
     @Authenticated
-    public String deleteRaavare()
+    public Response deleteRaavare(String JSON_raavare)
     {
 
-        return "delete Raavare";
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            Raavare raavare = mapper.readValue(JSON_raavare, Raavare.class);
+            raavare = iRaavareDAO.DeleteRaavare(raavare);
+            iRaavareDAO.end();
+            return Response.ok(mapper.writeValueAsString(raavare)).build();
+        }
+        catch (Exception e){
+            return Response.serverError().entity(e.getMessage()).build();
+        }
     }
 
 }

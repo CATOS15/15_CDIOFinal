@@ -4,9 +4,7 @@ public class Raavare {
     private int raavareId;
     private String raavareNavn;
 
-    public String getRaavareNavn() {
-        return raavareNavn;
-    }
+    public String getRaavareNavn() { return raavareNavn; }
 
     public void setRaavareNavn(String raavareNavn) {this.raavareNavn = raavareNavn; }
 
