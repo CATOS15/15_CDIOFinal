@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
+import java.util.List;
 
 @Authenticated
 @Path("/raavare")
@@ -28,8 +29,8 @@ public class RaavareController {
     public Response getRaavarer()
     {
         try{
-            Raavare[] raavarer = new Raavare[2];
-            return Response.ok(raavarer).build();
+            List<Raavare> raavarer = iRaavareDAO.getRaavarer();
+            return Response.ok(mapper.writeValueAsString(raavarer)).build();
         }
         catch (Exception e){
             return Response.serverError().entity(e.getMessage()).build();
@@ -41,7 +42,8 @@ public class RaavareController {
     public Response getRaavare(@PathParam("raavareId") String raavareId)
     {
         try{
-            return null;
+            Raavare raavare = iRaavareDAO.getRaavare(raavareId);
+            return Response.ok(mapper.writeValueAsString(raavare)).build();
         }
         catch (Exception e){
             return Response.serverError().entity(e.getMessage()).build();
@@ -52,6 +54,7 @@ public class RaavareController {
     public Response createRaavare(String JSON_raavare)
     {
         try{
+
             return null;
         }
         catch (Exception e){

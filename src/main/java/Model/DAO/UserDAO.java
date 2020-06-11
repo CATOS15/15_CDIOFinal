@@ -25,6 +25,7 @@ public class UserDAO extends Database implements IUserDAO {
                 user.setUserName(rs.getString(2));
                 user.setUserIni(rs.getString(3));
                 user.setCPRnummer(rs.getString(4));
+                users.add(user);
             }
             return users;
         }
