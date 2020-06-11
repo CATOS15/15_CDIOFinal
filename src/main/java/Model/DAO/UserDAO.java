@@ -37,7 +37,7 @@ public class UserDAO extends Database implements IUserDAO {
     @Override
     public User GetUserByName(String username) throws DALException {
         try{
-            ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer FROM Users WHERE userName = \"" + username + "\"");
+            ResultSet rs = this.executeSelect(String.format("SELECT userId, userName, userIni, CPRnummer FROM Users WHERE userName = '%s';", username));
             if(rs.next()) {
                 User user = new User();
                 user.setUserId(rs.getInt(1));
@@ -56,7 +56,7 @@ public class UserDAO extends Database implements IUserDAO {
     @Override
     public User GetUser(String userId) throws DALException {
         try{
-            ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer FROM Users WHERE userId = \"" + userId + "\"");
+            ResultSet rs = this.executeSelect(String.format("SELECT userId, userName, userIni, CPRnummer FROM Users WHERE userId = %s;",userId));
             if(rs.next()) {
                 User user = new User();
                 user.setUserId(rs.getInt(1));
@@ -75,7 +75,7 @@ public class UserDAO extends Database implements IUserDAO {
 
     public User CreateUser(User user) throws DALException {
         try{
-            this.executeUpdate("INSERT INTO Users VALUES ("+user.getUserId()+", \""+user.getUserName()+"\", \""+user.getUserIni()+"\", \""+user.getCPRnummer()+"\", \""+crypt(user.getPassword())+"\");");
+            this.executeUpdate(String.format("INSERT INTO Users VALUES (%s,'%s','%s','%s','%s',true;",user.getUserId(),user.getUserName(),user.getUserIni(),user.getCPRnummer(),crypt(user.getPassword())));
             return user;
         }
         catch(SQLException sqlEx){
@@ -88,7 +88,7 @@ public class UserDAO extends Database implements IUserDAO {
         try{
             ResultSet rs = this.executeSelect("SELECT userId FROM Users WHERE userId = " + user.getUserId());
             if(rs.next()) {
-                executeUpdate("UPDATE users SET userName=\""+user.getUserName()+"\", password=\""+crypt(user.getPassword())+"\", userIni=\""+user.getUserIni()+"\", CPRnummer=\""+user.getCPRnummer()+"\" WHERE id=\""+user.getUserId()+"\";");
+                executeUpdate(String.format("UPDATE users SET userName='%s', password='%s',userIni='%s',CPRnummer='%s', WHERE id=%s;",user.getUserName(),crypt(user.getPassword()),user.getUserIni(),user.getCPRnummer(),user.getUserId()));
                 return user;
             }else{
                 throw new DALException("Brugeren eksisterer ikke");
@@ -102,7 +102,7 @@ public class UserDAO extends Database implements IUserDAO {
     @Override
     public boolean DeleteUser(String userId) throws DALException {
         try{
-            ResultSet rs = this.executeSelect("SELECT userId FROM Users WHERE userId = " + userId);
+            ResultSet rs = this.executeSelect(String.format("SELECT userId FROM Users WHERE userId = %s;", userId));
             if(rs.next()) {
                 //TODO Brugeren skal slettet(DEAKTIVERES!) her
                 return true;
@@ -117,7 +117,7 @@ public class UserDAO extends Database implements IUserDAO {
 
     public User Login(User user) throws DALException {
         try{
-            ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer, password FROM Users WHERE userName = \"" + user.getUserName() + "\" AND password = \"" + crypt(user.getPassword()) + "\"");
+            ResultSet rs = this.executeSelect(String.format("SELECT userId, userName, userIni, CPRnummer, password FROM Users WHERE userName = '%s' AND password = '%s';",user.getUserName(), crypt(user.getPassword())));
             if(rs.next()) {
                 user.setUserId(rs.getInt(1));
                 user.setUserName(rs.getString(2));
