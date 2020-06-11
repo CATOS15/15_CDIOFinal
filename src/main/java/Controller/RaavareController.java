@@ -12,23 +12,36 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 
 @Authenticated
-@Path("/Raavare")
+@Path("/raavare")
 public class RaavareController {
 
     private IRaavareDAO iRaavareDAO;
+    private ObjectMapper mapper;
 
     public RaavareController() throws SQLException, ClassNotFoundException {
         iRaavareDAO = new RaavareDAO();
+        mapper = new ObjectMapper();
     }
+
+
     @GET
-    public Response getRaavare(String JSON_raavare)
+    public Response getRaavarer()
     {
         try{
-            ObjectMapper mapper = new ObjectMapper();
-            Raavare raavare = mapper.readValue(JSON_raavare, Raavare.class);
-            raavare = iRaavareDAO.SelectRaavare(raavare);
-            iRaavareDAO.end();
-            return Response.ok(mapper.writeValueAsString(raavare)).build();
+            Raavare[] raavarer = new Raavare[2];
+            return Response.ok(raavarer).build();
+        }
+        catch (Exception e){
+            return Response.serverError().entity(e.getMessage()).build();
+        }
+    }
+
+    @GET
+    @Path("{raavareId}")
+    public Response getRaavare(@PathParam("raavareId") String raavareId)
+    {
+        try{
+            return null;
         }
         catch (Exception e){
             return Response.serverError().entity(e.getMessage()).build();
@@ -36,14 +49,10 @@ public class RaavareController {
     }
 
     @POST
-    public Response setRaavare(String JSON_raavare)
+    public Response createRaavare(String JSON_raavare)
     {
         try{
-            ObjectMapper mapper = new ObjectMapper();
-            Raavare raavare = mapper.readValue(JSON_raavare, Raavare.class);
-            raavare = iRaavareDAO.CreateRaavare(raavare);
-            iRaavareDAO.end();
-            return Response.ok(mapper.writeValueAsString(raavare)).build();
+            return null;
         }
         catch (Exception e){
             return Response.serverError().entity(e.getMessage()).build();
@@ -51,14 +60,10 @@ public class RaavareController {
     }
 
     @PUT
-    public Response editRaavare(String JSON_raavare)
+    public Response updateRaavare(String JSON_raavare)
     {
         try{
-            ObjectMapper mapper = new ObjectMapper();
-            Raavare raavare = mapper.readValue(JSON_raavare, Raavare.class);
-            raavare = iRaavareDAO.UpdateRaavare(raavare);
-            iRaavareDAO.end();
-            return Response.ok(mapper.writeValueAsString(raavare)).build();
+            return null;
         }
         catch (Exception e){
             return Response.serverError().entity(e.getMessage()).build();
@@ -66,15 +71,12 @@ public class RaavareController {
     }
 
     @DELETE
-    public Response deleteRaavare(String JSON_raavare)
+    @Path("{raavareId}")
+    public Response deleteRaavare(@PathParam("raavareId") String raavareId)
     {
 
         try{
-            ObjectMapper mapper = new ObjectMapper();
-            Raavare raavare = mapper.readValue(JSON_raavare, Raavare.class);
-            raavare = iRaavareDAO.DeleteRaavare(raavare);
-            iRaavareDAO.end();
-            return Response.ok(mapper.writeValueAsString(raavare)).build();
+            return null;
         }
         catch (Exception e){
             return Response.serverError().entity(e.getMessage()).build();
