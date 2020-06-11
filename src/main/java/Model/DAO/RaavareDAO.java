@@ -28,9 +28,9 @@ public class RaavareDAO extends Database implements IRaavareDAO {
     @Override
     public Raavare updateRaavare(Raavare raavare) throws DALException {
         try{
-            ResultSet rs = this.executeSelect("SELECT * FROM Raavare WHERE raavareId = " + raavare.getRaavareId());
+            ResultSet rs = this.executeSelect(String.format("SELECT * FROM Raavare WHERE raavareId = %d;", raavare.getRaavareId()));
             if(rs.next()) {
-                executeUpdate("UPDATE Raavare SET raavareId=\""+raavare.getRaavareId()+"\", raavareName=\""+raavare.getRaavareNavn()+"\";");
+                executeUpdate(String.format("UPDATE Raavare SET raavareId=%d, raavareName=%s;" , raavare.getRaavareId(),raavare.getRaavareNavn()));
                 return raavare;
             }else{
                 throw new DALException("Råvaren eksisterer ikke");
@@ -56,7 +56,7 @@ public class RaavareDAO extends Database implements IRaavareDAO {
     public Raavare getRaavare(String raavareId) throws DALException {
         try{
             Raavare raavare = new Raavare();
-            ResultSet rs = this.executeSelect("SELECT * FROM Raavare WHERE raavareId = " + raavareId);
+            ResultSet rs = this.executeSelect(String.format("SELECT * FROM Raavare WHERE raavareId = %d", raavareId));
             if(rs.next())
             {
                 raavare.setRaavareId(rs.getInt(1));
