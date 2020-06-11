@@ -10,12 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RaavareDAO extends Database implements IRaavareDAO {
-
+    public RaavareDAO() throws SQLException, ClassNotFoundException {
+        this.connect();
+    }
 
     @Override
     public Raavare createRaavare(Raavare raavare) throws DALException {
         try{
-            this.executeUpdate("INSERT INTO Raavare VALUES ("+raavare.getRaavareId()+", \""+raavare.getRaavareNavn()+");");
+            this.executeUpdate(String.format("INSERT INTO Raavare VALUES (%d, '%s');", raavare.getRaavareId(), raavare.getRaavareNavn()));
             return raavare;
         }
         catch(SQLException sqlEx){
@@ -28,7 +30,7 @@ public class RaavareDAO extends Database implements IRaavareDAO {
         try{
             ResultSet rs = this.executeSelect("SELECT * FROM Raavare WHERE raavareId = " + raavare.getRaavareId());
             if(rs.next()) {
-                executeUpdate("UPDATE Raavare SET raavareId=\""+raavare.getRaavareId()+"\", raavareNavn=\""+raavare.getRaavareNavn()+"\";");
+                executeUpdate("UPDATE Raavare SET raavareId=\""+raavare.getRaavareId()+"\", raavareName=\""+raavare.getRaavareNavn()+"\";");
                 return raavare;
             }else{
                 throw new DALException("Råvaren eksisterer ikke");

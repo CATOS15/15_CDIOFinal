@@ -1,37 +1,91 @@
 <div>
-    <div class="header">Råvare</div>
+    <div>
+        {{raavareModel.error}}
+    </div>
+    <div class="headerContent">
+        <div class="header">Råvare</div>
+        <div class="buttonItem" ng-click="toggleNewItem()">+</div>
+    </div>
     <div class="tableContent">
         <table>
             <tr>
                 <th>ID</th>
                 <th>Navn</th>
             </tr>
-            <tr ng-repeat="raavare in raavareModel.raavarer" ng-click="">
+            <tr ng-repeat="raavare in raavareModel.raavarer" ng-click="toggleItem(raavare)" ng-class="{'active' : raavareModel.raavare === raavare}">
                 <td>{{raavare.raavareId}}</td>
-                <td>{{raavare.raavareName}}</td>
+                <td>{{raavare.raavareNavn}}</td>
             </tr>
         </table>
     </div>
-    {{raavareModel.error}}
+    <div class="itemContent" ng-if="raavareModel.raavare">
+        <div class="item">
+            <label>
+                Råvare id:
+                <input type="text" ng-model="raavareModel.raavare.raavareId" />
+            </label>
+            <label>
+                Råvare navn:
+                <input type="text" ng-model="raavareModel.raavare.raavareNavn" />
+            </label>
+        </div>
+        <div class="actions"><div class="buttonItem" ng-click="save()">Gem</div></div>
+    </div>
 </div>
 
 <style>
+    .headerContent{
+        float:left;
+        width:100%;
+        height: 40px;
+    }
     .header{
         font-weight: 600;
         font-size:24px;
         margin-bottom: 5px;
+        float:left;
+    }
+    .buttonItem{
+        background: rgb(54, 185, 224);
+        border-radius: 5px;
+        font-size: 30px;
+        padding: 0 6px;
+        float: right;
+        cursor:pointer;
+    }
+    .newItem:hover{
+        background: rgb(71, 199, 236);
     }
     .tableContent{
-        max-height: 400px;
+        float:left;
+        width:100%;
+        height: 400px;
         overflow-y: scroll;
+    }
+    .itemContent{
+        margin-top:10px;
+        float:left;
+        width:100%;
+    }
+    .item{
+        float:left;
+        width: 100%;
+        height: 200px;
+    }
+    .actions{
+        float:left;
+        width:100%;
     }
     table{
         width:100%;
         text-align: center;
         font-size:18px;
     }
-    table tr{
-        background: white;
+    table tr:not(:nth-child(1)){
+        cursor: pointer;
+    }
+    .active{
+        box-shadow: inset 0 0 7px 0 rgba(0,0,0,0.75)
     }
     table tr:nth-child(1){
         background: #424b59;

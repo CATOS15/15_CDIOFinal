@@ -20,7 +20,7 @@ body{
 .pageContainer{
     width:100%;
     height:calc(100% - 50px);
-    padding: 0px 100px 0px 200px;
+    padding: 0 100px;
     box-sizing:border-box;
 }
 .pageContainer > div{
