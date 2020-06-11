@@ -7,7 +7,6 @@ import Security.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
@@ -29,7 +28,7 @@ public class AuthenticationController {
         try{
             token = token.substring("Bearer".length()).trim();
             String username = Security.verifyToken(token);
-            User user = iUserDAO.GetUserByName(username);
+            User user = iUserDAO.getUserByName(username);
             return Response.ok(mapper.writeValueAsString(user)).build();
         }
         catch (Exception e){
@@ -42,7 +41,7 @@ public class AuthenticationController {
     public Response login(String JSON_user) {
         try{
             User user = mapper.readValue(JSON_user, User.class);
-            iUserDAO.Login(user);
+            iUserDAO.login(user);
             iUserDAO.end();
             String token = Security.generateToken(user.getUserName());
             return Response.ok(mapper.writeValueAsString(token)).build();
@@ -57,7 +56,7 @@ public class AuthenticationController {
     public Response createUser(String JSON_user) {
         try{
             User user = mapper.readValue(JSON_user, User.class);
-            user = iUserDAO.CreateUser(user);
+            user = iUserDAO.createUser(user);
             iUserDAO.end();
             return Response.ok(mapper.writeValueAsString(user)).build();
         }

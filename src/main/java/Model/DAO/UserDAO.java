@@ -15,7 +15,7 @@ public class UserDAO extends Database implements IUserDAO {
     }
 
     @Override
-    public List<User> GetUsers() throws DALException {
+    public List<User> getUsers() throws DALException {
         try{
             List<User> users = new ArrayList<>();
             ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer FROM Users");
@@ -35,7 +35,7 @@ public class UserDAO extends Database implements IUserDAO {
     }
 
     @Override
-    public User GetUserByName(String username) throws DALException {
+    public User getUserByName(String username) throws DALException {
         try{
             ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer FROM Users WHERE userName = \"" + username + "\"");
             if(rs.next()) {
@@ -54,7 +54,7 @@ public class UserDAO extends Database implements IUserDAO {
         }
     }
     @Override
-    public User GetUser(String userId) throws DALException {
+    public User getUser(String userId) throws DALException {
         try{
             ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer FROM Users WHERE userId = \"" + userId + "\"");
             if(rs.next()) {
@@ -73,7 +73,7 @@ public class UserDAO extends Database implements IUserDAO {
         }
     }
 
-    public User CreateUser(User user) throws DALException {
+    public User createUser(User user) throws DALException {
         try{
             this.executeUpdate("INSERT INTO Users VALUES ("+user.getUserId()+", \""+user.getUserName()+"\", \""+user.getUserIni()+"\", \""+user.getCPRnummer()+"\", \""+crypt(user.getPassword())+"\");");
             return user;
@@ -84,7 +84,7 @@ public class UserDAO extends Database implements IUserDAO {
     }
 
     @Override
-    public User UpdateUser(User user) throws DALException {
+    public User updateUser(User user) throws DALException {
         try{
             ResultSet rs = this.executeSelect("SELECT userId FROM Users WHERE userId = " + user.getUserId());
             if(rs.next()) {
@@ -100,7 +100,7 @@ public class UserDAO extends Database implements IUserDAO {
     }
 
     @Override
-    public boolean DeleteUser(String userId) throws DALException {
+    public boolean deleteUser(String userId) throws DALException {
         try{
             ResultSet rs = this.executeSelect("SELECT userId FROM Users WHERE userId = " + userId);
             if(rs.next()) {
@@ -115,7 +115,7 @@ public class UserDAO extends Database implements IUserDAO {
         }
     }
 
-    public User Login(User user) throws DALException {
+    public User login(User user) throws DALException {
         try{
             ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer, password FROM Users WHERE userName = \"" + user.getUserName() + "\" AND password = \"" + crypt(user.getPassword()) + "\"");
             if(rs.next()) {

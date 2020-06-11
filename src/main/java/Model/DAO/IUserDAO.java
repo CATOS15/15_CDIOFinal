@@ -6,13 +6,13 @@ import Model.Exception.DALException;
 import java.util.List;
 
 public interface IUserDAO {
-    public List<User> GetUsers() throws DALException;
-    public User GetUserByName(String usernname) throws DALException;
-    public User GetUser(String userId) throws DALException;
-    public User CreateUser(User user) throws DALException;
-    public User UpdateUser(User user) throws DALException;
-    public boolean DeleteUser(String userId) throws DALException;
-    public User Login(User user) throws DALException;
+    public List<User> getUsers() throws DALException;
+    public User getUserByName(String usernname) throws DALException;
+    public User getUser(String userId) throws DALException;
+    public User createUser(User user) throws DALException;
+    public User updateUser(User user) throws DALException;
+    public boolean deleteUser(String userId) throws DALException;
+    public User login(User user) throws DALException;
 
     public void end() throws DALException;
 }
