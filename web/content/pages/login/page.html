@@ -1,4 +1,23 @@
 <div>
+    <div class="loginpage_headline">
+        <h3>MedicinalVirksomhed A/S</h3>
+    </div>
+    <div class="login_container">
+
+        <div class="login_header">
+            <p>Login</p>
+        </div>
+
+        <div class="login_body">
+            <input type="text" placeholder="Enter Username" name="uname" required ng-model="loginModel.loginUser.userName" />
+
+            <input type="password" placeholder="Enter Password" name="psw" required ng-model="loginModel.loginUser.password">
+        </div>
+
+        <div class="login_footer" >
+            <button type="submit" ng-click="login()">Login</button>
+        </div>
+    </div>
     <div class="login">
         <label>
             Brugernavn: <input type="text" ng-model="loginModel.loginUser.userName" />
@@ -37,7 +56,83 @@
 
 
 <style>
-    .login, .createUser{
+    .createUser{
         margin: 5px;
+    }
+
+    .loginpage_headline{
+        text-align:center;
+        font-size:24px;
+        padding: 0 0 10px 0;
+    }
+
+    .login_container{
+        background-color:#eee;
+        max-width:400px;
+        margin:auto;
+        padding:15px 20px 20px 20px;
+    }
+
+    .login_header{
+        padding-bottom:10px;
+        justify-content: center;
+        text-align:center;
+    }
+
+    .login_header > p{
+        margin:0px;
+        display:inline-block;
+        box-sizing:border-box;
+    }
+
+    input[type=text], input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        box-sizing: border-box;
+        border-style: none;
+        outline: none;
+        -webkit-user-select: none;
+    }
+
+    button {
+        background-color:rgb(54, 185, 224);
+        color: white;
+        padding: 14px 20px;
+        margin-top: 8px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        outline: none;
+        -moz-box-shadow:  inset 0 0 6px #000000;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        transition: 0.2s;
+        -webkit-box-shadow: inset 0 0 2px #000000;
+        background-color:rgb(54, 185, 224,0.7);
+    }
+
+    span.psw {
+        float: right;
+        color:white;
+    }
+
+    .psw > a {
+        text-decoration: none;
+        color:rgb(54, 185, 224);
+    }
+
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+        span.psw {
+            display: block;
+            float: none;
+        }
+        .cancelbtn {
+            width: 100%;
+        }
     }
 </style>
