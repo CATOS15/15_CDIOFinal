@@ -11,6 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 
+@Authenticated
 @Path("/Raavare")
 public class RaavareController {
 
@@ -20,7 +21,6 @@ public class RaavareController {
         iRaavareDAO = new RaavareDAO();
     }
     @GET
-    @Authenticated
     public Response getRaavare(String JSON_raavare)
     {
         try{
@@ -36,7 +36,6 @@ public class RaavareController {
     }
 
     @POST
-    @Authenticated
     public Response setRaavare(String JSON_raavare)
     {
         try{
@@ -52,7 +51,6 @@ public class RaavareController {
     }
 
     @PUT
-    @Authenticated
     public Response editRaavare(String JSON_raavare)
     {
         try{
@@ -68,7 +66,6 @@ public class RaavareController {
     }
 
     @DELETE
-    @Authenticated
     public Response deleteRaavare(String JSON_raavare)
     {
 
