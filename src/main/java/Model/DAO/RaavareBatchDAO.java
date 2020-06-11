@@ -71,7 +71,7 @@ public class RaavareBatchDAO extends Database implements IRaavareBatchDAO {
             return raavareBatches;
         }
         catch(SQLException sqlEx){
-            throw new DALException("Fejl ved hent af bruger");
+            throw new DALException("Fejl ved hent af råvarerbatch");
         }
     }
 
