@@ -10,6 +10,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 
+@Authenticated
 @Path("/recept")
 public class ReceptController {
 
@@ -19,7 +20,6 @@ public class ReceptController {
         iReceptDAO = new ReceptDAO();
     }
     @GET
-    @Authenticated
     public Response getRecept(String JSON_recept)
     {
 
@@ -35,7 +35,6 @@ public class ReceptController {
         }
     }
     @POST
-    @Authenticated
     public Response setRecept(String JSON_recept)
     {
 
@@ -51,7 +50,6 @@ public class ReceptController {
         }
     }
     @DELETE
-    @Authenticated
     public Response deleteRecept(String JSON_recept)
     {
 
@@ -68,7 +66,6 @@ public class ReceptController {
     }
 
     @PUT
-    @Authenticated
     public Response updateRecept(String JSON_recept)
     {
         try{
