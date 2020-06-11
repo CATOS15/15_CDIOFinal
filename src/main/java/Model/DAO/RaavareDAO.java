@@ -63,6 +63,7 @@ public class RaavareDAO extends Database implements IRaavareDAO {
                 throw new DALException("Forkert raavare id");
             }
 
+
             return raavare;
         }
         catch(SQLException sqlEx){
