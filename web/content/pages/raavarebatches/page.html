@@ -1,18 +1,26 @@
-<div class="create_batch">
-    <div>
-        <p>Opret Produktbatch</p>
-    </div>
-
-    <div>
-        <input type="text" placeholder="Enter RåvareBatchID" name="rbId" required>
-        <input type="text" placeholder="Enter råvareId" name="raavareId" required>
-        <input type="text" placeholder="Enter Mængde" name="maengde" required>
-    </div>
-    <div>
-        <button type="submit">Submit</button>
-    </div>
+<div class="produktbatches_header">
+    <p>Produktionsbatches</p>
 </div>
-<div>
+<div class="create_batch">
+
+    <accordian>
+        <button class="accordion">Opret Produktbatch</button>
+        <div class="accordian_panel">
+            <div>
+                <input type="text" placeholder="Enter RåvareBatchID" name="rbId" required>
+                <input type="text" placeholder="Enter råvareId" name="raavareId" required>
+                <input type="text" placeholder="Enter Mængde" name="maengde" required>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </div>
+    </accordian>
+</div>
+<div class="produktbatches_view">
+    <div style="box-sizing:border-box; padding:5px 0px 10px 0px;">
+        <p>Produktbatches</p>
+    </div>
     <table>
         <tr>
             <th ng-click="orderByMe('rbId')">Råvare batch id</th>
@@ -27,10 +35,24 @@
     </table>
 </div>
 
+<!--
 <script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
 
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
 </script>
-
+-->
 <style>
     .view_batches table, td, th {
         border: 1px solid grey;
@@ -38,11 +60,51 @@
         padding: 5px;
     }
 
+    .produktbatches_header{
+        text-align:center;
+        font-size: 30px;
+        margin-bottom:10px;
+    }
+    .produktbatches_view{
+        padding:10px;
+    }
+
+    table{
+        width:100%;
+        text-align:left;
+    }
+
     table tr:nth-child(odd) {
         background-color: #f1f1f1;
     }
     table tr:nth-child(even) {
         background-color: #ffffff;
+    }
+
+    .accordion {
+        background-color: #eee;
+        color: black;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+    .active, .accordion:hover {
+        background-color: #ccc;
+    }
+
+    .accordian_panel {
+        padding: 18px;
+        display: none;
+        background-color: #eee;
+        overflow: hidden;
+        border-color:black;
+        /*box-shadow: inset 0 0 2px #000000;*/
     }
 
     .dummy{
