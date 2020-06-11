@@ -54,8 +54,9 @@ public class RaavareController {
     public Response createRaavare(String JSON_raavare)
     {
         try{
-
-            return null;
+            Raavare raavare = mapper.readValue(JSON_raavare, Raavare.class);
+            iRaavareDAO.createRaavare(raavare);
+            return Response.ok("Råvare oprettet").build();
         }
         catch (Exception e){
             return Response.serverError().entity(e.getMessage()).build();
@@ -66,7 +67,9 @@ public class RaavareController {
     public Response updateRaavare(String JSON_raavare)
     {
         try{
-            return null;
+            Raavare raavare = mapper.readValue(JSON_raavare, Raavare.class);
+            iRaavareDAO.updateRaavare(raavare);
+            return Response.ok("Råvare opdateret").build();
         }
         catch (Exception e){
             return Response.serverError().entity(e.getMessage()).build();
@@ -77,9 +80,9 @@ public class RaavareController {
     @Path("{raavareId}")
     public Response deleteRaavare(@PathParam("raavareId") String raavareId)
     {
-
         try{
-            return null;
+            iRaavareDAO.deleteRaavare(raavareId);
+            return Response.ok("Råvare slettet").build();
         }
         catch (Exception e){
             return Response.serverError().entity(e.getMessage()).build();
