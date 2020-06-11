@@ -29,7 +29,7 @@ public class AuthenticationController {
         try{
             token = token.substring("Bearer".length()).trim();
             String username = Security.verifyToken(token);
-            User user = iUserDAO.GetUser(username);
+            User user = iUserDAO.GetUserByName(username);
             return Response.ok(mapper.writeValueAsString(user)).build();
         }
         catch (Exception e){

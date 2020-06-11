@@ -4,6 +4,8 @@ import Model.DTO.User;
 import Model.Exception.DALException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static Security.Security.crypt;
 
@@ -13,9 +15,47 @@ public class UserDAO extends Database implements IUserDAO {
     }
 
     @Override
-    public User GetUser(String username) throws DALException {
+    public List<User> GetUsers() throws DALException {
+        try{
+            List<User> users = new ArrayList<>();
+            ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer FROM Users");
+            while(rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt(1));
+                user.setUserName(rs.getString(2));
+                user.setUserIni(rs.getString(3));
+                user.setCPRnummer(rs.getString(4));
+            }
+            return users;
+        }
+        catch(SQLException sqlEx){
+            throw new DALException("Fejl ved hent af bruger");
+        }
+    }
+
+    @Override
+    public User GetUserByName(String username) throws DALException {
         try{
             ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer FROM Users WHERE userName = \"" + username + "\"");
+            if(rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt(1));
+                user.setUserName(rs.getString(2));
+                user.setUserIni(rs.getString(3));
+                user.setCPRnummer(rs.getString(4));
+                return user;
+            }else{
+                throw new DALException("Brugeren eksisterer ikke");
+            }
+        }
+        catch(SQLException sqlEx){
+            throw new DALException("Fejl ved hent af bruger");
+        }
+    }
+    @Override
+    public User GetUser(String userId) throws DALException {
+        try{
+            ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer FROM Users WHERE userId = \"" + userId + "\"");
             if(rs.next()) {
                 User user = new User();
                 user.setUserId(rs.getInt(1));
@@ -55,6 +95,22 @@ public class UserDAO extends Database implements IUserDAO {
         }
         catch(SQLException sqlEx){
             throw new DALException("Fejl ved opdatering af bruger");
+        }
+    }
+
+    @Override
+    public boolean DeleteUser(String userId) throws DALException {
+        try{
+            ResultSet rs = this.executeSelect("SELECT userId FROM Users WHERE userId = " + userId);
+            if(rs.next()) {
+                //TODO Brugeren skal slettet(DEAKTIVERES!) her
+                return true;
+            }else{
+                throw new DALException("Brugeren eksisterer ikke");
+            }
+        }
+        catch(SQLException sqlEx){
+            throw new DALException("Fejl ved deaktivering af bruger");
         }
     }
 

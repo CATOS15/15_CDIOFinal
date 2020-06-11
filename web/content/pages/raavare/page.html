@@ -1,34 +1,18 @@
 <div>
-    Dette er råvareadministatration siden
-</div>
-
-<div>
+    Råvare
     <table>
         <tr>
-            <th ng-click="orderByMe('raavareId')">Råvare id</th>
-            <th ng-click="orderByMe('raavareName')">Råvare Navn </th>
+            <th>ID</th>
+            <th>Navn</th>
         </tr>
-        <tr ng-repeat="x in raavareModel.raavare">
-            <td>{{ x.raavareId }}</td>
-            <td>{{ x.raavareName }}</td>
+        <tr ng-repeat="raavare in raavareModel.raavarer">
+            <td>{{raavare.raavareId}}</td>
+            <td>{{raavare.raavareName}}</td>
         </tr>
     </table>
+    {{raavareModel.error}}
 </div>
 
 <style>
-    view_raavare table, td, th {
-        border: 1px solid grey;
-        border-collapse: collapse;
-        padding: 5px;
-    }
 
-    table tr:nth-child(odd) {
-        background-color: #f1f1f1;
-    }
-    table tr:nth-child(even) {
-        background-color: #ffffff;
-    }
-    .dummy{
-        color:red;
-    }
 </style>

@@ -1,7 +1,9 @@
-angular.module('CDIOFinal').controller('raavareController', ['$scope', 'raavareModel', function ($scope, raavareModel) {
+angular.module('CDIOFinal').controller('raavareController', ['$scope', 'raavareModel', 'raavareService', function ($scope, raavareModel, raavareService) {
     $scope.raavareModel = raavareModel;
 
-    $scope.orderByMe = function(x) {
-        $scope.myOrderBy = x;
-    }
+    $scope.init = function(){
+        //raavareService.getRaavarer();
+    };
+
+    $scope.init();
 }]);
