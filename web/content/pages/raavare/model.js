@@ -6,6 +6,70 @@ angular.module('CDIOFinal').service('raavareModel', function () {
         raavareId: 2, raavareName: "og"
     },{
         raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
+    },{
+        raavareId: 3, raavareName: "sager"
     }];
 
     this.error = "";
