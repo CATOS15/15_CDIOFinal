@@ -75,7 +75,7 @@ public class UserDAO extends Database implements IUserDAO {
 
     public User createUser(User user) throws DALException {
         try{
-            this.executeUpdate(String.format("INSERT INTO Users VALUES (%s,'%s','%s','%s','%s',true;",user.getUserId(),user.getUserName(),user.getUserIni(),user.getCPRnummer(),crypt(user.getPassword())));
+            this.executeUpdate(String.format("INSERT INTO Users VALUES (%d,'%s','%s','%s','%s',true);",user.getUserId(),user.getUserName(),user.getUserIni(),user.getCPRnummer(),crypt(user.getPassword())));
             return user;
         }
         catch(SQLException sqlEx){
@@ -86,9 +86,9 @@ public class UserDAO extends Database implements IUserDAO {
     @Override
     public User updateUser(User user) throws DALException {
         try{
-            ResultSet rs = this.executeSelect("SELECT userId FROM Users WHERE userId = " + user.getUserId());
+            ResultSet rs = this.executeSelect(String.format("SELECT userId FROM Users WHERE userId = %d;", user.getUserId()));
             if(rs.next()) {
-                executeUpdate(String.format("UPDATE users SET userName='%s', password='%s',userIni='%s',CPRnummer='%s', WHERE id=%s;",user.getUserName(),crypt(user.getPassword()),user.getUserIni(),user.getCPRnummer(),user.getUserId()));
+                executeUpdate(String.format("UPDATE Users SET userName='%s',password='%s',userIni='%s',CPRnummer='%s' WHERE userId=%s;",user.getUserName(),crypt(user.getPassword()),user.getUserIni(),user.getCPRnummer(),user.getUserId()));
                 return user;
             }else{
                 throw new DALException("Brugeren eksisterer ikke");
