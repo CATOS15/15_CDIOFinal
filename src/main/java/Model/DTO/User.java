@@ -5,7 +5,7 @@ public class User {
     private String userName;
     private String userIni;
     private String CPRnummer;
-
+//test
     public int getUserId() {
         return userId;
     }

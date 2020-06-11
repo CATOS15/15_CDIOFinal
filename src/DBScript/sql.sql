@@ -24,6 +24,7 @@ CREATE TABLE Users (
     userIni varchar(8),
     CPRnummer char(10),
     password varchar(512),
+    tilstand ENUM('Aktiv','Deaktiveret'),
     PRIMARY KEY(userId)
 );
 
@@ -96,6 +97,8 @@ CREATE TABLE UserProduktBatch(
     PRIMARY KEY(pbId,userId)
 );
 
+INSERT INTO Roles
+VALUES('R1',);
 
 
 
