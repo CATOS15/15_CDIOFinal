@@ -29,6 +29,7 @@ public class AuthenticationController {
             token = token.substring("Bearer".length()).trim();
             String username = Security.verifyToken(token);
             User user = iUserDAO.getUserByName(username);
+            iUserDAO.end();
             return Response.ok(mapper.writeValueAsString(user)).build();
         }
         catch (Exception e){

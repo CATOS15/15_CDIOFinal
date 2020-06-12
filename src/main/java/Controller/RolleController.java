@@ -29,6 +29,7 @@ public class RolleController {
     {
         try{
             List<Rolle> roller = iRolleDAO.getRoller();
+            iRolleDAO.end();
             return Response.ok(mapper.writeValueAsString(roller)).build();
         }
         catch (Exception e){
@@ -42,6 +43,7 @@ public class RolleController {
     {
         try{
             Rolle rolle = iRolleDAO.getRolle(rolleId);
+            iRolleDAO.end();
             return Response.ok(mapper.writeValueAsString(rolle)).build();
         }
         catch (Exception e){
@@ -55,6 +57,7 @@ public class RolleController {
         try{
             Rolle rolle = mapper.readValue(JSON_raavare, Rolle.class);
             iRolleDAO.createRolle(rolle);
+            iRolleDAO.end();
             return Response.ok("Rolle oprettet").build();
         }
         catch (Exception e){
@@ -68,6 +71,7 @@ public class RolleController {
         try{
             Rolle rolle = mapper.readValue(JSON_rolle, Rolle.class);
             iRolleDAO.updateRolle(rolle);
+            iRolleDAO.end();
             return Response.ok("Rolle opdateret").build();
         }
         catch (Exception e){
@@ -81,6 +85,7 @@ public class RolleController {
     {
         try{
             iRolleDAO.deleteRolle(rolleId);
+            iRolleDAO.end();
             return Response.ok("Rolle slettet").build();
         }
         catch (Exception e){

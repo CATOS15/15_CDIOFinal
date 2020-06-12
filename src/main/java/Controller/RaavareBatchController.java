@@ -32,6 +32,7 @@ public class RaavareBatchController {
     public Response getRaavareBatches() {
         try{
             List<RaavareBatch> raavareBatches = iRaavareBatchDAO.getRaavareBatches();
+            iRaavareBatchDAO.end();
             return Response.ok(mapper.writeValueAsString(raavareBatches)).build();
         }
         catch (Exception e){
@@ -55,6 +56,7 @@ public class RaavareBatchController {
         try{
             RaavareBatch raavareBatch = mapper.readValue(JSON_raavareBatch, RaavareBatch.class);
             iRaavareBatchDAO.createRavareBatch(raavareBatch);
+            iRaavareBatchDAO.end();
             return Response.ok("Råvarebatch oprettet").build();
         }
         catch (Exception e){

@@ -25,8 +25,7 @@ angular.module('CDIOFinal').service('raavareService', ['$http', 'raavareModel', 
             url: CDIOFinalModel.apiURL + "raavare",
             data: raavare
         }).then(function (resp) {
-            raavareModel.raavare = resp.data;
-            //Todo add til liste
+            raavareModel.raavarer.push(raavare);
         }, function (errorResp) {
             raavareModel.error = errorResp.data;
         });
@@ -37,8 +36,6 @@ angular.module('CDIOFinal').service('raavareService', ['$http', 'raavareModel', 
             url: CDIOFinalModel.apiURL + "raavare",
             data: raavare
         }).then(function (resp) {
-            raavareModel.raavare = resp.data;
-            //Todo add til liste
         }, function (errorResp) {
             raavareModel.error = errorResp.data;
         });

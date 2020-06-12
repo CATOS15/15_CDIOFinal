@@ -30,6 +30,7 @@ public class RaavareController {
     {
         try{
             List<Raavare> raavarer = iRaavareDAO.getRaavarer();
+            iRaavareDAO.end();
             return Response.ok(mapper.writeValueAsString(raavarer)).build();
         }
         catch (Exception e){
@@ -43,6 +44,7 @@ public class RaavareController {
     {
         try{
             Raavare raavare = iRaavareDAO.getRaavare(raavareId);
+            iRaavareDAO.end();
             return Response.ok(mapper.writeValueAsString(raavare)).build();
         }
         catch (Exception e){
@@ -56,6 +58,7 @@ public class RaavareController {
         try{
             Raavare raavare = mapper.readValue(JSON_raavare, Raavare.class);
             iRaavareDAO.createRaavare(raavare);
+            iRaavareDAO.end();
             return Response.ok("Råvare oprettet").build();
         }
         catch (Exception e){
@@ -69,6 +72,7 @@ public class RaavareController {
         try{
             Raavare raavare = mapper.readValue(JSON_raavare, Raavare.class);
             iRaavareDAO.updateRaavare(raavare);
+            iRaavareDAO.end();
             return Response.ok("Råvare opdateret").build();
         }
         catch (Exception e){
@@ -82,6 +86,7 @@ public class RaavareController {
     {
         try{
             iRaavareDAO.deleteRaavare(raavareId);
+            iRaavareDAO.end();
             return Response.ok("Råvare slettet").build();
         }
         catch (Exception e){

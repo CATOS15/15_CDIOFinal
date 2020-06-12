@@ -26,6 +26,7 @@ public class BrugerController {
     public Response getBrugerer() {
         try{
             List<User> users = iUserDAO.getUsers();
+            iUserDAO.end();
             return Response.ok(mapper.writeValueAsString(users)).build();
         }
         catch (Exception e){
@@ -38,6 +39,7 @@ public class BrugerController {
     public Response getBruger(@PathParam("brugerId") String brugerId) {
         try{
             User user = iUserDAO.getUser(brugerId);
+            iUserDAO.end();
             return Response.ok(mapper.writeValueAsString(user)).build();
         }
         catch (Exception e){
@@ -50,6 +52,7 @@ public class BrugerController {
         try{
             User user = mapper.readValue(JSON_user, User.class);
             iUserDAO.createUser(user);
+            iUserDAO.end();
             return Response.ok("Bruger oprettet").build();
         }
         catch (Exception e){
@@ -62,6 +65,7 @@ public class BrugerController {
         try{
             User user = mapper.readValue(JSON_user, User.class);
             iUserDAO.updateUser(user);
+            iUserDAO.end();
             return Response.ok("Bruger opdateret").build();
         }
         catch (Exception e){
@@ -74,6 +78,7 @@ public class BrugerController {
     public Response deleteBruger(@PathParam("brugerId") String brugerId) {
         try{
             iUserDAO.deleteUser(brugerId);
+            iUserDAO.end();
             return Response.ok("Bruger deaktiveret").build();
         }
         catch (Exception e){
