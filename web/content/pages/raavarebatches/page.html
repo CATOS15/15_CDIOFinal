@@ -1,103 +1,112 @@
 <div>
-<div class="RaavareBatch_header">
-    <p>Råvarebatches</p>
-</div>
-<div class="create_batch">
-
-    <button class="accordion" ng-click="showAccordian = !showAccordian">Opret Råvarebatch</button>
-    <div class="accordian-panel" ng-if="showAccordian">
-        <div>
-            <input type="text" placeholder="Enter RåvareBatchID" name="rdId" ng-model="raavarebatchesModel.raavareBatch.rbId" required>
-            <select ng-model="raavarebatchesModel.raavareBatch.raavareId" ng-init="raavarebatchesModel.raavareBatch.raavareId = raavareModel.raavarer[0].raavareId">
-                <option ng-repeat="x in raavareModel.raavarer" ng-value="x.raavareId">{{x.raavareNavn}}</option>
-            </select>
-            <input type="text" placeholder="Enter Mængde" name="maengde" ng-model= "raavarebatchesModel.raavareBatch.maengde"required>
-            <input type="text" placeholder="Enter Leverandør" name="leverandoer" ng-model= "raavarebatchesModel.raavareBatch.leverandoer"required>
-        </div>
-        <div>
-            <button type="submit" ng-click="save()">Submit</button>
-        </div>
+    <div>
+        {{raavarebatchesModel.error}}
     </div>
-</div>
-<div class="raavareBatches_view">
-    <div style="box-sizing:border-box; padding:5px 0px 10px 0px;">
-        <p>Råvarebatches</p>
+    <div class="headerContent">
+        <div class="header">Råvarebatch</div>
+        <div class="buttonItem" ng-click="toggleNewItem()">+</div>
     </div>
-    <table>
-        <tr>
-            <th ng-click="orderByMe('rbId')">Råvare batch id</th>
-            <th ng-click="orderByMe('raavareId')">Råvare id</th>
-            <th ng-click="orderByMe('maengde')">Mængde </th>
-            <th ng-click="orderByMe('leverandoer')">Lagerbeholdning </th>
-        </tr>
-
-        <tr ng-repeat="raavareBatch in raavarebatchesModel.raavareBatches | orderBy:myOrderBy">
-            <td>{{raavareBatch.rbId}}</td>
-            <td>{{raavareBatch.raavareId}}</td>
-            <td>{{raavareBatch.maengde}}</td>
-            <td>{{raavareBatch.leverandoer}}</td>
-        </tr>
-    </table>
-</div>
+    <div class="tableContent">
+        <table>
+            <tr>
+                <th>RåvarebatchID</th>
+                <th>RåvarerID</th>
+                <th>Mængde</th>
+                <th>Leverandør</th>
+            </tr>
+            <tr ng-repeat="raavareBatch in raavarebatchesModel.raavareBatches" ng-click="toggleItem(raavareBatch)" ng-class="{'active' : raavarebatchesModel.raavareBatch === raavareBatch}">
+                <td>{{raavareBatch.rbId}}</td>
+                <td>{{raavareBatch.raavareId}}</td>
+                <td>{{raavareBatch.maengde}}</td>
+                <td>{{raavareBatch.leverandoer}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="itemContent" ng-if="raavarebatchesModel.raavareBatch">
+        <div class="item">
+            <label>
+                RåvarebatchID:
+                <input type="text" ng-model="raavarebatchesModel.raavareBatch.rbId" ng-disabled="!newItem" />
+            </label>
+            <label>
+                Råvare:
+                <select ng-disabled="!newItem" ng-model="raavarebatchesModel.raavareBatch.raavareId">
+                    <option ng-repeat="x in raavareModel.raavarer track by x.raavareId" ng-value="x.raavareId">{{x.raavareNavn}}</option>
+                </select>
+            </label>
+            <label>
+                Mængde:
+                <input type="text" ng-model="raavarebatchesModel.raavareBatch.maengde" ng-disabled="!newItem"/>
+            </label>
+            <label>
+                Leverandør:
+                <input type="text" ng-model="raavarebatchesModel.raavareBatch.leverandoer" ng-disabled="!newItem"/>
+            </label>
+        </div>
+        <div class="actions"><div class="buttonItem" ng-click="save()" ng-hide="!newItem">Gem</div></div>
+    </div>
 </div>
 
 <style>
-    .view_batches table, td, th {
-        border: 1px solid grey;
-        border-collapse: collapse;
-        padding: 5px;
+    .headerContent{
+        float:left;
+        width:100%;
+        height: 40px;
     }
-
-    .RaavareBatch_header{
-        text-align:center;
+    .header{
+        font-weight: 600;
+        font-size:24px;
+        margin-bottom: 5px;
+        float:left;
+    }
+    .buttonItem{
+        background: rgb(54, 185, 224);
+        border-radius: 5px;
         font-size: 30px;
-        margin-bottom:10px;
+        padding: 0 6px;
+        float: right;
+        cursor:pointer;
     }
-    .raavareBatches_view{
-        padding:10px;
+    .newItem:hover{
+        background: rgb(71, 199, 236);
     }
-
+    .tableContent{
+        float:left;
+        width:100%;
+        height: 400px;
+        overflow-y: scroll;
+    }
+    .itemContent{
+        margin-top:10px;
+        float:left;
+        width:100%;
+    }
+    .item{
+        float:left;
+        width: 100%;
+        height: 200px;
+    }
+    .actions{
+        float:left;
+        width:100%;
+    }
     table{
         width:100%;
-        text-align:left;
+        text-align: center;
+        font-size:18px;
     }
-
-    table tr:nth-child(odd) {
-        background-color: #f1f1f1;
-    }
-    table tr:nth-child(even) {
-        background-color: #ffffff;
-    }
-
-    .accordion {
-        background-color: #eee;
-        color: black;
+    table tr:not(:nth-child(1)){
         cursor: pointer;
-        padding: 18px;
-        width: 100%;
-        border: none;
-        text-align: left;
-        outline: none;
-        font-size: 15px;
-        transition: 0.4s;
     }
-
-    .accordion:active, .accordion:hover {
-        background-color: #ccc;
+    .active{
+        box-shadow: inset 0 0 7px 0 rgba(0,0,0,0.75)
     }
-
-    .accordian-panel {
-        padding: 18px;
-        background-color: #eee;
-        overflow: hidden;
-        border-color:black;
-        /*box-shadow: inset 0 0 2px #000000;*/
+    table tr:nth-child(1){
+        background: #424b59;
+        font-weight: 600;
+        color:white;
     }
-
-    .dummy{
-        color:red;
+    table tr:nth-child(even){
+        background: gainsboro;
     }
-
 </style>
-
-
