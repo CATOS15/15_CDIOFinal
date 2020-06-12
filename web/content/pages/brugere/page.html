@@ -51,7 +51,7 @@
                 <div ng-repeat="rolle in brugereModel.roller">
                     <label>
                     {{rolle.rolename}}
-                    <input type="checkbox" ng-click="toggleRolle(rolle)" ng-checked="brugereModel.bruger.roller.indexOf(rolle) !== -1" />
+                    <input type="checkbox" ng-click="toggleRolle(rolle)" ng-checked="getRolleIndex(rolle) !== -1" />
                     </label>
                 </div>
             </div>

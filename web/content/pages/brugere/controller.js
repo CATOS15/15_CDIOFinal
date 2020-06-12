@@ -7,10 +7,23 @@ angular.module('CDIOFinal').controller('brugereController', ['$scope', 'brugereM
         brugereService.getRoller();
     };
 
+    $scope.getRolleIndex = function(rolle){
+        var index = -1;
+        var i = 0;
+        brugereModel.bruger.roller.forEach(function(brugerRolle){
+            if(brugerRolle.roleId === rolle.roleId){
+                index = i;
+                return;
+            }
+            i++;
+        });
+        return index;
+    };
+
     $scope.toggleRolle = function(rolle){
-        var existIndex = brugereModel.bruger.roller.indexOf(rolle);
-        if(existIndex !== -1){
-            brugereModel.bruger.roller.splice(existIndex, 1);
+        var rolleIndex = $scope.getRolleIndex(rolle);
+        if(rolleIndex !== -1){
+            brugereModel.bruger.roller.splice(rolleIndex, 1);
         }else{
             brugereModel.bruger.roller.push(rolle);
         }
