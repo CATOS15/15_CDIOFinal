@@ -1,4 +1,4 @@
-angular.module('CDIOFinal').service('CDIOFinalService', ['$http', 'CDIOFinalModel', function ($http, CDIOFinalModel) {
+angular.module('CDIOFinal').service('CDIOFinalService', ['$http', 'CDIOFinalModel', '$rootScope', function ($http, CDIOFinalModel, $rootScope) {
     this.getLogin = function(){ //For at tjekke om man er logget ind og hent bruger data
         $http({
             method: "GET",
@@ -6,6 +6,9 @@ angular.module('CDIOFinal').service('CDIOFinalService', ['$http', 'CDIOFinalMode
         }).then(function (resp) {
             CDIOFinalModel.user = resp.data;
         }, function (errorResp) {
+            localStorage.removeItem('token');
+            CDIOFinalModel.userToken = null;
+            $rootScope.$emit('loginRequired');
         });
     };
 
