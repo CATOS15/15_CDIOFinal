@@ -13,6 +13,9 @@ import java.util.List;
 import static Security.Security.crypt;
 
 public class RaavareBatchDAO extends Database implements IRaavareBatchDAO {
+    public RaavareBatchDAO() throws SQLException, ClassNotFoundException {
+        this.connect();
+    }
 
 
     @Override
@@ -59,7 +62,7 @@ public class RaavareBatchDAO extends Database implements IRaavareBatchDAO {
     public List<RaavareBatch> getRaavareBatches() throws DALException {
         try{
             List<RaavareBatch> raavareBatches = new ArrayList<>();
-            ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer FROM Users");
+            ResultSet rs = this.executeSelect("SELECT * FROM RaavareBatch;");
             while(rs.next()) {
                 RaavareBatch raavareBatch = new RaavareBatch();
                 raavareBatch.setRbId(rs.getInt(1));

@@ -1,35 +1,41 @@
 <div>
-<div class="produktbatches_header">
-    <p>Produktionsbatches</p>
+<div class="RaavareBatch_header">
+    <p>Råvarebatches</p>
 </div>
 <div class="create_batch">
 
-    <button class="accordion" ng-click="showAccordian = !showAccordian">Opret Produktbatch</button>
+    <button class="accordion" ng-click="showAccordian = !showAccordian">Opret Råvarebatch</button>
     <div class="accordian-panel" ng-if="showAccordian">
         <div>
-            <input type="text" placeholder="Enter RåvareBatchID" name="rbId" required>
-            <input type="text" placeholder="Enter råvareId" name="raavareId" required>
-            <input type="text" placeholder="Enter Mængde" name="maengde" required>
+            <input type="text" placeholder="Enter RåvareBatchID" name="rdId" ng-model="raavarebatchesModel.raavareBatch.rbId" required>
+            <select ng-model="raavarebatchesModel.raavareBatch.raavareId">
+                <option ng-repeat="x in raavareModel.raavarer" ng-value="x.raavareId">{{x.raavareNavn}}</option>
+            </select>
+            <input type="text" placeholder="Enter Mængde" name="maengde" ng-model= "raavarebatchesModel.raavareBatch.maengde"required>
+            <input type="text" placeholder="Enter Leverandør" name="leverandoer" ng-model= "raavarebatchesModel.raavareBatch.leverandoer"required>
         </div>
         <div>
-            <button type="submit">Submit</button>
+            <button type="submit" ng-click="save()">Submit</button>
         </div>
     </div>
 </div>
-<div class="produktbatches_view">
+<div class="raavareBatches_view">
     <div style="box-sizing:border-box; padding:5px 0px 10px 0px;">
-        <p>Produktbatches</p>
+        <p>Råvarebatches</p>
     </div>
     <table>
         <tr>
             <th ng-click="orderByMe('rbId')">Råvare batch id</th>
             <th ng-click="orderByMe('raavareId')">Råvare id</th>
-            <th ng-click="orderByMe('maengde')">Lagerbeholdning </th>
+            <th ng-click="orderByMe('maengde')">Mængde </th>
+            <th ng-click="orderByMe('leverandoer')">Lagerbeholdning </th>
         </tr>
-        <tr ng-repeat="x in raavarebatchesModel.batches | orderBy:myOrderBy">
-            <td>{{ x.rbId }}</td>
-            <td>{{ x.raavareId }}</td>
-            <td>{{ x.maengde }}</td>
+
+        <tr ng-repeat="raavareBatch in raavarebatchesModel.raavareBatches | orderBy:myOrderBy">
+            <td>{{raavareBatch.rbId}}</td>
+            <td>{{raavareBatch.raavareId}}</td>
+            <td>{{raavareBatch.maengde}}</td>
+            <td>{{raavareBatch.leverandoer}}</td>
         </tr>
     </table>
 </div>
@@ -42,12 +48,12 @@
         padding: 5px;
     }
 
-    .produktbatches_header{
+    .RaavareBatch_header{
         text-align:center;
         font-size: 30px;
         margin-bottom:10px;
     }
-    .produktbatches_view{
+    .raavareBatches_view{
         padding:10px;
     }
 
@@ -91,4 +97,7 @@
     .dummy{
         color:red;
     }
+
 </style>
+
+
