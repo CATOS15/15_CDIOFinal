@@ -8,7 +8,7 @@
             <p>Login</p>
         </div>
 
-        <div class="login_body">
+        <div class="login_body" ng-enter="login()">
             <input type="text" placeholder="Enter Username" name="uname" required ng-model="loginModel.loginUser.userName" />
 
             <input type="password" placeholder="Enter Password" name="psw" required ng-model="loginModel.loginUser.password">
@@ -17,38 +17,6 @@
         <div class="login_footer" >
             <button type="submit" ng-click="login()">Login</button>
         </div>
-    </div>
-    <div class="login">
-        <label>
-            Brugernavn: <input type="text" ng-model="loginModel.loginUser.userName" />
-        </label>
-        <label>
-            Password: <input type="password" ng-model="loginModel.loginUser.password">
-        </label>
-        <label>
-            <input type="button" ng-click="login()" value="Login" />
-        </label>
-    </div>
-
-    <div class="createUser">
-        <label>
-            ID: <input type="number" ng-model="loginModel.newUser.userId" />
-        </label>
-        <label>
-            Brugernavn: <input type="text" ng-model="loginModel.newUser.userName" />
-        </label>
-        <label>
-            Password: <input type="password" ng-model="loginModel.newUser.password">
-        </label>
-        <label>
-            Initialer: <input type="text" ng-model="loginModel.newUser.userIni" />
-        </label>
-        <label>
-            CPR nummer: <input type="text" ng-model="loginModel.newUser.cprnummer" />
-        </label>
-        <label>
-            <input type="button" ng-click="createUser()" value="Opret bruger" />
-        </label>
     </div>
     <div ng-if="loginModel.msg">{{loginModel.msg}}</div>
     <div style="color:red;" ng-if="loginModel.error">{{loginModel.error}}</div>

@@ -10,6 +10,9 @@
         $location.path('/login');
     });
 
+    $scope.$on('$locationChangeSuccess', function(location) {
+        $scope.init();
+    });
     $scope.$watch('CDIOFinalModel.userToken', function() {
         if(!CDIOFinalModel.userToken) return;
         localStorage.setItem('token', CDIOFinalModel.userToken);
@@ -22,6 +25,4 @@
             CDIOFinalService.setToken(token);
         }
     };
-
-    $scope.init();
 }]);
