@@ -1,12 +1,12 @@
 package Model.DTO;
 
+import java.util.List;
+
 public class Recept {
 
     private int receptId;
     private String receptNavn;
-    private int raavareId;
-    private double nonNetto;
-    private double tolerance;
+    private List<ReceptRaavare> receptRaavarer;
 
     public int getReceptId() {
         return receptId;
@@ -24,30 +24,11 @@ public class Recept {
         this.receptNavn = receptNavn;
     }
 
-    public int getRaavareId() {
-        return raavareId;
+    public List<ReceptRaavare> getReceptRaavarer() {
+        return receptRaavarer;
     }
 
-    public void setRaavareId(int raavareId) {
-        this.raavareId = raavareId;
+    public void setReceptRaavarer(List<ReceptRaavare> receptRaavarer) {
+        this.receptRaavarer = receptRaavarer;
     }
-
-    public double getNonNetto() {
-        return nonNetto;
-    }
-
-    public void setNonNetto(double nonNetto) {
-        this.nonNetto = nonNetto;
-    }
-
-    public double getTolerance() {
-        return tolerance;
-    }
-
-    public void setTolerance(double tolerance) {
-        this.tolerance = tolerance;
-    }
-
-
-
 }

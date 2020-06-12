@@ -11,16 +11,10 @@
             <tr>
                 <th>receptId</th>
                 <th>receptName</th>
-                <th>raavareId</th>
-                <th>nonNetto</th>
-                <th>tolerance</th>
             </tr>
-            <tr ng-repeat="recept in receptModel.recept" ng-click="toggleItem(recept)" ng-class="{'active' : receptmodel.recept === recept}">
+            <tr ng-repeat="recept in receptModel.recepter" ng-click="toggleItem(recept)" ng-class="{'active' : receptmodel.recept === recept}">
                 <td>{{recept.receptId}}</td>
                 <td>{{recept.receptNavn}}</td>
-                <td>{{recept.raavareId}}</td>
-                <td>{{recept.nonNetto}}</td>
-                <td>{{recept.tolerance}}</td>
             </tr>
         </table>
     </div>
@@ -28,26 +22,31 @@
         <div class="item">
             <label>
                 ReceptID:
-                <input type="text" ng-model="receptModel.recept.receptId" ng-disabled="!newItem" />
+                <input type="text" ng-model="receptModel.recept.receptId" ng-disabled="!newItem || receptModel.recept.receptRaavarer.length > 0" />
             </label>
             <label>
                 ReceptNavn:
                 <input type="text" ng-model="receptModel.recept.receptNavn" ng-disabled="!newItem" />
             </label>
-            <label>
-                RåvareID:
-                <select ng-disabled="!newItem" ng-model="receptModel.recept.raavareId">
-                    <option ng-repeat="x in raavareModel.raavarer track by x.raavareId" ng-value="x.raavareId">{{x.raavareNavn}}</option>
-                </select>
-            </label>
-            <label>
-                non Netto
-                <input type="text" ng-model="receptModel.recept.nonNetto" ng-disabled="!newItem"/>
-            </label>
-            <label>
-                tolerance:
-                <input type="text" ng-model="receptModel.recept.tolerance" ng-disabled="!newItem"/>
-            </label>
+            <div class="buttonItem" ng-click="addReceptRaavare()">+</div>
+            <div ng-repeat="receptRaavare in receptModel.recept.receptRaavarer track by $index">
+                <label>
+                    Recept id
+                <input type="text" ng-model="receptRaavare.receptId" ng-disabled="true" />
+                </label>
+                <label>
+                    Råvare id
+                <input type="text" ng-model="receptRaavare.raavareId" ng-disabled="!newItem" />
+                </label>
+                <label>
+                    Non netto
+                <input type="text" ng-model="receptRaavare.nonNetto" ng-disabled="!newItem" />
+                </label>
+                <label>
+                    Tolerance
+                <input type="text" ng-model="receptRaavare.tolerance" ng-disabled="!newItem" />
+                </label>
+            </div>
         </div>
         <div class="actions"><div class="buttonItem" ng-click="save()" ng-hide="!newItem">Gem</div></div>
     </div>

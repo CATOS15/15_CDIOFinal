@@ -28,7 +28,7 @@ CDIOFinal.config(['$routeProvider', '$httpProvider', function ($routeProvider, $
         })
         .when("/recepter", {
             templateUrl: "content/pages/recepter/page.html",
-            controller: "recepterController"
+            controller: "receptController"
         })
         .when("/brugere", {
             templateUrl: "content/pages/brugere/page.html",

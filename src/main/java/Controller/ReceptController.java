@@ -8,6 +8,7 @@ import Security.Authenticated;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.List;
@@ -31,6 +32,19 @@ public class ReceptController {
             List<Recept> recepter = iReceptDAO.getRecepter();
             iReceptDAO.end();
             return Response.ok(mapper.writeValueAsString(recepter)).build();
+        }
+        catch (Exception e){
+            return Response.serverError().entity(e.getMessage()).build();
+        }
+    }
+
+    @POST
+    public Response createRecept(String JSON_recepter) {
+        try{
+            Recept recept = mapper.readValue(JSON_recepter, Recept.class);
+            iReceptDAO.createRecept(recept);
+            iReceptDAO.end();
+            return Response.ok("Recept oprettet").build();
         }
         catch (Exception e){
             return Response.serverError().entity(e.getMessage()).build();
