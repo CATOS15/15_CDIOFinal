@@ -1,4 +1,4 @@
-﻿angular.module('CDIOFinal').controller('navbarController', ['$scope', 'CDIOFinalModel', 'navbarModel', '$location', function ($scope, CDIOFinalModel, navbarModel, $location) {
+﻿angular.module('CDIOFinal').controller('navbarController', ['$rootScope', '$scope', 'CDIOFinalModel', 'navbarModel', '$location', '$location', function ($rootScope, $scope, CDIOFinalModel, navbarModel, $location) {
     $scope.CDIOFinalModel = CDIOFinalModel;
     $scope.navbarModel = navbarModel;
 
@@ -9,8 +9,7 @@
         localStorage.removeItem('token');
         CDIOFinalModel.userToken = '';
         CDIOFinalModel.user = null;
-
-        $scope.changeLocation("/login");
+        $rootScope.$emit('loginRequired');
     };
 
 }]);

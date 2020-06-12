@@ -14,15 +14,14 @@
         $scope.init();
     });
     $scope.$watch('CDIOFinalModel.userToken', function() {
-        if(!CDIOFinalModel.userToken) return;
+        if(!CDIOFinalModel.userToken) {
+            return;
+        }
         localStorage.setItem('token', CDIOFinalModel.userToken);
-        $scope.checkLocalStorageToken();
-        CDIOFinalService.getLogin();
+        $scope.init();
     });
     $scope.checkLocalStorageToken = function(){
         var token = localStorage.getItem('token');
-        if(token){
-            CDIOFinalService.setToken(token);
-        }
+        CDIOFinalService.setToken(token);
     };
 }]);

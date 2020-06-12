@@ -7,7 +7,8 @@ angular.module('CDIOFinal').service('CDIOFinalService', ['$http', 'CDIOFinalMode
             CDIOFinalModel.user = resp.data;
         }, function (errorResp) {
             localStorage.removeItem('token');
-            CDIOFinalModel.userToken = null;
+            CDIOFinalModel.userToken = "";
+            CDIOFinalModel.user = null;
             $rootScope.$emit('loginRequired');
         });
     };
@@ -16,6 +17,8 @@ angular.module('CDIOFinal').service('CDIOFinalService', ['$http', 'CDIOFinalMode
         if(token) {
             CDIOFinalModel.userToken = token;
             $http.defaults.headers.common.Authorization = 'Bearer ' + CDIOFinalModel.userToken;
+        }else{
+            $http.defaults.headers.common.Authorization = '';
         }
     }
 }]);
