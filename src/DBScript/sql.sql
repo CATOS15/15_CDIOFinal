@@ -55,7 +55,12 @@ CREATE TABLE ReceptRaavare(
 	raavareId decimal(8,0),
 	nonNetto decimal (8,4),
 	tolerance decimal (4,1),
-	PRIMARY KEY(receptId,raavareId)
+	PRIMARY KEY(receptId,raavareId),
+    constraint fk_receptId1 foreign key(receptId)
+    references Recept (receptId),
+    constraint fk_raavareId foreign key(raavareId)
+    references Raavare(raavareId)
+
 );
 
 
