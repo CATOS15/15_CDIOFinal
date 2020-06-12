@@ -1,6 +1,5 @@
 angular.module('CDIOFinal').controller('raavarebatchesController', ['$scope', 'raavarebatchesModel','raavarebatchesService','raavareModel','raavareService', function ($scope, raavarebatchesModel,raavarebatchesService,raavareModel,raavareService) {
     $scope.raavarebatchesModel = raavarebatchesModel;
-    $scope.showAccordian = false;
     $scope.raavareModel = raavareModel;
 
     $scope.orderByMe = function(x) {
