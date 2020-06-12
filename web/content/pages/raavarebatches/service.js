@@ -10,14 +10,13 @@ angular.module('CDIOFinal').service('raavarebatchesService', ['$http', 'raavareb
         });
     };
 
-    this.createRavareBatch = function(raavareBatches){
+    this.createRavareBatch = function(raavareBatch){
         $http({
             method: "POST",
             url: CDIOFinalModel.apiURL + "raavarebatch",
-            data: raavareBatches
-        }).then(function (resp) {
-            raavarebatchesModel.raavareBatches = resp.data;
-            //Todo add til liste
+            data: raavareBatch
+        }).then(function () {
+            raavarebatchesModel.raavareBatches.push(raavareBatch);
         }, function (errorResp) {
             raavarebatchesModel.error = errorResp.data;
         });

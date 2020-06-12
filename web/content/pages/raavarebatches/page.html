@@ -8,7 +8,7 @@
     <div class="accordian-panel" ng-if="showAccordian">
         <div>
             <input type="text" placeholder="Enter RåvareBatchID" name="rdId" ng-model="raavarebatchesModel.raavareBatch.rbId" required>
-            <select ng-model="raavarebatchesModel.raavareBatch.raavareId">
+            <select ng-model="raavarebatchesModel.raavareBatch.raavareId" ng-init="raavarebatchesModel.raavareBatch.raavareId = raavareModel.raavarer[0].raavareId">
                 <option ng-repeat="x in raavareModel.raavarer" ng-value="x.raavareId">{{x.raavareNavn}}</option>
             </select>
             <input type="text" placeholder="Enter Mængde" name="maengde" ng-model= "raavarebatchesModel.raavareBatch.maengde"required>
