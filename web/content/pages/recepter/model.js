@@ -1,3 +1,6 @@
-angular.module('CDIOFinal').service('recepterModel', function () {
-    this.dummy = "dummy";
+angular.module('CDIOFinal').service('receptModel', function () {
+    this.recept = null;
+    this.recepter = [];
+
+    this.error = "";
 });
