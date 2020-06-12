@@ -104,6 +104,10 @@ public class UserDAO extends Database implements IUserDAO {
             ResultSet rs = this.executeSelect(String.format("SELECT userId FROM Users WHERE userId = %d;", user.getUserId()));
             if(rs.next()) {
                 executeUpdate(String.format("UPDATE Users SET userName='%s',password='%s',userIni='%s',CPRnummer='%s' WHERE userId=%s;",user.getUserName(),crypt(user.getPassword()),user.getUserIni(),user.getCPRnummer(),user.getUserId()));
+                this.executeUpdate(String.format("DELETE FROM rolesusers WHERE userId = %d", user.getUserId()));
+                for (Rolle rolle : user.getRoller()) {
+                    this.executeUpdate(String.format("INSERT INTO rolesusers VALUES(%d, %d);", rolle.getRoleId(), user.getUserId()));
+                }
                 return user;
             }else{
                 throw new DALException("Brugeren eksisterer ikke");
