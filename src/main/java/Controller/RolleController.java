@@ -3,6 +3,7 @@ package Controller;
 import Model.DAO.IRolleDAO;
 import Model.DAO.RolleDAO;
 import Model.DTO.Rolle;
+import Security.Authenticated;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.*;
@@ -10,7 +11,7 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.List;
 
-
+@Authenticated
 @Path("/rolle")
 public class RolleController {
 
