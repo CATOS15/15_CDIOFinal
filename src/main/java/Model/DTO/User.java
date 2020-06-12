@@ -1,11 +1,14 @@
 package Model.DTO;
 
+import java.util.List;
+
 public class User {
     private int userId;
     private String userName;
     private String userIni;
     private String CPRnummer;
-//test
+    private List<Rolle> roller;
+
     public int getUserId() {
         return userId;
     }
@@ -47,4 +50,12 @@ public class User {
     }
 
     private String password;
+
+    public List<Rolle> getRoller() {
+        return roller;
+    }
+
+    public void setRoller(List<Rolle> roller) {
+        this.roller = roller;
+    }
 }

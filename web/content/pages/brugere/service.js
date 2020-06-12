@@ -1,4 +1,17 @@
 angular.module('CDIOFinal').service('brugereService', ['$http', 'brugereModel', 'CDIOFinalModel', function ($http, brugereModel, CDIOFinalModel) {
+    //Roller
+    this.getRoller = function(){
+        $http({
+            method: "GET",
+            url: CDIOFinalModel.apiURL + "rolle"
+        }).then(function (resp) {
+            brugereModel.roller = resp.data;
+        }, function (errorResp) {
+            brugereModel.error = errorResp.data;
+        });
+    };
+
+    //Brugerer
     this.getBrugerer = function(){
         $http({
             method: "GET",

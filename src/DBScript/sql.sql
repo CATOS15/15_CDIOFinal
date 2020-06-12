@@ -102,5 +102,6 @@ CREATE TABLE UserProduktBatch(
     PRIMARY KEY(pbId,userId)
 );
 
-
+INSERT INTO roles VALUES(1, "Administrator"),(2, "Farmaceut"),(3, "Produktionsleder"),(4, "Laborant");
 INSERT INTO Users VALUES (123,'admin','adm','1234567891','10fa6a38dde194c6e2f03cfa8a2c0e1aaa52d11e553a2686d0fb56f4e9f5647518aea8d4a2633065638a349dc2c2aab6ab2bde3dbd0df55b1d233ecac9f163cc',true);
+INSERT INTO rolesusers VALUES(1, 123);

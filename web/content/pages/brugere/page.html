@@ -13,12 +13,14 @@
                 <th>Navn</th>
                 <th>Initialer</th>
                 <th>CPR nummer</th>
+                <th>Roller</th>
             </tr>
             <tr ng-repeat="bruger in brugereModel.brugerer" ng-click="toggleItem(bruger)" ng-class="{'active' : brugereModel.bruger === bruger}">
                 <td>{{bruger.userId}}</td>
                 <td>{{bruger.userName}}</td>
                 <td>{{bruger.userIni}}</td>
                 <td>{{bruger.cprnummer}}</td>
+                <td><span ng-repeat="rolle in bruger.roller">{{rolle.rolename}}<span ng-if="!$last">, </span></span></td>
             </tr>
         </table>
     </div>
@@ -44,6 +46,15 @@
                 Bruger CPR nummer:
                 <input type="text" ng-model="brugereModel.bruger.cprnummer" />
             </label>
+            <div>
+                Roller
+                <div ng-repeat="rolle in brugereModel.roller">
+                    <label>
+                    {{rolle.rolename}}
+                    <input type="checkbox" ng-click="toggleRolle(rolle)" ng-checked="brugereModel.bruger.roller.indexOf(rolle) !== -1" />
+                    </label>
+                </div>
+            </div>
         </div>
         <div class="actions"><div class="buttonItem" ng-click="save()">Gem</div></div>
     </div>

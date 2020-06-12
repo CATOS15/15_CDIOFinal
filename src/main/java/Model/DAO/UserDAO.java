@@ -1,5 +1,6 @@
 package Model.DAO;
 
+import Model.DTO.Rolle;
 import Model.DTO.User;
 import Model.Exception.DALException;
 import java.sql.ResultSet;
@@ -10,22 +11,32 @@ import java.util.List;
 import static Security.Security.crypt;
 
 public class UserDAO extends Database implements IUserDAO {
+    private IRolleDAO iRolleDAO;
 
     public UserDAO() throws ClassNotFoundException, SQLException {
         super();
+        iRolleDAO = new RolleDAO();
     }
 
     @Override
     public List<User> getUsers() throws DALException {
         try{
             List<User> users = new ArrayList<>();
-            ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer FROM Users");
+            ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer FROM users");
             while(rs.next()) {
                 User user = new User();
                 user.setUserId(rs.getInt(1));
                 user.setUserName(rs.getString(2));
                 user.setUserIni(rs.getString(3));
                 user.setCPRnummer(rs.getString(4));
+
+                List<Rolle> roller = new ArrayList<>();
+                ResultSet rs2 = this.executeSelect(String.format("SELECT roleId FROM rolesusers WHERE userId = %d;", user.getUserId()));
+                while(rs2.next()) {
+                    Rolle rolle = iRolleDAO.getRolle(String.valueOf(rs2.getInt(1)));
+                    roller.add(rolle);
+                }
+                user.setRoller(roller);
                 users.add(user);
             }
             return users;
@@ -77,6 +88,9 @@ public class UserDAO extends Database implements IUserDAO {
     public User createUser(User user) throws DALException {
         try{
             this.executeUpdate(String.format("INSERT INTO Users VALUES (%d,'%s','%s','%s','%s',true);",user.getUserId(),user.getUserName(),user.getUserIni(),user.getCPRnummer(),crypt(user.getPassword())));
+            for (Rolle rolle : user.getRoller()) {
+                this.executeUpdate(String.format("INSERT INTO rolesusers VALUES(%d, %d);", rolle.getRoleId(), user.getUserId()));
+            }
             return user;
         }
         catch(SQLException sqlEx){

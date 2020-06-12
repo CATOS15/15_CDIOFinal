@@ -4,6 +4,16 @@ angular.module('CDIOFinal').controller('brugereController', ['$scope', 'brugereM
 
     $scope.init = function(){
         brugereService.getBrugerer();
+        brugereService.getRoller();
+    };
+
+    $scope.toggleRolle = function(rolle){
+        var existIndex = brugereModel.bruger.roller.indexOf(rolle);
+        if(existIndex !== -1){
+            brugereModel.bruger.roller.splice(existIndex, 1);
+        }else{
+            brugereModel.bruger.roller.push(rolle);
+        }
     };
 
     $scope.toggleItem = function(bruger){
@@ -18,7 +28,7 @@ angular.module('CDIOFinal').controller('brugereController', ['$scope', 'brugereM
     $scope.toggleNewItem = function(){
         if($scope.newItem) return;
         $scope.newItem = true;
-        brugereModel.bruger = {userId: "", userName: "", userIni: "", cprnummer: ""};
+        brugereModel.bruger = {userId: "", userName: "", userIni: "", cprnummer: "", roller: []};
     };
 
     $scope.save = function(){
