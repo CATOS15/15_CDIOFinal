@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RaavareDAO extends Database implements IRaavareDAO {
-    public RaavareDAO() throws SQLException, ClassNotFoundException {
-        this.connect();
+
+    public RaavareDAO() throws ClassNotFoundException, SQLException {
+        super();
     }
 
     @Override

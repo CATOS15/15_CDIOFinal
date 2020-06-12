@@ -2,10 +2,10 @@ package Model.DAO;
 
 import java.sql.*;
 
-abstract public class Database {
+abstract class Database {
     private Connection con;
 
-    protected void connect() throws ClassNotFoundException, SQLException {
+    Database() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/CDIOFinal?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "kagemand123");
     }
@@ -20,7 +20,7 @@ abstract public class Database {
         stmt.executeUpdate(statement);
     }
 
-    public void disconnect() throws SQLException {
+    void disconnect() throws SQLException {
         con.close();
     }
 }

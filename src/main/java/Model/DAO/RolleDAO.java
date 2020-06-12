@@ -10,9 +10,10 @@ import java.util.List;
 
 public class RolleDAO extends Database implements IRolleDAO {
 
-    public RolleDAO() throws SQLException, ClassNotFoundException {
-        this.connect();
+    public RolleDAO() throws ClassNotFoundException, SQLException {
+        super();
     }
+
     @Override
     public Rolle createRolle(Rolle rolle) throws DALException {
         try{

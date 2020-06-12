@@ -10,8 +10,9 @@ import java.util.List;
 import static Security.Security.crypt;
 
 public class UserDAO extends Database implements IUserDAO {
-    public UserDAO() throws SQLException, ClassNotFoundException {
-        this.connect();
+
+    public UserDAO() throws ClassNotFoundException, SQLException {
+        super();
     }
 
     @Override

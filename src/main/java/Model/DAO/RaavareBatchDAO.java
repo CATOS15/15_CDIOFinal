@@ -13,10 +13,9 @@ import java.util.List;
 import static Security.Security.crypt;
 
 public class RaavareBatchDAO extends Database implements IRaavareBatchDAO {
-    public RaavareBatchDAO() throws SQLException, ClassNotFoundException {
-        this.connect();
+    public RaavareBatchDAO() throws ClassNotFoundException, SQLException {
+        super();
     }
-
 
     @Override
     public RaavareBatch createRavareBatch(RaavareBatch raavareBatch) throws DALException {
