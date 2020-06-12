@@ -1,7 +1,6 @@
 package Model.DAO;
 
 import Model.DTO.Raavare;
-import Model.DTO.User;
 import Model.Exception.DALException;
 
 import java.sql.ResultSet;
@@ -71,7 +70,7 @@ public class RaavareDAO extends Database implements IRaavareDAO {
             return raavare;
         }
         catch(SQLException sqlEx){
-            throw new DALException("Fejl ved delete af råvare");
+            throw new DALException("Fejl ved hentning af råvare");
         }
     }
 
@@ -90,7 +89,7 @@ public class RaavareDAO extends Database implements IRaavareDAO {
             return raavarer;
         }
         catch(SQLException sqlEx){
-            throw new DALException("Fejl ved delete af råvare");
+            throw new DALException("Fejl ved hentning af råvarerer");
         }
     }
 
