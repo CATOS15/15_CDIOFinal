@@ -12,6 +12,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 public class Security {
     public static String crypt(String password){
@@ -32,9 +33,12 @@ public class Security {
     }
     public static String generateToken(String username) throws DALException {
         try {
+            Date dateOneHour = new Date(System.currentTimeMillis() + 3600 * 1000);
+
             Algorithm algorithm = Algorithm.HMAC256("secret");
             return JWT.create()
                     .withIssuer("auth0")
+                    .withExpiresAt(dateOneHour)
                     .withClaim("user", username)
                     .sign(algorithm);
         } catch (JWTCreationException exception){
