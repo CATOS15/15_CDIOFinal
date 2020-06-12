@@ -38,8 +38,7 @@ angular.module('CDIOFinal').service('brugereService', ['$http', 'brugereModel', 
             url: CDIOFinalModel.apiURL + "bruger",
             data: bruger
         }).then(function (resp) {
-            brugereModel.bruger = resp.data;
-            //Todo add til liste
+            brugereModel.brugerer.push(bruger);
         }, function (errorResp) {
             brugereModel.error = errorResp.data;
         });
@@ -50,8 +49,6 @@ angular.module('CDIOFinal').service('brugereService', ['$http', 'brugereModel', 
             url: CDIOFinalModel.apiURL + "bruger",
             data: bruger
         }).then(function (resp) {
-            brugereModel.bruger = resp.data;
-            //Todo add til liste
         }, function (errorResp) {
             brugereModel.error = errorResp.data;
         });
