@@ -19,16 +19,228 @@ body{
 }
 .pageContainer{
     width:100%;
-    height:calc(100% - 50px);
+    height:calc(100vh - 30px);
     padding: 0 100px;
     box-sizing:border-box;
+    position: absolute;
+    overflow:auto;
+    /*
+    background: rgb(54,185,224);
+    background: linear-gradient(0deg, rgba(54,185,224,1) 0%, rgba(66,75,89,1) 100%);
+    */
 }
 .pageContainer > div{
     width:100%;
     height: 100%;
     background: #f3f3f3;
-    padding: 10px;
+    padding: 0 10px 10px 10px;
     border-radius: 10px;
+}
+
+/*body scrollbar */
+body::-webkit-scrollbar {
+    width: 1em;
+}
+
+body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #424b59;
+    outline: 1px solid slategrey;
+}
+
+/* headerContent*/
+.headerContent{
+    width:100%;
+    height: 60px;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    position:relative;
+}
+.header{
+    box-sizing:border-box;
+    display:block;
+    font-weight: 600;
+    font-size:22px;
+    float:left;
+    margin: auto;
+
+    padding: 7px 70px;
+    background-color:#424b59;
+    color:white;
+}
+
+.header_buttonItem{
+    user-select: none;
+    color:white;
+    background: rgb(54, 185, 224);
+    position: absolute;
+    top: 15px;
+    right: 5px;
+    border-radius: 5px;
+    font-size: 30px;
+    padding: 0 6px;
+    cursor:pointer;
+    display:block;
+    width:30px;
+    height:30px;
+}
+
+/* itemContent */
+.itemContent{
+    padding: 10px 10px 40px 10px;
+    margin:auto;
+    width:100%;
+    justify-content: center;
+}
+.item{
+    padding-top:10px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+    width: 50%;
+    height:auto;
+    margin:auto;
+}
+
+input[type=text], select, input[type=password] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    margin-top:5px;
+}
+.item_1_element{
+    width:100%;
+}
+
+.item_1_element, .item_2_elements > div {
+    padding: 5px;
+    box-sizing:border-box;
+    float:left;
+}
+
+.item_2_elements > div{
+    width:50%;
+}
+
+.item_2_elements input, label{
+    display:inline-block;
+    width:100%;
+}
+
+.item_1_element input, label{
+    display:inline-block;
+    width:100%;
+}
+
+.item_4_elements > div {
+    padding: 5px;
+    box-sizing:border-box;
+    float:left;
+    width:25%;
+}
+
+.item_4_elements input, label{
+    display:inline-block;
+    width:100%;
+}
+
+.rolle_checkboxes{
+    width:100%;
+    display: flex;
+    box-sizing:border-box;
+    padding:5px;
+}
+
+.rolle_checkboxes > div{
+    flex: 1 1 auto;
+}
+
+.rolle_checkboxes > label, input {
+    display:inline-block;
+    width:auto;
+    vertical-align:middle;
+}
+
+.actions{
+    width:100%;
+    justify-content: center;
+    text-align:center;
+    padding-top:5px;
+}
+
+.buttonItem{
+    background: rgb(54, 185, 224);
+    font-size: 20px;
+    padding: 7px 30px;
+    cursor:pointer;
+    text-transform:uppercase;
+    width:auto;
+    color:white;
+    display:inline-block;
+}
+
+/* tables */
+.tableContent{
+    float:left;
+    width:100%;
+    height: auto;
+    max-height: 400px;
+    overflow-y:scroll;
+}
+
+.tableContent > table{
+    width:100%;
+    text-align: left;
+    font-size:18px;
+}
+.tableContent > table th, td{
+    padding: 10px;
+    width: auto;
+}
+
+.tableContent > table tr:not(:nth-child(1)){
+    cursor: pointer;
+}
+
+.tableContent > table th {
+    background: #424b59;
+    font-weight: 600;
+    color:white;
+    vertical-align: middle;
+    position:sticky;
+    top: 0;
+}
+.tableContent table tr:nth-child(even){
+    background: #ddd;
+}
+
+.active{
+    background-color: rgb(54, 185, 224) !important;
+    color:white;
+}
+
+.tableContent::-webkit-scrollbar {
+    width: 1em;
+}
+.tableContent::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.tableContent::-webkit-scrollbar-thumb {
+    background-color: #424b59;
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
+    outline: 1px solid slategrey;
 }
 
 /* loading */

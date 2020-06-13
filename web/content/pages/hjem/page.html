@@ -1,8 +1,8 @@
 <div>
     <div class="home_page">
-        <div class="animation frontpage_title" class="">CDIO 2</div>
+        <div class="animation frontpage_title">CDIO Final</div>
         <div class="animation">Medicinalvirksomhed A/S</div>
-        <img class="animation" src="content/pages/hjem/Gruppen.PNG" alt="Gruppen">
+        <img class="animation" src="/content/pages/hjem/Gruppen.PNG" alt="Gruppen">
     </div>
 </div>
 
@@ -10,17 +10,19 @@
 <style>
 
     .home_page{
+        padding-top:60px;
         text-align:center;
+    }
+
+    .home_page > div, img {
+        margin-top:10px;
     }
     .animation{
         animation: fadein 2s;
     }
 
-    .frontpage_title{
-        font-size:50px;
-    }
-
-    .dummy{
-        color:red;
+    @keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
     }
 </style>

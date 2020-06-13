@@ -3,5 +3,7 @@ angular.module('CDIOFinal').service('brugereModel', function () {
     this.roller = [];
     this.brugerer = [];
 
+    this.buttontext = "update";
+
     this.error = "";
 });

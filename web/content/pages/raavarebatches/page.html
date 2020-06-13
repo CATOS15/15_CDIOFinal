@@ -4,7 +4,7 @@
     </div>
     <div class="headerContent">
         <div class="header">Råvarebatch</div>
-        <div class="buttonItem" ng-click="toggleNewItem()">+</div>
+        <div class="header_buttonItem" ng-click="toggleNewItem()">+</div>
     </div>
     <div class="tableContent">
         <table>
@@ -24,89 +24,31 @@
     </div>
     <div class="itemContent" ng-if="raavarebatchesModel.raavareBatch">
         <div class="item">
-            <label>
-                RåvarebatchID:
-                <input type="text" ng-model="raavarebatchesModel.raavareBatch.rbId" ng-disabled="!newItem" />
-            </label>
-            <label>
-                Råvare:
-                <select ng-disabled="!newItem" ng-model="raavarebatchesModel.raavareBatch.raavareId">
-                    <option ng-repeat="x in raavareModel.raavarer track by x.raavareId" ng-value="x.raavareId">{{x.raavareNavn}}</option>
-                </select>
-            </label>
-            <label>
-                Mængde:
-                <input type="text" ng-model="raavarebatchesModel.raavareBatch.maengde" ng-disabled="!newItem"/>
-            </label>
-            <label>
-                Leverandør:
-                <input type="text" ng-model="raavarebatchesModel.raavareBatch.leverandoer" ng-disabled="!newItem"/>
-            </label>
+            <div class="item_2_elements">
+                <div>
+                    <label>RåvarebatchID:</label>
+                    <input type="text" ng-model="raavarebatchesModel.raavareBatch.rbId" ng-disabled="!newItem" />
+                </div>
+                <div>
+                    <label>Råvare:</label>
+                    <select ng-disabled="!newItem" ng-model="raavarebatchesModel.raavareBatch.raavareId">
+                        <option ng-repeat="x in raavareModel.raavarer track by x.raavareId" ng-value="x.raavareId">{{x.raavareNavn}}</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Mængde:</label>
+                    <input type="text" ng-model="raavarebatchesModel.raavareBatch.maengde" ng-disabled="!newItem"/>
+                </div>
+                <div>
+                    <label>Leverandør:</label>
+                    <input type="text" ng-model="raavarebatchesModel.raavareBatch.leverandoer" ng-disabled="!newItem"/>
+                </div>
+            </div>
         </div>
         <div class="actions"><div class="buttonItem" ng-click="save()" ng-hide="!newItem">Gem</div></div>
     </div>
 </div>
 
 <style>
-    .headerContent{
-        float:left;
-        width:100%;
-        height: 40px;
-    }
-    .header{
-        font-weight: 600;
-        font-size:24px;
-        margin-bottom: 5px;
-        float:left;
-    }
-    .buttonItem{
-        background: rgb(54, 185, 224);
-        border-radius: 5px;
-        font-size: 30px;
-        padding: 0 6px;
-        float: right;
-        cursor:pointer;
-    }
-    .newItem:hover{
-        background: rgb(71, 199, 236);
-    }
-    .tableContent{
-        float:left;
-        width:100%;
-        height: 400px;
-        overflow-y: scroll;
-    }
-    .itemContent{
-        margin-top:10px;
-        float:left;
-        width:100%;
-    }
-    .item{
-        float:left;
-        width: 100%;
-        height: 200px;
-    }
-    .actions{
-        float:left;
-        width:100%;
-    }
-    table{
-        width:100%;
-        text-align: center;
-        font-size:18px;
-    }
-    table tr:not(:nth-child(1)){
-        cursor: pointer;
-    }
-    .active{
-        box-shadow: inset 0 0 7px 0 rgba(0,0,0,0.75)
-    }
-    table tr:nth-child(1){
-        background: #424b59;
-        font-weight: 600;
-        color:white;
-    }
-    table tr:nth-child(even){
-        background: gainsboro;
-    }
+
 </style>

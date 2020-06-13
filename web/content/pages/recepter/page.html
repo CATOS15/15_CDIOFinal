@@ -4,7 +4,7 @@
     </div>
     <div class="headerContent">
         <div class="header">Recept</div>
-        <div class="buttonItem" ng-click="toggleNewItem()">+</div>
+        <div class="header_buttonItem" ng-click="toggleNewItem()">+</div>
     </div>
     <div class="tableContent">
         <table>
@@ -12,7 +12,7 @@
                 <th>receptId</th>
                 <th>receptName</th>
             </tr>
-            <tr ng-repeat="recept in receptModel.recepter" ng-click="toggleItem(recept)" ng-class="{'active' : receptmodel.recept === recept}">
+            <tr ng-repeat="recept in receptModel.recepter" ng-click="toggleItem(recept)" ng-class="{'active' : receptModel.recept === recept}">
                 <td>{{recept.receptId}}</td>
                 <td>{{recept.receptNavn}}</td>
             </tr>
@@ -20,98 +20,44 @@
     </div>
     <div class="itemContent" ng-if="receptModel.recept">
         <div class="item">
-            <label>
-                ReceptID:
-                <input type="text" ng-model="receptModel.recept.receptId" ng-disabled="!newItem || receptModel.recept.receptRaavarer.length > 0" />
-            </label>
-            <label>
-                ReceptNavn:
-                <input type="text" ng-model="receptModel.recept.receptNavn" ng-disabled="!newItem" />
-            </label>
+            <div class="item_2_elements">
+                <div>
+                    <label>ReceptID:</label>
+                    <input type="text" ng-model="receptModel.recept.receptId" ng-disabled="!newItem || receptModel.recept.receptRaavarer.length > 0" />
+                </div>
+                <div>
+                    <label>ReceptNavn:</label>
+                    <input type="text" ng-model="receptModel.recept.receptNavn" ng-disabled="!newItem" />
+                </div>
+            </div>
             <div class="buttonItem" ng-click="addReceptRaavare()">+</div>
-            <div ng-repeat="receptRaavare in receptModel.recept.receptRaavarer track by $index">
-                <label>
-                    Recept id
-                <input type="text" ng-model="receptRaavare.receptId" ng-disabled="true" />
-                </label>
-                <label>
-                    Råvare id
-                <input type="text" ng-model="receptRaavare.raavareId" ng-disabled="!newItem" />
-                </label>
-                <label>
-                    Non netto
-                <input type="text" ng-model="receptRaavare.nonNetto" ng-disabled="!newItem" />
-                </label>
-                <label>
-                    Tolerance
-                <input type="text" ng-model="receptRaavare.tolerance" ng-disabled="!newItem" />
-                </label>
+            <div class="recept_komponent" ng-repeat="receptRaavare in receptModel.recept.receptRaavarer track by $index">
+                <div class="item_4_elements">
+                    <div>
+                        <label>Recept id</label>
+                        <input type="text" ng-model="receptRaavare.receptId" ng-disabled="true" />
+                    </div>
+                    <div>
+                        <label>Råvare id</label>
+                        <input type="text" ng-model="receptRaavare.raavareId" ng-disabled="!newItem" />
+                    </div>
+                    <div>
+                        <label>Non netto</label>
+                        <input type="text" ng-model="receptRaavare.nonNetto" ng-disabled="!newItem" />
+                    </div>
+                    <div>
+                        <label>Tolerance</label>
+                        <input type="text" ng-model="receptRaavare.tolerance" ng-disabled="!newItem" />
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="actions"><div class="buttonItem" ng-click="save()" ng-hide="!newItem">Gem</div></div>
+        <div class="actions"><div class="buttonItem" ng-click="save()" ng-hide="!newItem">gem</div></div>
     </div>
 </div>
 
 <style>
-    .headerContent{
-        float:left;
-        width:100%;
-        height: 40px;
-    }
-    .header{
-        font-weight: 600;
-        font-size:24px;
-        margin-bottom: 5px;
-        float:left;
-    }
-    .buttonItem{
-        background: rgb(54, 185, 224);
-        border-radius: 5px;
-        font-size: 30px;
-        padding: 0 6px;
-        float: right;
-        cursor:pointer;
-    }
-    .newItem:hover{
-        background: rgb(71, 199, 236);
-    }
-    .tableContent{
-        float:left;
-        width:100%;
-        height: 400px;
-        overflow-y: scroll;
-    }
-    .itemContent{
-        margin-top:10px;
-        float:left;
-        width:100%;
-    }
-    .item{
-        float:left;
-        width: 100%;
-        height: 200px;
-    }
-    .actions{
-        float:left;
-        width:100%;
-    }
-    table{
-        width:100%;
-        text-align: center;
-        font-size:18px;
-    }
-    table tr:not(:nth-child(1)){
-        cursor: pointer;
-    }
-    .active{
-        box-shadow: inset 0 0 7px 0 rgba(0,0,0,0.75)
-    }
-    table tr:nth-child(1){
-        background: #424b59;
-        font-weight: 600;
-        color:white;
-    }
-    table tr:nth-child(even){
-        background: gainsboro;
+    .recept_komponent{
+        margin-top:5px;
     }
 </style>
