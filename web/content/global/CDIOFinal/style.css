@@ -51,6 +51,12 @@ body::-webkit-scrollbar-thumb {
     outline: 1px solid slategrey;
 }
 
+/* number arrows*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 /* headerContent*/
 .headerContent{
     width:100%;
@@ -111,7 +117,7 @@ body::-webkit-scrollbar-thumb {
     margin:auto;
 }
 
-input[type=text], select, input[type=password] {
+input[type=text], select, input[type=password], input[type=number]  {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -119,6 +125,7 @@ input[type=text], select, input[type=password] {
     resize: vertical;
     margin-top:5px;
 }
+
 .item_1_element{
     width:100%;
 }
