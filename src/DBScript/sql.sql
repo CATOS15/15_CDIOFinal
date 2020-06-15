@@ -100,7 +100,7 @@ CREATE TABLE UserProduktBatch(
 	REFERENCES Users(userId) ON DELETE RESTRICT,
     CONSTRAINT fk_rbId FOREIGN KEY (rbId)
 	REFERENCES RaavareBatch(rbId) ON DELETE RESTRICT,
-    PRIMARY KEY(pbId,userId)
+    PRIMARY KEY(pbId,userId,rbId)
 );
 
 DELIMITER ///
