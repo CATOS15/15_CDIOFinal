@@ -79,8 +79,9 @@ CREATE TABLE RaavareBatch(
 CREATE TABLE ProduktBatch(
 	pbId decimal(8,0),
 	receptId decimal(8,0),
-	status decimal(1,0),
+	status ENUM('Oprettet', 'Under produktion', 'Afsluttet') DEFAULT 'Oprettet',
 	opretDato DATETIME,
+	slutDato DATETIME,
 	CONSTRAINT fk_receptId FOREIGN KEY (receptId)
 	REFERENCES Recept(receptId),
 	PRIMARY KEY(pbId)
@@ -94,13 +95,23 @@ CREATE TABLE UserProduktBatch(
     netto decimal (10,4),
     terminal decimal(5,0),
     CONSTRAINT fk_pbId FOREIGN KEY (pbId)
-	REFERENCES ProduktBatch(pbId),
+	REFERENCES ProduktBatch(pbId) ON DELETE RESTRICT,
 	CONSTRAINT fk_userId2 FOREIGN KEY (userId)
-	REFERENCES Users(userId),
+	REFERENCES Users(userId) ON DELETE RESTRICT,
     CONSTRAINT fk_rbId FOREIGN KEY (rbId)
-	REFERENCES RaavareBatch(rbId),
+	REFERENCES RaavareBatch(rbId) ON DELETE RESTRICT,
     PRIMARY KEY(pbId,userId)
 );
+
+DELIMITER ///
+CREATE TRIGGER ins_userproduktbatch AFTER INSERT ON UserProduktBatch
+    FOR EACH ROW
+    BEGIN
+        IF((SELECT status FROM ProduktBatch WHERE NEW.pbId = pb.pbId) != 'Afsluttet') THEN
+			UPDATE ProduktBatch as pb SET status = 'Under produktion' WHERE NEW.pbId = pb.pbId;
+        END IF;
+    END;
+///
 
 INSERT INTO roles VALUES(1, "Administrator"),(2, "Farmaceut"),(3, "Produktionsleder"),(4, "Laborant");
 INSERT INTO Users VALUES (123,'admin','adm','1234567891','10fa6a38dde194c6e2f03cfa8a2c0e1aaa52d11e553a2686d0fb56f4e9f5647518aea8d4a2633065638a349dc2c2aab6ab2bde3dbd0df55b1d233ecac9f163cc',true);

@@ -80,6 +80,10 @@ public class RaavareBatchDAO extends Database implements IRaavareBatchDAO {
 
     @Override
     public void end() throws DALException {
-
+        try {
+            this.disconnect();
+        } catch (SQLException e) {
+            throw new DALException("Forbindelsen til databasen kunne ikke lukkes");
+        }
     }
 }
