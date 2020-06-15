@@ -9,6 +9,7 @@
     </deployment>
     <server-settings>
       <option name="BASE_DIRECTORY_NAME" value="Tomcat_8_5_11_CDIO_final" />
+      <option name="DEPLOY_TOMCAT_APPS" value="true" />
     </server-settings>
     <predefined_log_file enabled="true" id="Tomcat" />
     <predefined_log_file enabled="true" id="Tomcat Catalina" />
