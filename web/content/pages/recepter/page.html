@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <div class="actions"><div class="buttonItem" ng-click="save()" ng-hide="!newItem">gem</div></div>
+        <div class="actions"><div class="buttonItem" ng-click="save()" ng-if="newItem && receptModel.recept.receptRaavarer.length > 0">gem</div></div>
     </div>
 </div>
 
