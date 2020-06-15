@@ -5,6 +5,20 @@ angular.module('CDIOFinal').controller('afvejningController', ['$scope', 'afvejn
     $scope.raavareModel = raavareModel;
     $scope.receptModel = receptModel;
 
+    $scope.availableRaavareBatches = function(raavareBatches, rbId){
+        var availableRaavareBatches = [];
+        raavareBatches.forEach(function(rb){
+            var rbUsed = true;
+            if(rb.rbId !== rbId){
+                afvejningModel.userProduktBatch.afvejninger.forEach(function (afvejning) {
+                    if(afvejning.rbId === rb.rbId) rbUsed = false;
+                })
+            }
+            if(rbUsed) availableRaavareBatches.push(rb);
+        });
+        return availableRaavareBatches;
+    };
+
     $scope.getRaavaraFromId = function(raavareId){
         var raavare = {};
         raavareModel.raavarer.forEach(function(r){
@@ -77,8 +91,7 @@ angular.module('CDIOFinal').controller('afvejningController', ['$scope', 'afvejn
     };
 
     $scope.addAfvejning = function(){
-        afvejningModel.userProduktBatch.afvejninger.push({userId: CDIOFinalModel.user.userId, rbId: '', tara: '', netto: '', terminal: ''});
-        console.log($scope);
+        afvejningModel.userProduktBatch.afvejninger.push({userId: CDIOFinalModel.user.userId, rbId: '', tara: '', netto: '', terminal: '', newItem: true});
     };
 
     $scope.save = function(){
