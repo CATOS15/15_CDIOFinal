@@ -2,8 +2,8 @@ angular.module('CDIOFinal').service('brugereModel', function () {
     this.bruger = null;
     this.roller = [];
     this.brugerer = [];
+    this.newItem = false;
 
-    this.buttontext = "update";
-
+    this.msg = "";
     this.error = "";
 });

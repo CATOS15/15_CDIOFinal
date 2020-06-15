@@ -1,6 +1,6 @@
 angular.module('CDIOFinal').controller('brugereController', ['$scope', 'brugereModel', 'brugereService', function ($scope, brugereModel, brugereService) {
     $scope.brugereModel = brugereModel;
-    $scope.newItem = false;
+    $scope.newItem = brugereModel.newItem;
 
     $scope.init = function(){
         brugereService.getBrugerer();
@@ -31,11 +31,11 @@ angular.module('CDIOFinal').controller('brugereController', ['$scope', 'brugereM
 
     $scope.toggleItem = function(bruger){
         $scope.newItem = false;
-        if(brugereModel.bruger === bruger){
+        if(brugereModel.bruger && brugereModel.bruger.userId === bruger.userId){
             brugereModel.bruger = null;
         }
         else{
-            brugereModel.bruger = bruger;
+            brugereModel.bruger = angular.copy(bruger);
         }
     };
     $scope.toggleNewItem = function(){

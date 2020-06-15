@@ -7,6 +7,7 @@ public class User {
     private String userName;
     private String userIni;
     private String CPRnummer;
+    private boolean tilstand;
     private List<Rolle> roller;
 
     public int getUserId() {
@@ -57,5 +58,13 @@ public class User {
 
     public void setRoller(List<Rolle> roller) {
         this.roller = roller;
+    }
+
+    public boolean isTilstand() {
+        return tilstand;
+    }
+
+    public void setTilstand(boolean tilstand) {
+        this.tilstand = tilstand;
     }
 }

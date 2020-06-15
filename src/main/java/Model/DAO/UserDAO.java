@@ -22,13 +22,14 @@ public class UserDAO extends Database implements IUserDAO {
     public List<User> getUsers() throws DALException {
         try{
             List<User> users = new ArrayList<>();
-            ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer FROM users");
+            ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer, tilstand FROM users");
             while(rs.next()) {
                 User user = new User();
                 user.setUserId(rs.getInt(1));
                 user.setUserName(rs.getString(2));
                 user.setUserIni(rs.getString(3));
                 user.setCPRnummer(rs.getString(4));
+                user.setTilstand(rs.getBoolean(5));
 
                 List<Rolle> roller = new ArrayList<>();
                 ResultSet rs2 = this.executeSelect(String.format("SELECT roleId FROM rolesusers WHERE userId = %d;", user.getUserId()));
@@ -42,27 +43,37 @@ public class UserDAO extends Database implements IUserDAO {
             return users;
         }
         catch(SQLException sqlEx){
-            throw new DALException("Fejl ved hent af bruger");
+            throw new DALException("Fejl ved hent af brugere");
         }
     }
 
     @Override
     public User getUserByName(String username) throws DALException {
         try{
-            ResultSet rs = this.executeSelect(String.format("SELECT userId, userName, userIni, CPRnummer FROM Users WHERE userName = '%s';", username));
+            ResultSet rs = this.executeSelect(String.format("SELECT userId, userName, userIni, CPRnummer, tilstand FROM Users WHERE userName = '%s';", username));
             if(rs.next()) {
                 User user = new User();
                 user.setUserId(rs.getInt(1));
                 user.setUserName(rs.getString(2));
                 user.setUserIni(rs.getString(3));
                 user.setCPRnummer(rs.getString(4));
+                user.setTilstand(rs.getBoolean(5));
+
+                List<Rolle> roller = new ArrayList<>();
+                ResultSet rs2 = this.executeSelect(String.format("SELECT roleId FROM rolesusers WHERE userId = %d;", user.getUserId()));
+                while(rs2.next()) {
+                    Rolle rolle = iRolleDAO.getRolle(String.valueOf(rs2.getInt(1)));
+                    roller.add(rolle);
+                }
+                user.setRoller(roller);
+
                 return user;
             }else{
                 throw new DALException("Brugeren eksisterer ikke");
             }
         }
         catch(SQLException sqlEx){
-            throw new DALException("Fejl ved hent af bruger");
+            throw new DALException("Fejl ved hent af brugeren " + username);
         }
     }
     @Override
@@ -81,12 +92,17 @@ public class UserDAO extends Database implements IUserDAO {
             }
         }
         catch(SQLException sqlEx){
-            throw new DALException("Fejl ved hent af bruger");
+            throw new DALException("Fejl ved hent af brugeren på id'et " + userId);
         }
     }
 
     public User createUser(User user) throws DALException {
         try{
+            validateUser(user);
+            ResultSet useridExist = this.executeSelect(String.format("SELECT userId FROM Users WHERE userId = '%s';", user.getUserId()));
+            if(useridExist.next()){
+                throw new DALException("En bruger med det ID findes allerede");
+            }
             this.executeUpdate(String.format("INSERT INTO Users VALUES (%d,'%s','%s','%s','%s',true);",user.getUserId(),user.getUserName(),user.getUserIni(),user.getCPRnummer(),crypt(user.getPassword())));
             for (Rolle rolle : user.getRoller()) {
                 this.executeUpdate(String.format("INSERT INTO rolesusers VALUES(%d, %d);", rolle.getRoleId(), user.getUserId()));
@@ -94,13 +110,14 @@ public class UserDAO extends Database implements IUserDAO {
             return user;
         }
         catch(SQLException sqlEx){
-            throw new DALException("Fejl ved oprettelse af bruger");
+            throw new DALException("Fejl ved oprettelse af bruger " + user.getUserName());
         }
     }
 
     @Override
     public User updateUser(User user) throws DALException {
         try{
+            validateUser(user);
             ResultSet rs = this.executeSelect(String.format("SELECT userId FROM Users WHERE userId = %d;", user.getUserId()));
             if(rs.next()) {
                 executeUpdate(String.format("UPDATE Users SET userName='%s',password='%s',userIni='%s',CPRnummer='%s' WHERE userId=%s;",user.getUserName(),crypt(user.getPassword()),user.getUserIni(),user.getCPRnummer(),user.getUserId()));
@@ -123,7 +140,7 @@ public class UserDAO extends Database implements IUserDAO {
         try{
             ResultSet rs = this.executeSelect(String.format("SELECT userId FROM Users WHERE userId = %s;", userId));
             if(rs.next()) {
-                //TODO Brugeren skal slettet(DEAKTIVERES!) her
+                executeUpdate(String.format("UPDATE Users SET tilstand=0 WHERE userId=%s;", userId));
                 return true;
             }else{
                 throw new DALException("Brugeren eksisterer ikke");
@@ -158,6 +175,31 @@ public class UserDAO extends Database implements IUserDAO {
             this.disconnect();
         } catch (SQLException e) {
             throw new DALException("Forbindelsen til databasen kunne ikke lukkes");
+        }
+    }
+
+    private void validateUser(User user) throws DALException {
+        if(user.getUserId() < 1)
+            throw new DALException("Bruger id'et skal være 1 eller mere");
+        if(user.getUserName() == null || user.getUserName().length() < 3 || user.getUserName().length() > 16)
+            throw new DALException("Bruger navnet skal være mellem 3 og 15 karakterer");
+        if(user.getPassword() == null || user.getPassword().length() < 3 || user.getPassword().length() > 41)
+            throw new DALException("Passwordet skal være mellem 3 og 40 karakterer");
+        if(user.getUserIni() == null || user.getUserIni().length() < 2 || user.getUserIni().length() > 6)
+            throw new DALException("Bruger initialerne skal være mellem 2 og 5 karakterer");
+        if(user.getCPRnummer() == null || user.getCPRnummer().length() != 10)
+            throw new DALException("CPR nummeret skal være 10 karakterer langt");
+        if(user.getRoller() == null || user.getRoller().size() < 1)
+            throw new DALException("Brugeren skal være knyttet til mindst en rolle");
+
+        try{
+            ResultSet usernameExist = this.executeSelect(String.format("SELECT userId FROM Users WHERE userName = '%s' AND userId != %d", user.getUserName(), user.getUserId()));
+            if(usernameExist.next()){
+                throw new DALException("En bruger med det navn findes allerede");
+            }
+        }
+        catch (SQLException sqlException){
+            throw new DALException("Fejl ved validering af bruger");
         }
     }
 }

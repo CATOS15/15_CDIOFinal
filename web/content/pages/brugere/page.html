@@ -1,7 +1,4 @@
 <div>
-    <div>
-        {{brugereModel.error}}
-    </div>
     <div class="headerContent">
         <div class="header">Brugere</div>
         <div class="header_buttonItem" ng-click="toggleNewItem()">+</div>
@@ -15,7 +12,7 @@
                 <th>CPR nummer</th>
                 <th>Roller</th>
             </tr>
-            <tr ng-repeat="bruger in brugereModel.brugerer" ng-click="toggleItem(bruger)" ng-class="{'active' : brugereModel.bruger === bruger}">
+            <tr ng-repeat="bruger in brugereModel.brugerer" ng-click="toggleItem(bruger)" ng-class="{'active' : brugereModel.bruger && brugereModel.bruger.userId === bruger.userId}">
                 <td>{{bruger.userId}}</td>
                 <td>{{bruger.userName}}</td>
                 <td>{{bruger.userIni}}</td>
@@ -23,6 +20,12 @@
                 <td><span ng-repeat="rolle in bruger.roller">{{rolle.rolename}}<span ng-if="!$last">, </span></span></td>
             </tr>
         </table>
+    </div>
+    <div style="color:#009116;" ng-if="brugereModel.msg">
+        {{brugereModel.msg}}
+    </div>
+    <div style="color:#a6000c;" ng-if="brugereModel.error">
+        {{brugereModel.error}}
     </div>
     <div class="itemContent" ng-if="brugereModel.bruger">
         <div class="item">
@@ -47,7 +50,7 @@
             <div class="item_1_element">
                 <div>
                     <label>Bruger CPR nummer:</label>
-                    <input type="number" ng-model="brugereModel.bruger.cprnummer" />
+                    <input type="text" ng-model="brugereModel.bruger.cprnummer" />
                 </div>
             </div>
             <div class="rolle_checkboxes">
@@ -58,7 +61,7 @@
                 </div>
             </div>
         </div>
-        <div class="actions"><div class="buttonItem" ng-click="save()">{{brugereModel.buttontext}}</div></div>
+        <div class="actions"><div class="buttonItem" ng-click="save()"><span ng-if="newItem">Opret bruger</span><span ng-if="!newItem">Opdater bruger</span></div></div>
     </div>
 </div>
 
