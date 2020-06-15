@@ -65,6 +65,10 @@ public class ReceptDAO extends Database implements IReceptDAO {
 
     @Override
     public void end() throws DALException {
-
+        try {
+            this.disconnect();
+        } catch (SQLException e) {
+            throw new DALException("Forbindelsen til databasen kunne ikke lukkes");
+        }
     }
 }
