@@ -13,7 +13,7 @@ angular.module('CDIOFinal').service('afvejningService', ['$http', 'afvejningMode
     this.createAfvejning = function(userProduktBatch){
         $http({
             method: "POST",
-            url: CDIOFinalModel.apiURL + "userProduktBatch",
+            url: CDIOFinalModel.apiURL + "afvejning",
             data: userProduktBatch
         }).then(function (resp) {
             afvejningModel.userProduktBatches.push(resp.data);

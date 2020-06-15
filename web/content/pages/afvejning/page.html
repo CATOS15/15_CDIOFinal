@@ -4,40 +4,46 @@
     </div>
     <div class="headerContent">
         <div class="header">Afvejning</div>
-        <div class="header_buttonItem" ng-click="toggleNewItem()">+</div>
     </div>
     <div class="tableContent">
         <table>
             <tr>
                 <th>ProduktBatch ID</th>
             </tr>
-            <tr ng-repeat="produktBatch in produktionsbatchModel.produktBatches" ng-click="toggleItem(produktBatch)" ng-class="{'active' :produktionsbatchModel.produktBatch === produktBatch}">
-                <td>{{produktBatch.pbId}}</td>
+            <tr ng-repeat="userProduktBatch in afvejningModel.userProduktBatches" ng-click="toggleItem(userProduktBatch)" ng-class="{'active' :afvejningModel.userProduktBatch === userProduktBatch}">
+                <td>{{userProduktBatch.pbId}}</td>
             </tr>
         </table>
     </div>
-    <div class="itemContent" ng-if="afvejningModel.afvejning">
+    <div class="itemContent" ng-if="afvejningModel.userProduktBatch">
         <div class="item">
-            <div class="item_4_elements">
+            <div class="item_2_elements" ng-repeat="afvejning in afvejningModel.userProduktBatch.afvejninger">
+                <div style="width: 100%;clear: both" ng-if="afvejning.rbId">
+                    {{getInformation(afvejning.rbId)}}
+                </div>
                 <div>
                     <label>Råvarebatch ID:</label>
-                    <select ng-model="afvejningModel.afvejning.userProduktBatch.rbId">
+                    <select ng-model="afvejning.rbId">
                         <option ng-repeat="raavarebatch in raavarebatchesModel.raavareBatches" ng-value="raavarebatch.raavareId">
-                                {{raavarebatch.raavareId}}
+                            {{getRaavaraFromId(raavarebatch.raavareId).raavareNavn}} ID:{{raavarebatch.rbId}}
                         </option>
                     </select>
                 </div>
+                <div>
                     <label>Tara vægt:</label>
-                    <input type="text" ng-model="afvejningModel.afvejning.userProduktBatch.tara" ng-disabled="!newItem">
+                    <input type="text" ng-model="afvejning.tara">
+                </div>
                 <div>
                     <label>Netto:</label>
-                    <input type="text" ng-model="afvejningModel.afvejning.userProduktBatch.netto" ng-disabled="!newItem">
+                    <input type="text" ng-model="afvejning.netto">
                 </div>
                 <div>
                     <label>Terminal:</label>
-                    <input type="text" ng-model="afvejningModel.afvejning.userProduktBatch.terminal" ng-disabled="!newItem">
+                    <input type="text" ng-model="afvejning.terminal">
                 </div>
             </div>
+            <div class="buttonItem receptadd_knap" ng-click="addAfvejning()">Tilføj Komponent</div>
+
         </div>
         <div class="actions"><div class="buttonItem" ng-click="save()">gem</div></div>
     </div>

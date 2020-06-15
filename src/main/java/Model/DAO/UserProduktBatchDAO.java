@@ -32,7 +32,7 @@ public class UserProduktBatchDAO extends Database implements IUserProduktBatch {
     public List<UserProduktBatch> getUserProduktBatches() throws DALException {
         try{
             List<UserProduktBatch> userProduktBatches = new ArrayList<>();
-            ResultSet rs = this.executeSelect("SELECT DISTINCT pbId FROM UserProduktBatch");
+            ResultSet rs = this.executeSelect("SELECT DISTINCT pbId FROM ProduktBatch");
             while(rs.next()){
                 UserProduktBatch userProduktBatch = new UserProduktBatch();
                 userProduktBatch.setPbId(rs.getInt(1));

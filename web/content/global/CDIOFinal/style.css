@@ -69,32 +69,29 @@ input::-webkit-inner-spin-button {
     position:relative;
 }
 .header{
-    box-sizing:border-box;
-    display:block;
+    box-sizing: border-box;
+    display: block;
     font-weight: 600;
-    font-size:22px;
-    float:left;
+    font-size: 32px;
+    float: left;
     margin: auto;
-
     padding: 7px 70px;
-    background-color:#424b59;
-    color:white;
 }
 
 .header_buttonItem{
-    user-select: none;
-    color:white;
-    background: rgb(54, 185, 224);
-    position: absolute;
-    top: 15px;
-    right: 5px;
-    border-radius: 5px;
-    font-size: 30px;
-    padding: 0 6px;
-    cursor:pointer;
-    display:block;
-    width:30px;
-    height:30px;
+user-select: none;
+color:white;
+background: rgb(54, 185, 224);
+position: absolute;
+top: 15px;
+right: 5px;
+border-radius: 5px;
+font-size: 30px;
+padding: 0 6px;
+cursor:pointer;
+display:block;
+width:30px;
+height:30px;
 }
 
 /* itemContent */
