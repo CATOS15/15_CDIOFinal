@@ -30,7 +30,6 @@
                     <input type="text" ng-model="receptModel.recept.receptNavn" ng-disabled="!newItem" />
                 </div>
             </div>
-            <div class="buttonItem" ng-click="addReceptRaavare();" ng-if="receptModel.recept.receptId && newItem">+</div>
             <div class="recept_komponent" ng-repeat="receptRaavare in receptModel.recept.receptRaavarer track by $index">
                 <div class="item_5_elements">
                     <div>
@@ -51,11 +50,12 @@
                         <label>Tolerance</label>
                         <input type="text" ng-model="receptRaavare.tolerance" ng-disabled="!newItem" />
                     </div>
-                    <div>
-                        <div class="buttonItem" ng-click="removeReceptRaavare(receptRaavare)" ng-hide="!newItem">-</div>
+                    <div class="div_with_button">
+                        <div class="minus_buttonItem" ng-click="removeReceptRaavare(receptRaavare)" ng-hide="!newItem">-</div>
                     </div>
                 </div>
             </div>
+            <div class="buttonItem" ng-click="addReceptRaavare();" ng-if="receptModel.recept.receptId && newItem">Tilføj Komponent</div>
         </div>
         <div class="actions"><div class="buttonItem" ng-click="save()" ng-if="newItem && receptModel.recept.receptRaavarer.length > 0">gem</div></div>
     </div>
