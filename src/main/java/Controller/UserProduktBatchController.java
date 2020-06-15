@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Authenticated
-@Path("/userproduktbatch")
+@Path("/afvejning")
 public class UserProduktBatchController {
     private IUserProduktBatch iUserProduktBatchDAO;
     private ObjectMapper mapper;

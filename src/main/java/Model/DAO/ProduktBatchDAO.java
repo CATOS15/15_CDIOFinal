@@ -1,5 +1,6 @@
 package Model.DAO;
 
+import Model.DTO.Afvejning;
 import Model.DTO.ProduktBatch;
 import Model.DTO.UserProduktBatch;
 import Model.Exception.DALException;
@@ -38,15 +39,24 @@ public class ProduktBatchDAO extends Database implements IProduktBatchDAO {
                 produktBatch.setSlutDato(rs.getString(5));
 
                 List<UserProduktBatch> userProduktBatches = new ArrayList<>();
-                ResultSet rs2 = this.executeSelect(String.format("SELECT pbId, userId, rbId, tara, netto, terminal FROM UserProduktBatch WHERE pbId = %s;",pbId));
+                ResultSet rs2 = this.executeSelect(String.format("SELECT DISTINCT pbId FROM UserProduktBatch WHERE pbId = %s;",pbId));
                 while(rs2.next()){
                     UserProduktBatch userProduktBatch = new UserProduktBatch();
                     userProduktBatch.setPbId(rs2.getInt(1));
-                    userProduktBatch.setUserId(rs2.getInt(2));
-                    userProduktBatch.setRbId(rs2.getInt(3));
-                    userProduktBatch.setTara(rs2.getInt(4));
-                    userProduktBatch.setNetto(rs2.getInt(5));
-                    userProduktBatch.setTerminal(rs2.getInt(6));
+
+                    List<Afvejning> afvejninger = new ArrayList<>();
+                    ResultSet rs3 = this.executeSelect(String.format("SELECT pbId, userId, rbId, tara, netto, terminal FROM UserProduktBatch WHERE pbId = %d", userProduktBatch.getPbId()));
+                    while (rs3.next()){
+                        Afvejning afvejning = new Afvejning();
+                        afvejning.setUserId(rs2.getInt(2));
+                        afvejning.setRbId(rs2.getInt(3));
+                        afvejning.setTara(rs2.getInt(4));
+                        afvejning.setNetto(rs2.getInt(5));
+                        afvejning.setTerminal(rs2.getInt(6));
+                        afvejninger.add(afvejning);
+                    }
+                    userProduktBatch.setAfvejninger(afvejninger);
+
                     userProduktBatches.add(userProduktBatch);
                 }
                 produktBatch.setUserProduktBatches(userProduktBatches);
@@ -75,15 +85,22 @@ public class ProduktBatchDAO extends Database implements IProduktBatchDAO {
                 produktBatch.setSlutDato(rs.getString(5));
 
                 List<UserProduktBatch> userProduktBatches = new ArrayList<>();
-                ResultSet rs2 = this.executeSelect(String.format("SELECT pbId, userId, rbId, tara, netto, terminal FROM UserProduktBatch WHERE pbId = %s;", produktBatch.getPbId()));
+                ResultSet rs2 = this.executeSelect(String.format("SELECT DISTINCT pbId FROM UserProduktBatch WHERE pbId = %s;", produktBatch.getPbId()));
                 while (rs2.next()) {
                     UserProduktBatch userProduktBatch = new UserProduktBatch();
                     userProduktBatch.setPbId(rs2.getInt(1));
-                    userProduktBatch.setUserId(rs2.getInt(2));
-                    userProduktBatch.setRbId(rs2.getInt(3));
-                    userProduktBatch.setTara(rs2.getInt(4));
-                    userProduktBatch.setNetto(rs2.getInt(5));
-                    userProduktBatch.setTerminal(rs2.getInt(6));
+                    List<Afvejning> afvejninger = new ArrayList<>();
+                    ResultSet rs3 = this.executeSelect(String.format("SELECT pbId, userId, rbId, tara, netto, terminal FROM UserProduktBatch WHERE pbId = %d", userProduktBatch.getPbId()));
+                    while (rs3.next()){
+                        Afvejning afvejning = new Afvejning();
+                        afvejning.setUserId(rs2.getInt(2));
+                        afvejning.setRbId(rs2.getInt(3));
+                        afvejning.setTara(rs2.getInt(4));
+                        afvejning.setNetto(rs2.getInt(5));
+                        afvejning.setTerminal(rs2.getInt(6));
+                        afvejninger.add(afvejning);
+                    }
+                    userProduktBatch.setAfvejninger(afvejninger);
                     userProduktBatches.add(userProduktBatch);
                 }
                 produktBatch.setUserProduktBatches(userProduktBatches);

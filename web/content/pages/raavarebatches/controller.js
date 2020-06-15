@@ -22,7 +22,7 @@ angular.module('CDIOFinal').controller('raavarebatchesController', ['$scope', 'r
     $scope.toggleNewItem = function(){
         if($scope.newItem) return;
         $scope.newItem = true;
-        raavarebatchesModel.raavareBatch = {rbId: "", raavareId: raavareModel.raavarer[0].raavareId, maengde: "", leverandoer: ""};
+        raavarebatchesModel.raavareBatch = {rbId: "", raavareId: "", maengde: "", leverandoer: ""};
     };
     $scope.save = function(){
         raavarebatchesService.createRavareBatch(raavarebatchesModel.raavareBatch);

@@ -1,5 +1,6 @@
 package Model.DAO;
 
+import Model.DTO.Afvejning;
 import Model.DTO.UserProduktBatch;
 import Model.Exception.DALException;
 
@@ -16,7 +17,10 @@ public class UserProduktBatchDAO extends Database implements IUserProduktBatch {
     @Override
     public UserProduktBatch createUserProduktBatch(UserProduktBatch userProduktBatch) throws DALException {
         try{
-            this.executeUpdate(String.format("INSERT INTO UserProduktBatch VALUES (%d, %d, %d, %d, %d, %d);", userProduktBatch.getPbId(), userProduktBatch.getUserId(), userProduktBatch.getRbId(), userProduktBatch.getTara(), userProduktBatch.getNetto(), userProduktBatch.getTerminal()));
+            for (Afvejning afvejning: userProduktBatch.getAfvejninger()) {
+                this.executeUpdate(String.format("INSERT INTO UserProduktBatch VALUES (%d, %d, %d, %d, %d, %d);", userProduktBatch.getPbId(), afvejning.getUserId(), afvejning.getRbId(), afvejning.getTara(), afvejning.getNetto(), afvejning.getTerminal()));
+            }
+
             return userProduktBatch;
         }
         catch(SQLException sqlEx){
@@ -28,15 +32,23 @@ public class UserProduktBatchDAO extends Database implements IUserProduktBatch {
     public List<UserProduktBatch> getUserProduktBatches() throws DALException {
         try{
             List<UserProduktBatch> userProduktBatches = new ArrayList<>();
-            ResultSet rs = this.executeSelect("SELECT pbId, userId, rbId, tara, netto, terminal FROM UserProduktBatch");
+            ResultSet rs = this.executeSelect("SELECT DISTINCT pbId FROM UserProduktBatch");
             while(rs.next()){
                 UserProduktBatch userProduktBatch = new UserProduktBatch();
                 userProduktBatch.setPbId(rs.getInt(1));
-                userProduktBatch.setUserId(rs.getInt(2));
-                userProduktBatch.setRbId(rs.getInt(3));
-                userProduktBatch.setTara(rs.getInt(4));
-                userProduktBatch.setNetto(rs.getInt(5));
-                userProduktBatch.setTerminal(rs.getInt(6));
+
+                List<Afvejning> afvejninger = new ArrayList<>();
+                ResultSet rs2 = this.executeSelect(String.format("SELECT pbId, userId, rbId, tara, netto, terminal FROM UserProduktBatch WHERE pbId = %d", userProduktBatch.getPbId()));
+                while (rs2.next()){
+                    Afvejning afvejning = new Afvejning();
+                    afvejning.setUserId(rs2.getInt(2));
+                    afvejning.setRbId(rs2.getInt(3));
+                    afvejning.setTara(rs2.getInt(4));
+                    afvejning.setNetto(rs2.getInt(5));
+                    afvejning.setTerminal(rs2.getInt(6));
+                    afvejninger.add(afvejning);
+                }
+                userProduktBatch.setAfvejninger(afvejninger);
                 userProduktBatches.add(userProduktBatch);
             }
             return userProduktBatches;
