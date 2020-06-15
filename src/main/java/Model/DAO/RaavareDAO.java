@@ -17,6 +17,11 @@ public class RaavareDAO extends Database implements IRaavareDAO {
     @Override
     public Raavare createRaavare(Raavare raavare) throws DALException {
         try{
+            validateRaavare(raavare);
+            ResultSet raavareIdExist = this.executeSelect(String.format("SELECT raavareId FROM raavare WHERE raavareId = '%s';", raavare.getRaavareId()));
+            if(raavareIdExist.next()){
+                throw new DALException("En råvare med det ID findes allerede");
+            }
             this.executeUpdate(String.format("INSERT INTO Raavare VALUES (%d, '%s');", raavare.getRaavareId(), raavare.getRaavareNavn()));
             return raavare;
         }
@@ -28,6 +33,7 @@ public class RaavareDAO extends Database implements IRaavareDAO {
     @Override
     public Raavare updateRaavare(Raavare raavare) throws DALException {
         try{
+            validateRaavare(raavare);
             ResultSet rs = this.executeSelect(String.format("SELECT * FROM Raavare WHERE raavareId = %d;", raavare.getRaavareId()));
             if(rs.next()) {
                 executeUpdate(String.format("UPDATE Raavare SET raavareName='%s' WHERE raavareId=%d" , raavare.getRaavareNavn(),raavare.getRaavareId()));
@@ -38,17 +44,6 @@ public class RaavareDAO extends Database implements IRaavareDAO {
         }
         catch(SQLException sqlEx){
             throw new DALException("Fejl ved opdatering af råvare");
-        }
-    }
-
-    @Override
-    public boolean deleteRaavare(String raavareId) throws DALException {
-        try{
-            this.executeUpdate("DELETE Raavare WHERE raavareId = " + raavareId);
-            return true;
-        }
-        catch(SQLException sqlEx){
-            throw new DALException("Fejl ved delete af råvare");
         }
     }
 
@@ -101,6 +96,24 @@ public class RaavareDAO extends Database implements IRaavareDAO {
             this.disconnect();
         } catch (SQLException e) {
             throw new DALException("Forbindelsen til databasen kunne ikke lukkes");
+        }
+    }
+
+
+    private void validateRaavare(Raavare raavare) throws DALException {
+        if(raavare.getRaavareId() < 1)
+            throw new DALException("Råvarens ID skal bestå af et tal og være på mindste værdien 1");
+        if(raavare.getRaavareNavn().length() < 3)
+            throw new DALException("Råvaren skal have et navn på mindst 3 karakterer");
+
+        try{
+            ResultSet raavareNameExist = this.executeSelect(String.format("SELECT raavareId FROM raavare WHERE raavareName = '%s' AND raavareId != %d", raavare.getRaavareNavn(), raavare.getRaavareId()));
+            if(raavareNameExist.next()){
+                throw new DALException("En råvare med det navn findes allerede");
+            }
+        }
+        catch (SQLException sqlException){
+            throw new DALException("Fejl ved validering af råvare");
         }
     }
 }

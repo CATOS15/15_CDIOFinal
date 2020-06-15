@@ -1,6 +1,6 @@
 angular.module('CDIOFinal').controller('raavareController', ['$scope', 'raavareModel', 'raavareService', function ($scope, raavareModel, raavareService) {
     $scope.raavareModel = raavareModel;
-    $scope.newItem = false;
+    $scope.newItem = raavareModel.newItem;
 
     $scope.init = function(){
         raavareService.getRaavarer();
@@ -8,11 +8,11 @@ angular.module('CDIOFinal').controller('raavareController', ['$scope', 'raavareM
 
     $scope.toggleItem = function(raavare){
         $scope.newItem = false;
-        if(raavareModel.raavare === raavare){
+        if(raavareModel.raavare && raavareModel.raavare.raavareId === raavare.raavareId){
             raavareModel.raavare = null;
         }
         else{
-            raavareModel.raavare = raavare;
+            raavareModel.raavare = angular.copy(raavare);
         }
     };
     $scope.toggleNewItem = function(){

@@ -79,19 +79,4 @@ public class RaavareController {
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
-
-    @DELETE
-    @Path("{raavareId}")
-    public Response deleteRaavare(@PathParam("raavareId") String raavareId)
-    {
-        try{
-            iRaavareDAO.deleteRaavare(raavareId);
-            iRaavareDAO.end();
-            return Response.ok("Råvare slettet").build();
-        }
-        catch (Exception e){
-            return Response.serverError().entity(e.getMessage()).build();
-        }
-    }
-
 }

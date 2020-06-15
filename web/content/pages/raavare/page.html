@@ -1,7 +1,4 @@
 <div>
-    <div>
-        {{raavareModel.error}}
-    </div>
     <div class="headerContent">
         <div class="header">Råvare</div>
         <div class="header_buttonItem" ng-click="toggleNewItem()">+</div>
@@ -12,26 +9,34 @@
                 <th>ID</th>
                 <th>Navn</th>
             </tr>
-            <tr ng-repeat="raavare in raavareModel.raavarer" ng-click="toggleItem(raavare)" ng-class="{'active' : raavareModel.raavare === raavare}">
+            <tr ng-repeat="raavare in raavareModel.raavarer" ng-click="toggleItem(raavare)" ng-class="{'active' : raavareModel.raavare && raavareModel.raavare.raavareId === raavare.raavareId}">
                 <td>{{raavare.raavareId}}</td>
                 <td>{{raavare.raavareNavn}}</td>
             </tr>
         </table>
     </div>
+    <div style="color:#009116;" ng-if="raavareModel.msg">
+        {{raavareModel.msg}}
+    </div>
+    <div style="color:#a6000c;" ng-if="raavareModel.error">
+        {{raavareModel.error}}
+    </div>
     <div class="itemContent" ng-if="raavareModel.raavare">
         <div class="item">
             <div class="item_2_elements">
                 <div>
-                    <label>Råvare id:</label>
-                    <input type="text" ng-model="raavareModel.raavare.raavareId" ng-disabled="!newItem" />
+                    <label>
+                        Råvare id: <input type="number" ng-model="raavareModel.raavare.raavareId" ng-disabled="!newItem" />
+                    </label>
                 </div>
                 <div>
-                    <label>Råvare navn:</label>
-                    <input type="text" ng-model="raavareModel.raavare.raavareNavn" />
+                    <label>
+                        Råvare navn:<input type="text" ng-model="raavareModel.raavare.raavareNavn" />
+                    </label>
                 </div>
             </div>
         </div>
-        <div class="actions"><div class="buttonItem" ng-click="save()">gem</div></div>
+        <div class="actions"><div class="buttonItem" ng-click="save()"><span ng-if="newItem">Opret råvare</span><span ng-if="!newItem">Opdater råvare</span></div></div>
     </div>
 </div>
 <style>

@@ -10,7 +10,7 @@ angular.module('CDIOFinal').service('brugereService', ['$http', 'brugereModel', 
             url: CDIOFinalModel.apiURL + "rolle"
         }).then(function (resp) {
             brugereModel.roller = resp.data;
-            _this.reload(false);
+            _this.resetItem();
         }, function (errorResp) {
             brugereModel.error = errorResp.data;
         });
@@ -25,20 +25,20 @@ angular.module('CDIOFinal').service('brugereService', ['$http', 'brugereModel', 
             url: CDIOFinalModel.apiURL + "bruger"
         }).then(function (resp) {
             brugereModel.brugerer = resp.data;
-            _this.reload(false);
+            _this.resetItem();
         }, function (errorResp) {
             brugereModel.error = errorResp.data;
         });
     };
-    this.getBruger = function(brugerId){
+    this.getBruger = function(userId){
         brugereModel.msg = "";
         brugereModel.error = "";
         $http({
             method: "GET",
-            url: CDIOFinalModel.apiURL + "bruger/" + brugerId
+            url: CDIOFinalModel.apiURL + "bruger/" + userId
         }).then(function (resp) {
             brugereModel.bruger = resp.data;
-            _this.reload(false);
+            _this.resetItem();
         }, function (errorResp) {
             brugereModel.error = errorResp.data;
         });
@@ -53,7 +53,7 @@ angular.module('CDIOFinal').service('brugereService', ['$http', 'brugereModel', 
         }).then(function (resp) {
             brugereModel.brugerer.push(bruger);
             brugereModel.msg = "Bruger " + bruger.userName + " oprettet";
-            _this.reload(true);
+            _this.resetItem();
         }, function (errorResp) {
             brugereModel.error = errorResp.data;
         });
@@ -66,43 +66,46 @@ angular.module('CDIOFinal').service('brugereService', ['$http', 'brugereModel', 
             url: CDIOFinalModel.apiURL + "bruger",
             data: bruger
         }).then(function (resp) {
+            for(var i = 0;i<brugereModel.brugerer.length;i++){
+                var b = brugereModel.brugerer[i];
+                if(b.userId === bruger.userId){
+                    brugereModel.brugerer[i] = bruger;
+                    break;
+                }
+            }
             brugereModel.msg = "Brugeren " + bruger.userName + " blev opdateret";
-            _this.reload(true);
+            _this.resetItem();
         }, function (errorResp) {
             brugereModel.error = errorResp.data;
         });
     };
-    this.deleteBruger = function(brugerId){
+    this.deleteBruger = function(userId){
         brugereModel.msg = "";
         brugereModel.error = "";
         $http({
             method: "DELETE",
-            url: CDIOFinalModel.apiURL + "bruger/" + brugerId
+            url: CDIOFinalModel.apiURL + "bruger/" + userId
         }).then(function (resp) {
             var bruger;
             var index = -1;
             for(var i = 0;i<brugereModel.brugerer.length;i++){
                 var b = brugereModel.brugerer[i];
-                if(b.brugerId === brugerId){
+                if(b.userId === userId){
                     index = i;
                     bruger = b;
                     break;
                 }
             }
             brugereModel.msg = "Brugeren " + bruger.userName + " blev deaktiveret";
-            brugereModel.brugerer.splice(index, 1)
-            _this.reload(true);
+            brugereModel.brugerer.splice(index, 1);
+            _this.resetItem();
         }, function (errorResp) {
             brugereModel.error = errorResp.data;
         });
     };
 
-    this.reload = function(asyncReload){
+    this.resetItem = function(){
         brugereModel.newItem = false;
         brugereModel.bruger = null;
-        if(asyncReload) {
-            _this.getBrugerer();
-            _this.getRoller();
-        }
     };
 }]);

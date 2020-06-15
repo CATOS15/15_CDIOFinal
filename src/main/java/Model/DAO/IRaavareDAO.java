@@ -9,7 +9,6 @@ import java.util.List;
 public interface IRaavareDAO {
     public Raavare createRaavare(Raavare raavare) throws DALException;
     public Raavare updateRaavare(Raavare raavare) throws DALException;
-    public boolean deleteRaavare(String raavareId) throws DALException;
     public Raavare getRaavare(String raavareId) throws DALException;
     public List<Raavare> getRaavarer() throws DALException;
     public void end() throws DALException;
