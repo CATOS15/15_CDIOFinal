@@ -1,6 +1,8 @@
 angular.module('CDIOFinal').controller('receptController', ['$scope', 'receptModel','receptService','raavareModel', 'raavareService', function ($scope, receptModel, receptService, raavareModel, raavareService) {
     $scope.receptModel = receptModel;
+    $scope.raavareModel = raavareModel;
     $scope.newItem = false;
+    $scope.enoghItems = false;
 
     $scope.init = function(){
         receptService.getRecepter();
@@ -24,6 +26,14 @@ angular.module('CDIOFinal').controller('receptController', ['$scope', 'receptMod
         });
     };
 
+    $scope.removeReceptRaavare = function(raavareId,nonNetto,tolerance){
+        index = receptModel.recept.receptRaavarer.findIndex(
+            x =>x.raavareId===raavareId,
+            x =>x.nonNetto===nonNetto,
+            x =>x.tolerance===tolerance);
+        receptModel.recept.receptRaavarer.splice(index,1);
+    };
+
     $scope.toggleNewItem = function(){
         if($scope.newItem) return;
         $scope.newItem = true;
@@ -33,6 +43,13 @@ angular.module('CDIOFinal').controller('receptController', ['$scope', 'receptMod
             receptRaavarer: []
         };
     };
+
+    $scope.enoghItems = function(){
+        if(receptModel.recept.receptRaavarer.length >= raavareModel.raavarer.length){
+            $scope.enoghItems = true;
+        }
+    };
+
 
     $scope.save = function(){
         receptService.createRecept(receptModel.recept);

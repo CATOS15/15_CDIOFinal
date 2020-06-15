@@ -162,6 +162,14 @@ input[type=text], select, input[type=password], input[type=number]  {
     width:100%;
 }
 
+.item_5_elements > div {
+    padding: 5px;
+    display:inline-block;
+    box-sizing:border-box;
+    float:left;
+    width:20%;
+}
+
 .rolle_checkboxes{
     width:100%;
     display: flex;
