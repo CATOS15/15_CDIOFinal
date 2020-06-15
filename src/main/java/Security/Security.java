@@ -33,12 +33,12 @@ public class Security {
     }
     public static String generateToken(String username) throws DALException {
         try {
-            Date dateOneHour = new Date(System.currentTimeMillis() + 3600 * 1000);
+            Date dateOneDay = new Date(System.currentTimeMillis() + 3600 * 1000 * 24);
 
             Algorithm algorithm = Algorithm.HMAC256("secret");
             return JWT.create()
                     .withIssuer("auth0")
-                    .withExpiresAt(dateOneHour)
+                    .withExpiresAt(dateOneDay)
                     .withClaim("user", username)
                     .sign(algorithm);
         } catch (JWTCreationException exception){
