@@ -19,7 +19,7 @@ public class ProduktBatchDAO extends Database implements IProduktBatchDAO {
     public ProduktBatch createProduktBatch(ProduktBatch produktBatch) throws DALException {
         try{
             this.executeUpdate(String.format("INSERT INTO ProduktBatch VALUES (%d, %d,'Oprettet', NOW(), null);", produktBatch.getPbId(), produktBatch.getReceptId()));
-            return produktBatch;
+            return this.getProduktBatch(String.valueOf(produktBatch.getPbId()));
         }
         catch(SQLException sqlEx){
             throw new DALException("Fejl ved oprettelse af produkt batch");

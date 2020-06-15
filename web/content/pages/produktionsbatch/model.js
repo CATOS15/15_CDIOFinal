@@ -1,3 +1,6 @@
 angular.module('CDIOFinal').service('produktionsbatchModel', function () {
-    this.dummy = "dummy";
+    this.produktBatch = null;
+    this.produktBatches = [];
+
+    this.error = "";
 });

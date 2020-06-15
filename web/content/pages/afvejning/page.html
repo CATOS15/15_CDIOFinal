@@ -1,9 +1,46 @@
 <div>
-    Dette er afvejningssiden
+    <div>
+        {{afvejningModel.error}}
+    </div>
+    <div class="headerContent">
+        <div class="header">Afvejning</div>
+        <div class="header_buttonItem" ng-click="toggleNewItem()">+</div>
+    </div>
+    <div class="tableContent">
+        <table>
+            <tr>
+                <th>ProduktBatch ID</th>
+            </tr>
+            <tr ng-repeat="produktBatch in produktionsbatchModel.produktBatches" ng-click="toggleItem(produktBatch)" ng-class="{'active' :produktionsbatchModel.produktBatch === produktBatch}">
+                <td>{{produktBatch.pbId}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="itemContent" ng-if="afvejningModel.afvejning">
+        <div class="item">
+            <div class="item_4_elements">
+                <div>
+                    <label>Råvarebatch ID:</label>
+                    <select ng-model="afvejningModel.afvejning.userProduktBatch.rbId">
+                        <option ng-repeat="raavarebatch in raavarebatchesModel.raavareBatches" ng-value="raavarebatch.raavareId">
+                                {{raavarebatch.raavareId}}
+                        </option>
+                    </select>
+                </div>
+                    <label>Tara vægt:</label>
+                    <input type="text" ng-model="afvejningModel.afvejning.userProduktBatch.tara" ng-disabled="!newItem">
+                <div>
+                    <label>Netto:</label>
+                    <input type="text" ng-model="afvejningModel.afvejning.userProduktBatch.netto" ng-disabled="!newItem">
+                </div>
+                <div>
+                    <label>Terminal:</label>
+                    <input type="text" ng-model="afvejningModel.afvejning.userProduktBatch.terminal" ng-disabled="!newItem">
+                </div>
+            </div>
+        </div>
+        <div class="actions"><div class="buttonItem" ng-click="save()">gem</div></div>
+    </div>
 </div>
-
 <style>
-    .dummy{
-        color:red;
-    }
 </style>

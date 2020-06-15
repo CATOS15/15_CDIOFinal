@@ -1,3 +1,6 @@
 angular.module('CDIOFinal').service('afvejningModel', function () {
-    this.dummy = "dummy";
+    this.userProduktBatch = null;
+    this.userProduktBatches = [];
+
+    this.error = "";
 });

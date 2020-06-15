@@ -54,9 +54,9 @@ public class ProduktBatchController {
     public Response createProduktBatch(String JSON_produktbatch) {
         try{
             ProduktBatch produktBatch = mapper.readValue(JSON_produktbatch, ProduktBatch.class);
-            iProduktBatchDAO.createProduktBatch(produktBatch);
+            ProduktBatch newProduktBatch = iProduktBatchDAO.createProduktBatch(produktBatch);
             iProduktBatchDAO.end();
-            return Response.ok("Produktionsbatch oprettet").build();
+            return Response.ok(mapper.writeValueAsString(newProduktBatch)).build();
         }
         catch (Exception e){
             return Response.serverError().entity(e.getMessage()).build();

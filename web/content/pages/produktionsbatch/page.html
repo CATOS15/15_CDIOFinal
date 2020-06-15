@@ -1,10 +1,46 @@
 <div>
-    Dette er produktbatch siden
-
+    <div>
+        {{produktionsbatchModel.error}}
+    </div>
+    <div class="headerContent">
+        <div class="header">Produktbatch</div>
+        <div class="header_buttonItem" ng-click="toggleNewItem()">+</div>
+    </div>
+    <div class="tableContent">
+        <table>
+            <tr>
+                <th>Produktbatch ID</th>
+                <th>Recept ID</th>
+                <th>Status</th>
+                <th>Oprettelse dato</th>
+                <th>Slut dato</th>
+            </tr>
+            <tr ng-repeat="produktBatch in produktionsbatchModel.produktBatches" ng-click="toggleItem(produktBatch)" ng-class="{'active' :produktionsbatchModel.produktBatch === produktBatch}">
+                <td>{{produktBatch.pbId}}</td>
+                <td>{{produktBatch.receptId}}</td>
+                <td>{{produktBatch.status}}</td>
+                <td>{{produktBatch.opretDato}}</td>
+                <td>{{produktBatch.slutDato}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="itemContent" ng-if="produktionsbatchModel.produktBatch">
+        <div class="item">
+            <div class="item_2_elements">
+                <div>
+                    <label>Produktbatch ID:</label>
+                    <input type="text" ng-model="produktionsbatchModel.produktBatch.pbId" ng-disabled="!newItem" />
+                </div>
+                <div>
+                    <label>Recept ID:</label>
+                    <select ng-model="produktionsbatchModel.produktBatch.receptId">
+                        <option ng-repeat="recept in receptModel.recepter track by $index" ng-value="recept.receptId">{{recept.receptNavn}} ({{recept.receptId}})</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="actions"><div class="buttonItem" ng-click="save()">gem</div></div>
+    </div>
 </div>
-
 <style>
-    .dummy{
-        color:red;
-    }
 </style>
