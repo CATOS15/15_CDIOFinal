@@ -288,7 +288,6 @@ input[type=text], select, input[type=password], input[type=number]  {
     padding-top:10px;
 }
 
-
 .afvejning_afvejninger > div > div{
     width:100%;
     display: flex;
@@ -300,19 +299,19 @@ input[type=text], select, input[type=password], input[type=number]  {
     margin:5px;
 }
 
-.item_afvejninger table {
+.tilknyttet_recept table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
 
-.item_afvejningertd, th {
+.tilknyttet_recept th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
 }
 
-.item_afvejninger tr:nth-child(even) {
+.tilknyttet_recept tr:nth-child(even) {
     background-color: #dddddd;
 }
 
