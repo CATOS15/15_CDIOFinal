@@ -1,7 +1,4 @@
 <div>
-    <div>
-        {{produktionsbatchModel.error}}
-    </div>
     <div class="headerContent">
         <div class="header">Produktbatch</div>
         <div class="header_buttonItem" ng-click="toggleNewItem()">+</div>
@@ -23,6 +20,12 @@
                 <td>{{produktBatch.slutDato}}</td>
             </tr>
         </table>
+    </div>
+    <div style="color:#009116;" ng-if="produktionsbatchModel.msg">
+        {{produktionsbatchModel.msg}}
+    </div>
+    <div style="color:#a6000c;" ng-if="produktionsbatchModel.error">
+        {{produktionsbatchModel.error}}
     </div>
     <div class="itemContent" ng-if="produktionsbatchModel.produktBatch">
         <div class="item">
