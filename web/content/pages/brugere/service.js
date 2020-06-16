@@ -93,11 +93,11 @@ angular.module('CDIOFinal').service('brugereService', ['$http', 'brugereModel', 
                 if(b.userId === userId){
                     index = i;
                     bruger = b;
+                    bruger.tilstand = 0;
                     break;
                 }
             }
             brugereModel.msg = "Brugeren " + bruger.userName + " blev deaktiveret";
-            brugereModel.brugerer.splice(index, 1);
             _this.resetItem();
         }, function (errorResp) {
             brugereModel.error = errorResp.data;

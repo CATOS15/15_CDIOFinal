@@ -153,7 +153,7 @@ public class UserDAO extends Database implements IUserDAO {
 
     public User login(User user) throws DALException {
         try{
-            ResultSet rs = this.executeSelect(String.format("SELECT userId, userName, userIni, CPRnummer, password FROM Users WHERE userName = '%s' AND password = '%s';",user.getUserName(), crypt(user.getPassword())));
+            ResultSet rs = this.executeSelect(String.format("SELECT userId, userName, userIni, CPRnummer, password FROM Users WHERE userName = '%s' AND password = '%s' AND tilstand = 1;",user.getUserName(), crypt(user.getPassword())));
             if(rs.next()) {
                 user.setUserId(rs.getInt(1));
                 user.setUserName(rs.getString(2));
