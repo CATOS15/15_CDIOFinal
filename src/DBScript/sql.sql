@@ -2,15 +2,6 @@ DROP DATABASE IF EXISTS CDIOFinal;
 CREATE DATABASE CDIOFinal;
 USE CDIOFinal;
 
-DROP TABLE IF EXISTS Roles;
-DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS Raavare;
-DROP TABLE IF EXISTS RaavareBatch;
-DROP TABLE IF EXISTS Recept;
-DROP TABLE IF EXISTS ProduktBatch;
-DROP TABLE IF EXISTS UserProduktBatch;
-DROP TABLE IF EXISTS ReceptRaavare;
-
 
 CREATE TABLE Roles(
 	roleId decimal(8,0),
@@ -107,7 +98,7 @@ DELIMITER ///
 CREATE TRIGGER ins_userproduktbatch AFTER INSERT ON UserProduktBatch
     FOR EACH ROW
     BEGIN
-        IF((SELECT status FROM ProduktBatch WHERE NEW.pbId = pb.pbId) != 'Afsluttet') THEN
+        IF((SELECT status FROM ProduktBatch as pb WHERE NEW.pbId = pb.pbId) != 'Afsluttet') THEN
 			UPDATE ProduktBatch as pb SET status = 'Under produktion' WHERE NEW.pbId = pb.pbId;
         END IF;
     END;
