@@ -18,6 +18,11 @@ public class ProduktBatchDAO extends Database implements IProduktBatchDAO {
     @Override
     public ProduktBatch createProduktBatch(ProduktBatch produktBatch) throws DALException {
         try{
+            validateProduktBatch(produktBatch);
+            ResultSet pbIdExist = this.executeSelect(String.format("SELECT pbId FROM ProduktBatch WHERE pbId = %d;", produktBatch.getPbId()));
+            if(pbIdExist.next()){
+                throw new DALException("En ProduktBatch med det ID findes allerede");
+            }
             this.executeUpdate(String.format("INSERT INTO ProduktBatch VALUES (%d, %d,'Oprettet', NOW(), null);", produktBatch.getPbId(), produktBatch.getReceptId()));
             return this.getProduktBatch(String.valueOf(produktBatch.getPbId()));
         }
@@ -110,6 +115,25 @@ public class ProduktBatchDAO extends Database implements IProduktBatchDAO {
         }
         catch(SQLException sqlEx){
             throw new DALException("Fejl ved hent af produkt batches");
+        }
+    }
+
+    private void validateProduktBatch(ProduktBatch produktBatch) throws DALException {
+        if(produktBatch.getPbId() < 1){
+            throw new DALException("Produktbatch ID skal bestå af et tal og være på mindste værdien 1");
+        }
+        if(produktBatch.getReceptId() < 1){
+            throw new DALException("Vælg en rigtig Recept");
+        }
+
+        try{
+            ResultSet produktBatchIdExist = this.executeSelect(String.format("SELECT pbId FROM ProduktBatch WHERE pbId = %d", produktBatch.getPbId()));
+            if(produktBatchIdExist.next()){
+                throw new DALException("Et ProduktBatch med dette ID findes allerede");
+            }
+        }
+        catch (SQLException sqlException){
+            throw new DALException("Fejl ved validering af ProduktBatch");
         }
     }
 

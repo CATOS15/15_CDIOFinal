@@ -21,7 +21,7 @@ public class RaavareBatchDAO extends Database implements IRaavareBatchDAO {
     @Override
     public RaavareBatch createRavareBatch(RaavareBatch raavareBatch) throws DALException {
         try{
-            validateUser(raavareBatch);
+            validateRaavareBatch(raavareBatch);
             ResultSet rbIdExist = this.executeSelect(String.format("SELECT rbId FROM RaavareBatch WHERE rbId = %d;", raavareBatch.getRbId()));
             if(rbIdExist.next()){
                 throw new DALException("En bruger med det ID findes allerede");
@@ -84,7 +84,7 @@ public class RaavareBatchDAO extends Database implements IRaavareBatchDAO {
         }
     }
 
-    private void validateUser(RaavareBatch raavareBatch) throws DALException {
+    private void validateRaavareBatch(RaavareBatch raavareBatch) throws DALException {
         if(raavareBatch.getRbId() < 1){
             throw new DALException("Råvarebatchet ID skal bestå af et tal og være på mindste værdien 1");
         }

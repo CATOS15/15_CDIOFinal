@@ -27,7 +27,7 @@
     </div>
     <div class="itemContent" ng-if="raavarebatchesModel.raavareBatch">
         <div class="item">
-            <div class="item_2_elements">
+            <div>
                 <div>
                     <label>RåvarebatchID:</label>
                     <input type="text" ng-model="raavarebatchesModel.raavareBatch.rbId" ng-disabled="!newItem" />
@@ -38,6 +38,8 @@
                         <option ng-repeat="x in raavareModel.raavarer track by x.raavareId" ng-value="x.raavareId">{{x.raavareNavn}}</option>
                     </select>
                 </div>
+            </div>
+            <div>
                 <div>
                     <label>Mængde:</label>
                     <input type="text" ng-model="raavarebatchesModel.raavareBatch.maengde" ng-disabled="!newItem"/>
@@ -48,8 +50,8 @@
                 </div>
             </div>
         </div>
-        <div class="actions"><div class="buttonItem" ng-click="save()" ng-hide="!newItem">Gem</div></div>
     </div>
+    <div class="actions"><div class="buttonItem" ng-click="save()" ng-hide="!newItem">Gem</div></div>
 </div>
 
 <style>

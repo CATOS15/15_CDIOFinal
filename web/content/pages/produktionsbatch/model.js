@@ -3,4 +3,5 @@ angular.module('CDIOFinal').service('produktionsbatchModel', function () {
     this.produktBatches = [];
 
     this.error = "";
+    this.msg = "";
 });
