@@ -19,47 +19,59 @@
         {{afvejningModel.error}}
     </div>
     <div class="itemContent" ng-if="afvejningModel.userProduktBatch">
-        <div class="item">
-            <div class="item_2_elements" ng-repeat="afvejning in afvejningModel.userProduktBatch.afvejninger">
+        <div class="item" style="width: 100% !important;">
+            <div class="item_2_elements" >
                 <div>
-                    <div>
-                        <label>Råvarebatch ID:</label>
-                        <select ng-model="afvejning.rbId"
-                                ng-change="information = getInformation(afvejning.rbId)"
-                                ng-init="information = getInformation(afvejning.rbId)"
-                                ng-disabled="!afvejning.newItem">
-                            <option ng-repeat="raavarebatch in availableRaavareBatches(raavarebatchesModel.raavareBatches, afvejning.rbId)"
-                                    ng-value="raavarebatch.rbId">
-                                {{getRaavaraFromId(raavarebatch.raavareId).raavareNavn}} ID:{{raavarebatch.rbId}}
-                            </option>
-                        </select>
-                    </div>
-                    <div style="word-break: break-word" ng-if="afvejning.rbId">
-                        Information omkring råvarebatchen:<br />
-                        RECEPT NAVN: {{information.receptNavn}} <br />
-                        RÅVARE NAVN: {{information.raavareNavn}} <br />
-                        NON NETTO: {{information.nonNetto}} <br />
-                        TOLERANCE: {{information.tolerance}} <br />
-                        MÆNGDE: {{information.maengde}} <br />
-                        LEVERANDØR: {{information.leverandoer}} <br />
+                    Tilknyttet recept:<br />
+                    <span style="font-weight: 600">Recept navn:</span> {{afvejningRecept.receptNavn}}<br /><br />
+                    <div ng-repeat="receptRavare in afvejningRecept.receptRaavarer track by $index">
+                        <span style="font-weight: 600">Råvare:</span> {{getRaavaraFromId(receptRavare.raavareId).raavareNavn}}<br />
+                        <span style="font-weight: 600">Non netto:</span> {{receptRavare.nonNetto}}<br />
+                        <span style="font-weight: 600">Tolerance (%):</span> {{receptRavare.tolerance}}<br />
+                        <br />
                     </div>
                 </div>
-                <div>
+                <div ng-repeat="afvejning in afvejningModel.userProduktBatch.afvejninger">
                     <div>
-                        <label>Tara vægt:</label>
-                        <input type="number" ng-model="afvejning.tara" ng-disabled="!afvejning.rbId || !afvejning.newItem">
+                        <div>
+                            <label>Råvarebatch ID:</label>
+                            <select ng-model="afvejning.rbId"
+                                    ng-change="information = getInformation(afvejning.rbId)"
+                                    ng-init="information = getInformation(afvejning.rbId)"
+                                    ng-disabled="!afvejning.newItem">
+                                <option ng-repeat="raavarebatch in availableRaavareBatches(raavarebatchesModel.raavareBatches, afvejning.rbId)"
+                                        ng-value="raavarebatch.rbId">
+                                    {{getRaavaraFromId(raavarebatch.raavareId).raavareNavn}} ID:{{raavarebatch.rbId}}
+                                </option>
+                            </select>
+                        </div>
+                        <div style="word-break: break-word" ng-if="afvejning.rbId">
+<!--                            Information omkring råvarebatchen:<br />-->
+<!--                            RECEPT NAVN: {{information.receptNavn}} <br />-->
+<!--                            RÅVARE NAVN: {{information.raavareNavn}} <br />-->
+<!--                            NON NETTO: {{information.nonNetto}} <br />-->
+<!--                            TOLERANCE: {{information.tolerance}} <br />-->
+                           MÆNGDE: {{information.maengde}} <br />
+                           LEVERANDØR: {{information.leverandoer}} <br />
+                        </div>
                     </div>
                     <div>
-                        <label>Netto:</label>
-                        <input type="number" ng-model="afvejning.netto" ng-disabled="!afvejning.rbId || !afvejning.newItem">
-                    </div>
-                    <div>
-                        <label>Terminal:</label>
-                        <input type="number" ng-model="afvejning.terminal" ng-disabled="!afvejning.rbId || !afvejning.newItem">
+                        <div>
+                            <label>Tara vægt:</label>
+                            <input type="number" ng-model="afvejning.tara" ng-disabled="!afvejning.rbId || !afvejning.newItem">
+                        </div>
+                        <div>
+                            <label>Netto:</label>
+                            <input type="number" ng-model="afvejning.netto" ng-disabled="!afvejning.rbId || !afvejning.newItem">
+                        </div>
+                        <div>
+                            <label>Terminal:</label>
+                            <input type="number" ng-model="afvejning.terminal" ng-disabled="!afvejning.rbId || !afvejning.newItem">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="buttonItem receptadd_knap" ng-click="addAfvejning()" ng-if="availableRaavareBatches(raavarebatchesModel.raavareBatches, '').length > 0">Tilføj Komponent</div>
+            <div class="buttonItem receptadd_knap" ng-click="addAfvejning()" ng-if="availableRaavareBatches(raavarebatchesModel.raavareBatches, '').length > 0">Tilføj afvejning</div>
 
         </div>
         <div class="actions"><div class="buttonItem" ng-click="save()">gem</div></div>
