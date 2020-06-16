@@ -253,6 +253,69 @@ input[type=text], select, input[type=password], input[type=number]  {
     vertical-align:middle;
 }
 
+/* afvejning */
+.item_afvejninger{
+    padding-top:10px;
+    width: 75%;
+    box-sizing:border-box;
+    align-content: center;
+    flex-direction: column;
+    min-height:100%;
+
+    margin: 0 auto 0 auto;
+}
+
+.afvejning_boxes{
+    display:flex;
+    box-sizing:border-box;
+    align-items: stretch;
+    width: 100%;
+}
+
+.tilknyttet_recept{
+    flex: 0 0 auto;
+    margin:0 15px 0 5px;
+}
+
+.afvejning_afvejninger{
+    margin:0 5px 0 5px;
+    display:flex;
+    flex-direction:column;
+    flex: 0 1 auto;
+}
+
+.afvejning_afvejninger > div{
+    padding-top:10px;
+}
+
+
+.afvejning_afvejninger > div > div{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.afvejning_afvejninger > div > div > div{
+    margin:5px;
+}
+
+.item_afvejninger table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.item_afvejningertd, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.item_afvejninger tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
 /* tables */
 .tableContent{
     width:100%;
