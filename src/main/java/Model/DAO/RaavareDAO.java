@@ -103,8 +103,8 @@ public class RaavareDAO extends Database implements IRaavareDAO {
     private void validateRaavare(Raavare raavare) throws DALException {
         if(raavare.getRaavareId() < 1)
             throw new DALException("Råvarens ID skal bestå af et tal og være på mindste værdien 1");
-        if(raavare.getRaavareNavn().length() < 3)
-            throw new DALException("Råvaren skal have et navn på mindst 3 karakterer");
+        if(raavare.getRaavareNavn().length() < 1)
+            throw new DALException("Råvaren skal have et navn på mindst 1 karakter");
 
         try{
             ResultSet raavareNameExist = this.executeSelect(String.format("SELECT raavareId FROM raavare WHERE raavareName = '%s' AND raavareId != %d", raavare.getRaavareNavn(), raavare.getRaavareId()));

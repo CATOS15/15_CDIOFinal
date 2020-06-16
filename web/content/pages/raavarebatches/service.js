@@ -1,4 +1,5 @@
 angular.module('CDIOFinal').service('raavarebatchesService', ['$http', 'raavarebatchesModel','CDIOFinalModel','raavareService', function ($http, raavarebatchesModel,CDIOFinalModel,raavareService) {
+    var _this = this;
     this.getRaavareBatches = function(){
         $http({
             method: "GET",
@@ -20,8 +21,10 @@ angular.module('CDIOFinal').service('raavarebatchesService', ['$http', 'raavareb
         }).then(function () {
             raavarebatchesModel.msg = "Råvarebatch " + raavareBatch.rbId + " oprettet";
             raavarebatchesModel.raavareBatches.push(raavareBatch);
-            raavarebatchesModel.newItem = false;
-            raavarebatchesModel.raavareBatch = null;
+            _this.resetItem();
+
+            // raavarebatchesModel.newItem = false;
+            // raavarebatchesModel.raavareBatch = null;
         }, function (errorResp) {
             raavarebatchesModel.error = errorResp.data;
         });

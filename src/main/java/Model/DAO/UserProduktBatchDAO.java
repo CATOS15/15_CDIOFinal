@@ -29,7 +29,7 @@ public class UserProduktBatchDAO extends Database implements IUserProduktBatch {
             if(rs.next()){
                 int totaleRaavarePaakraevet = rs.getInt(1);
                 if(totaleRaavarePaakraevet == userProduktBatch.getAfvejninger().size()){
-                    this.executeUpdate(String.format("UPDATE produktbatch as pb SET pb.status = 'Afsluttet' WHERE pb.pbId = %d;", userProduktBatch.getPbId()));
+                    this.executeUpdate(String.format("UPDATE produktbatch as pb SET pb.status = 'Afsluttet', pb.slutDato=NOW() WHERE pb.pbId = %d;", userProduktBatch.getPbId()));
                 }
             }else{
                 throw new DALException("Fejl ved hent af råvare på produktbatch!");
