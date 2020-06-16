@@ -4,6 +4,7 @@ package Controller;
 import Model.DAO.IRaavareDAO;
 import Model.DAO.RaavareDAO;
 import Model.DTO.Raavare;
+import Model.Exception.DALException;
 import Security.Authenticated;
 import Security.RolleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,14 +28,14 @@ public class RaavareController {
 
     @GET
     @Authenticated(RolleEnum.NULL)
-    public Response getRaavarer()
-    {
+    public Response getRaavarer() throws DALException {
         try{
             List<Raavare> raavarer = iRaavareDAO.getRaavarer();
             iRaavareDAO.end();
             return Response.ok(mapper.writeValueAsString(raavarer)).build();
         }
         catch (Exception e){
+            iRaavareDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
@@ -42,22 +43,21 @@ public class RaavareController {
     @GET
     @Authenticated(RolleEnum.NULL)
     @Path("{raavareId}")
-    public Response getRaavare(@PathParam("raavareId") String raavareId)
-    {
+    public Response getRaavare(@PathParam("raavareId") String raavareId) throws DALException {
         try{
             Raavare raavare = iRaavareDAO.getRaavare(raavareId);
             iRaavareDAO.end();
             return Response.ok(mapper.writeValueAsString(raavare)).build();
         }
         catch (Exception e){
+            iRaavareDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
 
     @POST
     @Authenticated(RolleEnum.FARMACEUT)
-    public Response createRaavare(String JSON_raavare)
-    {
+    public Response createRaavare(String JSON_raavare) throws DALException {
         try{
             Raavare raavare = mapper.readValue(JSON_raavare, Raavare.class);
             iRaavareDAO.createRaavare(raavare);
@@ -65,14 +65,14 @@ public class RaavareController {
             return Response.ok("Råvare oprettet").build();
         }
         catch (Exception e){
+            iRaavareDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
 
     @PUT
     @Authenticated(RolleEnum.FARMACEUT)
-    public Response updateRaavare(String JSON_raavare)
-    {
+    public Response updateRaavare(String JSON_raavare) throws DALException {
         try{
             Raavare raavare = mapper.readValue(JSON_raavare, Raavare.class);
             iRaavareDAO.updateRaavare(raavare);
@@ -80,6 +80,7 @@ public class RaavareController {
             return Response.ok("Råvare opdateret").build();
         }
         catch (Exception e){
+            iRaavareDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }

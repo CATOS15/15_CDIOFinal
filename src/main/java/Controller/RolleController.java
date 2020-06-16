@@ -3,6 +3,7 @@ package Controller;
 import Model.DAO.IRolleDAO;
 import Model.DAO.RolleDAO;
 import Model.DTO.Rolle;
+import Model.Exception.DALException;
 import Security.Authenticated;
 import Security.RolleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,14 +27,14 @@ public class RolleController {
 
     @GET
     @Authenticated(RolleEnum.NULL)
-    public Response getRoller()
-    {
+    public Response getRoller() throws DALException {
         try{
             List<Rolle> roller = iRolleDAO.getRoller();
             iRolleDAO.end();
             return Response.ok(mapper.writeValueAsString(roller)).build();
         }
         catch (Exception e){
+            iRolleDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
@@ -41,22 +42,21 @@ public class RolleController {
     @GET
     @Authenticated(RolleEnum.NULL)
     @Path("{rolleId}")
-    public Response getRolle(@PathParam("rolleId") String rolleId)
-    {
+    public Response getRolle(@PathParam("rolleId") String rolleId) throws DALException {
         try{
             Rolle rolle = iRolleDAO.getRolle(rolleId);
             iRolleDAO.end();
             return Response.ok(mapper.writeValueAsString(rolle)).build();
         }
         catch (Exception e){
+            iRolleDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
 
     @POST
     @Authenticated(RolleEnum.ADMINISTRATOR)
-    public Response createRolle(String JSON_raavare)
-    {
+    public Response createRolle(String JSON_raavare) throws DALException {
         try{
             Rolle rolle = mapper.readValue(JSON_raavare, Rolle.class);
             iRolleDAO.createRolle(rolle);
@@ -64,14 +64,14 @@ public class RolleController {
             return Response.ok("Rolle oprettet").build();
         }
         catch (Exception e){
+            iRolleDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
 
     @PUT
     @Authenticated(RolleEnum.ADMINISTRATOR)
-    public Response updateRolle(String JSON_rolle)
-    {
+    public Response updateRolle(String JSON_rolle) throws DALException {
         try{
             Rolle rolle = mapper.readValue(JSON_rolle, Rolle.class);
             iRolleDAO.updateRolle(rolle);
@@ -79,6 +79,7 @@ public class RolleController {
             return Response.ok("Rolle opdateret").build();
         }
         catch (Exception e){
+            iRolleDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
@@ -86,14 +87,14 @@ public class RolleController {
     @DELETE
     @Authenticated(RolleEnum.ADMINISTRATOR)
     @Path("{rolleId}")
-    public Response deleteRaavare(@PathParam("rolleId") String rolleId)
-    {
+    public Response deleteRaavare(@PathParam("rolleId") String rolleId) throws DALException {
         try{
             iRolleDAO.deleteRolle(rolleId);
             iRolleDAO.end();
             return Response.ok("Rolle slettet").build();
         }
         catch (Exception e){
+            iRolleDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }

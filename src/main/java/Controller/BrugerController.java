@@ -3,6 +3,7 @@ package Controller;
 import Model.DAO.IUserDAO;
 import Model.DAO.UserDAO;
 import Model.DTO.User;
+import Model.Exception.DALException;
 import Security.Authenticated;
 import Security.RolleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,13 +25,14 @@ public class BrugerController {
 
     @GET
     @Authenticated(RolleEnum.ADMINISTRATOR)
-    public Response getBrugerer() {
+    public Response getBrugerer() throws DALException {
         try{
             List<User> users = iUserDAO.getUsers();
             iUserDAO.end();
             return Response.ok(mapper.writeValueAsString(users)).build();
         }
         catch (Exception e){
+            iUserDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
@@ -38,20 +40,21 @@ public class BrugerController {
     @GET
     @Authenticated(RolleEnum.ADMINISTRATOR)
     @Path("{brugerId}")
-    public Response getBruger(@PathParam("brugerId") String brugerId) {
+    public Response getBruger(@PathParam("brugerId") String brugerId) throws DALException {
         try{
             User user = iUserDAO.getUser(brugerId);
             iUserDAO.end();
             return Response.ok(mapper.writeValueAsString(user)).build();
         }
         catch (Exception e){
+            iUserDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
 
     @POST
     @Authenticated(RolleEnum.ADMINISTRATOR)
-    public Response createBruger(String JSON_user) {
+    public Response createBruger(String JSON_user) throws DALException {
         try{
             User user = mapper.readValue(JSON_user, User.class);
             iUserDAO.createUser(user);
@@ -59,13 +62,14 @@ public class BrugerController {
             return Response.ok("Bruger oprettet").build();
         }
         catch (Exception e){
+            iUserDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
 
     @PUT
     @Authenticated(RolleEnum.ADMINISTRATOR)
-    public Response updateBruger(String JSON_user) {
+    public Response updateBruger(String JSON_user) throws DALException {
         try{
             User user = mapper.readValue(JSON_user, User.class);
             iUserDAO.updateUser(user);
@@ -73,6 +77,7 @@ public class BrugerController {
             return Response.ok("Bruger opdateret").build();
         }
         catch (Exception e){
+            iUserDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
@@ -80,13 +85,14 @@ public class BrugerController {
     @DELETE
     @Authenticated(RolleEnum.ADMINISTRATOR)
     @Path("{brugerId}")
-    public Response deleteBruger(@PathParam("brugerId") String brugerId) {
+    public Response deleteBruger(@PathParam("brugerId") String brugerId) throws DALException {
         try{
             iUserDAO.deleteUser(brugerId);
             iUserDAO.end();
             return Response.ok("Bruger deaktiveret").build();
         }
         catch (Exception e){
+            iUserDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }

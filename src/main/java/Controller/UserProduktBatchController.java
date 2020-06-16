@@ -6,6 +6,7 @@ import Model.DAO.ProduktBatchDAO;
 import Model.DAO.UserProduktBatchDAO;
 import Model.DTO.ProduktBatch;
 import Model.DTO.UserProduktBatch;
+import Model.Exception.DALException;
 import Security.Authenticated;
 import Security.RolleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,20 +31,21 @@ public class UserProduktBatchController {
 
     @GET
     @Authenticated(RolleEnum.LABORANT)
-    public Response getUserProduktBatches() {
+    public Response getUserProduktBatches() throws SQLException, DALException {
         try{
             List<UserProduktBatch> userProduktBatches = iUserProduktBatchDAO.getUserProduktBatches();
             iUserProduktBatchDAO.end();
             return Response.ok(mapper.writeValueAsString(userProduktBatches)).build();
         }
         catch (Exception e){
+            iUserProduktBatchDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
 
     @POST
     @Authenticated(RolleEnum.LABORANT)
-    public Response createUserProduktBatch(String JSON_userproduktbatch) {
+    public Response createUserProduktBatch(String JSON_userproduktbatch) throws SQLException, DALException {
         try{
             UserProduktBatch userProduktBatch = mapper.readValue(JSON_userproduktbatch, UserProduktBatch.class);
             iUserProduktBatchDAO.createUserProduktBatch(userProduktBatch);
@@ -51,6 +53,7 @@ public class UserProduktBatchController {
             return Response.ok("Afvejning oprettet").build();
         }
         catch (Exception e){
+            iUserProduktBatchDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }

@@ -3,6 +3,7 @@ package Controller;
 import Model.DAO.IUserDAO;
 import Model.DAO.UserDAO;
 import Model.DTO.User;
+import Model.Exception.DALException;
 import Security.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,7 +25,7 @@ public class AuthenticationController {
     @GET
     @Authenticated(RolleEnum.NULL)
     @Path("/getLogin")
-    public Response getLogin(@HeaderParam(HttpHeaders.AUTHORIZATION) String token) {
+    public Response getLogin(@HeaderParam(HttpHeaders.AUTHORIZATION) String token) throws DALException {
         try{
             token = token.substring("Bearer".length()).trim();
             String username = Security.verifyToken(token, null);
@@ -33,13 +34,14 @@ public class AuthenticationController {
             return Response.ok(mapper.writeValueAsString(user)).build();
         }
         catch (Exception e){
+            iUserDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
 
     @POST
     @Path("/login")
-    public Response login(String JSON_user) {
+    public Response login(String JSON_user) throws DALException {
         try{
             User user = mapper.readValue(JSON_user, User.class);
             iUserDAO.login(user);
@@ -48,6 +50,7 @@ public class AuthenticationController {
             return Response.ok(mapper.writeValueAsString(token)).build();
         }
         catch (Exception e){
+            iUserDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
@@ -55,7 +58,7 @@ public class AuthenticationController {
     @POST
     @Path("/createuser")
     @Authenticated(RolleEnum.ADMINISTRATOR)
-    public Response createUser(String JSON_user) {
+    public Response createUser(String JSON_user) throws DALException {
         try{
             User user = mapper.readValue(JSON_user, User.class);
             user = iUserDAO.createUser(user);
@@ -63,6 +66,7 @@ public class AuthenticationController {
             return Response.ok(mapper.writeValueAsString(user)).build();
         }
         catch (Exception e){
+            iUserDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }

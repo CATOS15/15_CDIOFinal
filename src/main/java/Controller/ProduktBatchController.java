@@ -3,6 +3,7 @@ package Controller;
 import Model.DAO.IProduktBatchDAO;
 import Model.DAO.ProduktBatchDAO;
 import Model.DTO.ProduktBatch;
+import Model.Exception.DALException;
 import Security.Authenticated;
 import Security.RolleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,13 +28,14 @@ public class ProduktBatchController {
 
     @GET
     @Authenticated(RolleEnum.NULL)
-    public Response getProduktBatches() {
+    public Response getProduktBatches() throws SQLException, DALException {
         try{
             List<ProduktBatch> produktBatches = iProduktBatchDAO.getProduktBatches();
             iProduktBatchDAO.end();
             return Response.ok(mapper.writeValueAsString(produktBatches)).build();
         }
         catch (Exception e){
+            iProduktBatchDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
@@ -41,20 +43,21 @@ public class ProduktBatchController {
     @GET
     @Authenticated(RolleEnum.NULL)
     @Path("{pbId}")
-    public Response getProduktBatch(@PathParam("pbId") String pbId) {
+    public Response getProduktBatch(@PathParam("pbId") String pbId) throws SQLException, DALException {
         try{
             ProduktBatch produktBatch = iProduktBatchDAO.getProduktBatch(pbId);
             iProduktBatchDAO.end();
             return Response.ok(mapper.writeValueAsString(produktBatch)).build();
         }
         catch (Exception e){
+            iProduktBatchDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
 
     @POST
     @Authenticated(RolleEnum.PRODUKTIONSLEDER)
-    public Response createProduktBatch(String JSON_produktbatch) {
+    public Response createProduktBatch(String JSON_produktbatch) throws SQLException, DALException {
         try{
             ProduktBatch produktBatch = mapper.readValue(JSON_produktbatch, ProduktBatch.class);
             ProduktBatch newProduktBatch = iProduktBatchDAO.createProduktBatch(produktBatch);
@@ -62,6 +65,7 @@ public class ProduktBatchController {
             return Response.ok(mapper.writeValueAsString(newProduktBatch)).build();
         }
         catch (Exception e){
+            iProduktBatchDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }

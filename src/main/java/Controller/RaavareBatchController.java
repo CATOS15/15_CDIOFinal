@@ -6,6 +6,7 @@ import Model.DAO.RaavareBatchDAO;
 import Model.DAO.UserDAO;
 import Model.DTO.RaavareBatch;
 import Model.DTO.User;
+import Model.Exception.DALException;
 import Security.Authenticated;
 import Security.RolleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,13 +31,14 @@ public class RaavareBatchController {
 
     @GET
     @Authenticated(RolleEnum.NULL)
-    public Response getRaavareBatches() {
+    public Response getRaavareBatches() throws DALException {
         try{
             List<RaavareBatch> raavareBatches = iRaavareBatchDAO.getRaavareBatches();
             iRaavareBatchDAO.end();
             return Response.ok(mapper.writeValueAsString(raavareBatches)).build();
         }
         catch (Exception e){
+            iRaavareBatchDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
@@ -44,18 +46,20 @@ public class RaavareBatchController {
     @GET
     @Authenticated(RolleEnum.NULL)
     @Path("{rbId}")
-    public Response getRaavareBatch(@PathParam("rbId") String rbId) {
+    public Response getRaavareBatch(@PathParam("rbId") String rbId) throws DALException {
         try{
+            iRaavareBatchDAO.end();
             return null;
         }
         catch (Exception e){
+            iRaavareBatchDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
 
     @POST
     @Authenticated(RolleEnum.PRODUKTIONSLEDER)
-    public Response createRaavareBatch(String JSON_raavareBatch) {
+    public Response createRaavareBatch(String JSON_raavareBatch) throws DALException {
         try{
             RaavareBatch raavareBatch = mapper.readValue(JSON_raavareBatch, RaavareBatch.class);
             iRaavareBatchDAO.createRavareBatch(raavareBatch);
@@ -63,6 +67,7 @@ public class RaavareBatchController {
             return Response.ok("Råvarebatch oprettet").build();
         }
         catch (Exception e){
+            iRaavareBatchDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }

@@ -4,6 +4,7 @@ import Model.DAO.IReceptDAO;
 import Model.DAO.ReceptDAO;
 import Model.DTO.RaavareBatch;
 import Model.DTO.Recept;
+import Model.Exception.DALException;
 import Security.Authenticated;
 import Security.RolleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,20 +29,21 @@ public class ReceptController {
 
     @GET
     @Authenticated(RolleEnum.NULL)
-    public Response getRecepter(){
+    public Response getRecepter() throws DALException {
         try{
             List<Recept> recepter = iReceptDAO.getRecepter();
             iReceptDAO.end();
             return Response.ok(mapper.writeValueAsString(recepter)).build();
         }
         catch (Exception e){
+            iReceptDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
 
     @POST
     @Authenticated(RolleEnum.FARMACEUT)
-    public Response createRecept(String JSON_recepter) {
+    public Response createRecept(String JSON_recepter) throws DALException {
         try{
             Recept recept = mapper.readValue(JSON_recepter, Recept.class);
             iReceptDAO.createRecept(recept);
@@ -49,6 +51,7 @@ public class ReceptController {
             return Response.ok("Recept oprettet").build();
         }
         catch (Exception e){
+            iReceptDAO.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
