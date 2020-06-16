@@ -26,7 +26,7 @@
             <div>
                 <div>
                     <label>ReceptID:</label>
-                    <input type="text" ng-model="receptModel.recept.receptId" ng-disabled="!newItem || receptModel.recept.receptRaavarer.length > 0" ng-change="validateReceptId()" />
+                    <input type="Number" ng-model="receptModel.recept.receptId" ng-disabled="!newItem || receptModel.recept.receptRaavarer.length > 0" ng-change="validateReceptId()" />
                 </div>
                 <div>
                     <label>ReceptNavn:</label>
@@ -36,7 +36,7 @@
             <div class="recept_komponent" ng-repeat="receptRaavare in receptModel.recept.receptRaavarer track by $index">
                 <div>
                     <label>Recept id</label>
-                    <input type="text" ng-model="receptRaavare.receptId" ng-disabled="true" />
+                    <input type="number" ng-model="receptRaavare.receptId" ng-disabled="true" />
                 </div>
                 <div>
                     <label> Råvare: </label>
@@ -46,11 +46,11 @@
                 </div>
                 <div>
                     <label>Non netto</label>
-                    <input type="text" ng-model="receptRaavare.nonNetto" ng-disabled="!newItem" />
+                    <input type="number" ng-model="receptRaavare.nonNetto" ng-disabled="!newItem" />
                 </div>
                 <div>
                     <label>Tolerance</label>
-                    <input type="text" ng-model="receptRaavare.tolerance" ng-disabled="!newItem" />
+                    <input type="number" ng-model="receptRaavare.tolerance" ng-disabled="!newItem" />
                 </div>
                 <div class="div_with_button">
                     <div class="minus_buttonItem" ng-click="removeReceptRaavare(receptRaavare)" ng-hide="!newItem">-</div>
