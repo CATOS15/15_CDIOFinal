@@ -134,7 +134,8 @@ input::-webkit-inner-spin-button {
 .item > div{
     display: flex;
     align-items: stretch;
-    width:100%
+    width:100%;
+    box-sizing:border-box;
 }
 .item > div > div {
     width: 100%;
@@ -315,6 +316,43 @@ input[type=text], select, input[type=password], input[type=number]  {
     background-color: #dddddd;
 }
 
+/* produktvisning */
+.produktvisning{
+    padding-top:10px;
+    width: 50%;
+    box-sizing:border-box;
+    min-height:100%;
+    margin: 0 auto 0 auto;
+}
+
+.raavare_linje{
+    padding: 20px 0 0 0;
+}
+
+.paddingtop{
+    padding: 20px 0 0 0;
+}
+
+.pvisningtable table{
+    width:100%;
+    text-align: left;
+    margin-top:10px;
+    border-top: 2px dashed black;
+}
+.pvisningtable table th{
+    padding: 8px 4px 4px 4px;
+    width: auto;
+}
+
+.pvisningtable table td {
+    padding: 4px;
+    width: auto;
+}
+
+.produktvisning p{
+    padding:2px;
+}
+
 /* tables */
 .tableContent{
     width:100%;
@@ -328,7 +366,13 @@ input[type=text], select, input[type=password], input[type=number]  {
     text-align: left;
     font-size:18px;
 }
-.tableContent > table th, td{
+
+.tableContent > table th{
+    padding: 10px;
+    width: auto;
+}
+
+.tableContent > table td{
     padding: 10px;
     width: auto;
 }

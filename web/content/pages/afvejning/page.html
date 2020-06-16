@@ -46,16 +46,6 @@
                 <div class="afvejning_afvejninger">
                     <div ng-repeat="afvejning in afvejningModel.userProduktBatch.afvejninger">
                         <div>
-                            <div style="word-break: break-word; padding-bottom:10px;" ng-if="afvejning.rbId">
-                                <!--                            Information omkring råvarebatchen:<br />-->
-                                <!--                            RECEPT NAVN: {{information.receptNavn}} <br />-->
-                                <!--                            RÅVARE NAVN: {{information.raavareNavn}} <br />-->
-                                <!--                            NON NETTO: {{information.nonNetto}} <br />-->
-                                <!--                            TOLERANCE: {{information.tolerance}} <br />-->
-                                MÆNGDE: {{information.maengde}} &nbsp;&nbsp;&nbsp;LEVERANDØR: {{information.leverandoer}}
-                            </div>
-                        </div>
-                        <div>
                             <div>
                                 <label>Råvarebatch ID:</label>
                                 <select ng-model="afvejning.rbId"
@@ -68,6 +58,13 @@
                                     </option>
                                 </select>
                             </div>
+                            <div>
+                                <div style="word-break: break-word; padding-bottom:10px;" ng-if="afvejning.rbId">
+                                    MÆNGDE: {{information.maengde}} &nbsp;&nbsp;&nbsp;LEVERANDØR: {{information.leverandoer}}
+                                </div>
+                            </div>
+                        </div>
+                        <div>
                             <div>
                                 <label>Tara vægt:</label>
                                 <input type="number" ng-model="afvejning.tara" ng-disabled="!afvejning.rbId || !afvejning.newItem">
