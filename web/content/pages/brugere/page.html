@@ -64,7 +64,7 @@
             </div>
         </div>
     </div>
-    <div class="actions"><div class="buttonItem" ng-click="save()"><span ng-if="brugereModel.newItem">Opret bruger</span><span ng-if="!brugereModel.newItem">Opdater bruger</span></div></div>
+    <div class="actions" ng-if="brugereModel.bruger"><div class="buttonItem" ng-click="save()"><span ng-if="brugereModel.newItem">Opret bruger</span><span ng-if="!brugereModel.newItem">Opdater bruger</span></div></div>
 </div>
 
 <style>
