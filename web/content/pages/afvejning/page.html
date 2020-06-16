@@ -57,7 +57,7 @@
                     </div>
                 </div>
             </div>
-            <div class="buttonItem receptadd_knap" ng-click="addAfvejning()">Tilføj Komponent</div>
+            <div class="buttonItem receptadd_knap" ng-click="addAfvejning()" ng-if="availableRaavareBatches(raavarebatchesModel.raavareBatches, '').length > 0">Tilføj Komponent</div>
 
         </div>
         <div class="actions"><div class="buttonItem" ng-click="save()">gem</div></div>

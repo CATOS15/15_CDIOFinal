@@ -103,7 +103,7 @@ angular.module('CDIOFinal').controller('afvejningController', ['$scope', 'afvejn
     };
 
     $scope.addAfvejning = function(){
-        afvejningModel.userProduktBatch.afvejninger.push({userId: CDIOFinalModel.user.userId, rbId: '', tara: '', netto: '', terminal: '', newItem: true});
+        afvejningModel.userProduktBatch.afvejninger.push({userId: CDIOFinalModel.user.userId, rbId: $scope.availableRaavareBatches(raavarebatchesModel.raavareBatches, "")[0].rbId, tara: '', netto: '', terminal: '', newItem: true});
     };
 
     $scope.save = function(){
