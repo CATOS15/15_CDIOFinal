@@ -1,7 +1,4 @@
 <div>
-    <div>
-        {{afvejningModel.error}}
-    </div>
     <div class="headerContent">
         <div class="header">Afvejning</div>
     </div>
@@ -14,6 +11,12 @@
                 <td>{{userProduktBatch.pbId}}</td>
             </tr>
         </table>
+    </div>
+    <div style="color:#009116;" ng-if="afvejningModel.msg">
+        {{afvejningModel.msg}}
+    </div>
+    <div style="color:#a6000c;" ng-if="afvejningModel.error">
+        {{afvejningModel.error}}
     </div>
     <div class="itemContent" ng-if="afvejningModel.userProduktBatch">
         <div class="item">

@@ -18,6 +18,8 @@ angular.module('CDIOFinal').service('receptService', ['$http', 'receptModel', 'C
             data: recept
         }).then(function () {
             receptModel.recepter.push(recept);
+            receptModel.newItem = false;
+            receptModel.recept = null;
         }, function (errorResp) {
             receptModel.error = errorResp.data;
         });

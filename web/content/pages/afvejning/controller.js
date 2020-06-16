@@ -7,14 +7,26 @@ angular.module('CDIOFinal').controller('afvejningController', ['$scope', 'afvejn
 
     $scope.availableRaavareBatches = function(raavareBatches, rbId){
         var availableRaavareBatches = [];
+
+        var produktBatch = $scope.getProduktBatchFromId(afvejningModel.userProduktBatch.pbId);
+        var recept = $scope.getReceptFromId(produktBatch.receptId);
         raavareBatches.forEach(function(rb){
-            var rbUsed = true;
+            var rbAvailable = true;
             if(rb.rbId !== rbId){
                 afvejningModel.userProduktBatch.afvejninger.forEach(function (afvejning) {
-                    if(afvejning.rbId === rb.rbId) rbUsed = false;
-                })
+                    if(afvejning.rbId === rb.rbId) rbAvailable = false;
+                });
+                if(rbAvailable){
+                    var exist = false;
+                    recept.receptRaavarer.forEach(function(rr){
+                        if(rr.raavareId === rb.raavareId){
+                            exist = true;
+                        }
+                    });
+                    rbAvailable = exist;
+                }
             }
-            if(rbUsed) availableRaavareBatches.push(rb);
+            if(rbAvailable) availableRaavareBatches.push(rb);
         });
         return availableRaavareBatches;
     };
