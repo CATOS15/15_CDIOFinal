@@ -294,10 +294,12 @@ input[type=text], select, input[type=password], input[type=number]  {
     display: flex;
     justify-content: center;
     align-content: center;
+    align-items: stretch;
 }
 
 .afvejning_afvejninger > div > div > div{
     margin:5px;
+    width:100%;
 }
 
 .tilknyttet_recept table {
@@ -312,8 +314,22 @@ input[type=text], select, input[type=password], input[type=number]  {
     padding: 8px;
 }
 
+.tilknyttet_recept td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #dddddd;
+}
+
+
 .tilknyttet_recept tr:nth-child(even) {
     background-color: #dddddd;
+}
+
+.tilknyttet_title{
+    padding:5px;
+    border: 1px solid #dddddd;
+    text-align:center;
+    background-color:#ddd;
 }
 
 /* produktvisning */

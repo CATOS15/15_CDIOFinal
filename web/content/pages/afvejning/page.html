@@ -22,11 +22,8 @@
         <div class="item_afvejninger">
             <div class="afvejning_boxes">
                 <div class="tilknyttet_recept">
-                    <div>
-                        Tilknyttet recept:
-                    </div>
-                    <div>
-                        <span style="font-weight: 600">Recept navn:</span> {{afvejningRecept.receptNavn}}
+                    <div class="tilknyttet_title">
+                        Tilknyttet recept: {{afvejningRecept.receptNavn}}
                     </div>
                     <div>
                         <table>
@@ -59,10 +56,14 @@
                                 </select>
                             </div>
                             <div>
-                                <div style="word-break: break-word; padding-bottom:10px;" ng-if="afvejning.rbId">
-                                    MÆNGDE: {{information.maengde}} &nbsp;&nbsp;&nbsp;LEVERANDØR: {{information.leverandoer}}
-                                </div>
+                                <label>MÆNGDE:</label>
+                                <input disabled type="number" ng-model="information.maengde">
                             </div>
+                            <div>
+                                <label>LEVERANDØR:</label>
+                                <input disabled type="text" ng-model="information.leverandoer">
+                            </div>
+
                         </div>
                         <div>
                             <div>
