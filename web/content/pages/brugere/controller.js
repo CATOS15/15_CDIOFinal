@@ -40,7 +40,7 @@ angular.module('CDIOFinal').controller('brugereController', ['$scope', 'brugereM
     $scope.toggleNewItem = function(){
         if(brugereModel.newItem) return;
         brugereModel.newItem = true;
-        brugereModel.bruger = {userId: "", userName: "", userIni: "", cprnummer: "", roller: []};
+        brugereModel.bruger = {userId: "", userName: "", userIni: "", cprnummer: "", roller: [], tilstand: true};
     };
 
     $scope.save = function(){
@@ -49,6 +49,10 @@ angular.module('CDIOFinal').controller('brugereController', ['$scope', 'brugereM
         }else{
             brugereService.updateBruger(brugereModel.bruger);
         }
+    };
+
+    $scope.deactivateUser = function() {
+        brugereService.deleteBruger(brugereModel.bruger.userId);
     };
 
     $scope.init();
