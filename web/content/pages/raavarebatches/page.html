@@ -1,7 +1,4 @@
 <div>
-    <div>
-        {{raavarebatchesModel.error}}
-    </div>
     <div class="headerContent">
         <div class="header">Råvarebatch</div>
         <div class="header_buttonItem" ng-click="toggleNewItem()">+</div>
@@ -21,6 +18,12 @@
                 <td>{{raavareBatch.leverandoer}}</td>
             </tr>
         </table>
+    </div>
+    <div style="color:#009116;" ng-if="raavarebatchesModel.msg">
+        {{raavarebatchesModel.msg}}
+    </div>
+    <div style="color:#a6000c;" ng-if="raavarebatchesModel.error">
+        {{raavarebatchesModel.error}}
     </div>
     <div class="itemContent" ng-if="raavarebatchesModel.raavareBatch">
         <div class="item">
