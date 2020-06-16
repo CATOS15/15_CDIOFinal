@@ -21,6 +21,12 @@ public class RaavareBatchDAO extends Database implements IRaavareBatchDAO {
     @Override
     public RaavareBatch createRavareBatch(RaavareBatch raavareBatch) throws DALException {
         try{
+            validateUser(raavareBatch);
+            ResultSet rbIdExist = this.executeSelect(String.format("SELECT rbId FROM RaavareBatch WHERE rbId = %d;", raavareBatch.getRbId()));
+            if(rbIdExist.next()){
+                throw new DALException("En bruger med det ID findes allerede");
+            }
+
             ResultSet rs = this.executeSelect(String.format("SELECT * FROM Raavare WHERE raavareId = %s;",raavareBatch.getRaavareId()));
             if(rs.next()) {
                 try{
@@ -76,6 +82,31 @@ public class RaavareBatchDAO extends Database implements IRaavareBatchDAO {
         catch(SQLException sqlEx){
             throw new DALException("Fejl ved hent af råvarerbatch");
         }
+    }
+
+    private void validateUser(RaavareBatch raavareBatch) throws DALException {
+        if(raavareBatch.getRbId() < 1){
+            throw new DALException("Råvarebatchet ID skal bestå af et tal og være på mindste værdien 1");
+        }
+        if(raavareBatch.getRaavareId() < 1){
+            throw new DALException("Der skal være valgt en Råvare");
+        }
+        if(raavareBatch.getMaengde() < 0){
+            throw new DALException("Mængden skal bestå af et tal og være større end 0");
+        }
+        if(raavareBatch.getLeverandoer().length() < 2  || raavareBatch.getLeverandoer().length() > 21){
+            throw new DALException("Leverandør navnet skal være mellem 3 og 20 karakterer");
+        }
+
+        try{
+            ResultSet raavareBatchIdExist = this.executeSelect(String.format("SELECT rbId FROM RaavareBatch WHERE rbId = %d", raavareBatch.getRbId()));
+            if(raavareBatchIdExist.next()){
+                throw new DALException("Et Raavarebatch med dette ID findes allerede");
+            }
+        }
+        catch (SQLException sqlException){
+            throw new DALException("Fejl ved validering af Raavarebatch");
+         }
     }
 
     @Override

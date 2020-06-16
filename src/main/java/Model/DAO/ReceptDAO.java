@@ -85,6 +85,9 @@ public class ReceptDAO extends Database implements IReceptDAO {
             throw new DALException("Receptet navnet skal være mellem 3 og 20 karakterer");
 
         List<ReceptRaavare> receptRaavarer = recept.getReceptRaavarer();
+        if(receptRaavarer.size() < 1){
+            throw new DALException("Ingen råvare tilført");
+        }
         for(ReceptRaavare receptRaavare : receptRaavarer){
             if(receptRaavare.getRaavareId() < 1){
                 throw new DALException("Udfyld venligst alle Råvarer");
