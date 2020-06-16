@@ -29,7 +29,7 @@
     </div>
     <div class="itemContent" ng-if="produktionsbatchModel.produktBatch">
         <div class="item">
-            <div class="item_2_elements">
+            <div>
                 <div>
                     <label>Produktbatch ID:</label>
                     <input type="number" ng-model="produktionsbatchModel.produktBatch.pbId" ng-disabled="!newItem" />
@@ -42,8 +42,8 @@
                 </div>
             </div>
         </div>
-        <div class="actions"><div class="buttonItem" ng-click="save()">gem</div></div>
     </div>
+    <div class="actions" ng-if="produktionsbatchModel.produktBatch"><div class="buttonItem" ng-click="save()">gem</div></div>
 </div>
 <style>
 </style>

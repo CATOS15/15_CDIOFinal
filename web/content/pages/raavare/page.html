@@ -36,8 +36,8 @@
                 </div>
             </div>
         </div>
-        <div class="actions"><div class="buttonItem" ng-click="save()"><span ng-if="raavareModel.newItem">Opret råvare</span><span ng-if="!raavareModel.newItem">Opdater råvare</span></div></div>
     </div>
+    <div class="actions" ng-if="raavareModel.raavare"><div class="buttonItem" ng-click="save()"><span ng-if="raavareModel.newItem">Opret råvare</span><span ng-if="!raavareModel.newItem">Opdater råvare</span></div></div>
 </div>
 <style>
 </style>

@@ -155,7 +155,7 @@ input[type=text], select, input[type=password], input[type=number]  {
 .actions{
     width:100%;
     text-align:right;
-    padding: 0 15px 15px 0;
+    padding: 15px 15px 15px 0;
 }
 
 .buttonItem{
@@ -220,10 +220,12 @@ input[type=text], select, input[type=password], input[type=number]  {
 }
 
 .receptadd_knap{
-    width: max-content; !important;
+    width: max-content !important;
     background: rgb(54, 185, 224);
     display: table;
     transition : 0.3s;
+    margin:auto;
+    margin-top:5px;
 }
 
 .receptadd_knap:hover {
