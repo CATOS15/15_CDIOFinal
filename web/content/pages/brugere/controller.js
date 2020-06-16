@@ -1,6 +1,5 @@
 angular.module('CDIOFinal').controller('brugereController', ['$scope', 'brugereModel', 'brugereService', function ($scope, brugereModel, brugereService) {
     $scope.brugereModel = brugereModel;
-    $scope.newItem = brugereModel.newItem;
 
     $scope.init = function(){
         brugereService.getBrugerer();
@@ -30,7 +29,7 @@ angular.module('CDIOFinal').controller('brugereController', ['$scope', 'brugereM
     };
 
     $scope.toggleItem = function(bruger){
-        $scope.newItem = false;
+        brugereModel.newItem = false;
         if(brugereModel.bruger && brugereModel.bruger.userId === bruger.userId){
             brugereModel.bruger = null;
         }
@@ -39,13 +38,13 @@ angular.module('CDIOFinal').controller('brugereController', ['$scope', 'brugereM
         }
     };
     $scope.toggleNewItem = function(){
-        if($scope.newItem) return;
-        $scope.newItem = true;
+        if(brugereModel.newItem) return;
+        brugereModel.newItem = true;
         brugereModel.bruger = {userId: "", userName: "", userIni: "", cprnummer: "", roller: []};
     };
 
     $scope.save = function(){
-        if($scope.newItem){
+        if(brugereModel.newItem){
             brugereService.createBruger(brugereModel.bruger);
         }else{
             brugereService.updateBruger(brugereModel.bruger);

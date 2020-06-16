@@ -50,7 +50,7 @@ angular.module('CDIOFinal').controller('receptController', ['$scope', 'receptMod
     $scope.addReceptRaavare = function(){
         receptModel.recept.receptRaavarer.push({
             receptId: receptModel.recept.receptId,
-            raavareId: '',
+            raavareId: $scope.availableRaavare(raavareModel.raavarer, "")[0].raavareId,
             nonNetto: '',
             tolerance: ''
         });

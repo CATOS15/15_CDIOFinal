@@ -18,7 +18,21 @@ public class UserProduktBatchDAO extends Database implements IUserProduktBatch {
     public UserProduktBatch createUserProduktBatch(UserProduktBatch userProduktBatch) throws DALException {
         try{
             for (Afvejning afvejning: userProduktBatch.getAfvejninger()) {
+                ResultSet rs = this.executeSelect(String.format("SELECT pbId, rbId FROM UserProduktBatch WHERE pbId = %d AND rbId = %d", userProduktBatch.getPbId(), afvejning.getRbId()));
+                if(rs.next()) {
+                    continue;
+                }
                 this.executeUpdate(String.format("INSERT INTO UserProduktBatch VALUES (%d, %d, %d, %d, %d, %d);", userProduktBatch.getPbId(), afvejning.getUserId(), afvejning.getRbId(), afvejning.getTara(), afvejning.getNetto(), afvejning.getTerminal()));
+            }
+            String test = String.format("SELECT DISTINCT COUNT(*) FROM produktbatch as pb NATURAL JOIN receptraavare as r WHERE pb.pbId = %d;", userProduktBatch.getPbId());
+            ResultSet rs = this.executeSelect(test);
+            if(rs.next()){
+                int totaleRaavarePaakraevet = rs.getInt(1);
+                if(totaleRaavarePaakraevet == userProduktBatch.getAfvejninger().size()){
+                    this.executeUpdate(String.format("UPDATE produktbatch as pb SET pb.status = 'Afsluttet' WHERE pb.pbId = %d;", userProduktBatch.getPbId()));
+                }
+            }else{
+                throw new DALException("Fejl ved hent af råvare på produktbatch!");
             }
 
             return userProduktBatch;

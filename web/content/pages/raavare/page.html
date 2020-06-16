@@ -26,7 +26,7 @@
             <div class="item_2_elements">
                 <div>
                     <label>
-                        Råvare id: <input type="number" ng-model="raavareModel.raavare.raavareId" ng-disabled="!newItem" />
+                        Råvare id: <input type="number" ng-model="raavareModel.raavare.raavareId" ng-disabled="!raavareModel.newItem" />
                     </label>
                 </div>
                 <div>
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="actions"><div class="buttonItem" ng-click="save()"><span ng-if="newItem">Opret råvare</span><span ng-if="!newItem">Opdater råvare</span></div></div>
+        <div class="actions"><div class="buttonItem" ng-click="save()"><span ng-if="raavareModel.newItem">Opret råvare</span><span ng-if="!raavareModel.newItem">Opdater råvare</span></div></div>
     </div>
 </div>
 <style>

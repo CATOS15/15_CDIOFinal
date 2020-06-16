@@ -33,7 +33,7 @@
                 </div>
                 <div>
                     <label>Recept ID:</label>
-                    <select ng-model="produktionsbatchModel.produktBatch.receptId">
+                    <select ng-model="produktionsbatchModel.produktBatch.receptId" ng-disabled="!newItem">
                         <option ng-repeat="recept in receptModel.recepter track by $index" ng-value="recept.receptId">{{recept.receptNavn}} ({{recept.receptId}})</option>
                     </select>
                 </div>

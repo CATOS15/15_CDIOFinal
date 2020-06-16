@@ -58,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <div class="buttonItem receptadd_knap" ng-click="addReceptRaavare();" ng-if="receptModel.recept.receptId && newItem && !validateReceptId()">Tilføj Komponent</div>
+            <div class="buttonItem receptadd_knap" ng-click="addReceptRaavare();" ng-if="receptModel.recept.receptId && newItem && !validateReceptId() && availableRaavare(raavareModel.raavarer, '').length > 0">Tilføj Råvare</div>
         </div>
         <div class="actions"><div class="buttonItem" ng-click="save()" ng-if="newItem && receptModel.recept.receptRaavarer.length > 0">gem</div></div>
     </div>
