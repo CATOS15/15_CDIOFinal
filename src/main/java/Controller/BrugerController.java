@@ -4,6 +4,7 @@ import Model.DAO.IUserDAO;
 import Model.DAO.UserDAO;
 import Model.DTO.User;
 import Security.Authenticated;
+import Security.RolleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.*;
@@ -11,7 +12,6 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.List;
 
-@Authenticated
 @Path("/bruger")
 public class BrugerController {
     private IUserDAO iUserDAO;
@@ -23,6 +23,7 @@ public class BrugerController {
     }
 
     @GET
+    @Authenticated(RolleEnum.ADMINISTRATOR)
     public Response getBrugerer() {
         try{
             List<User> users = iUserDAO.getUsers();
@@ -35,6 +36,7 @@ public class BrugerController {
     }
 
     @GET
+    @Authenticated(RolleEnum.ADMINISTRATOR)
     @Path("{brugerId}")
     public Response getBruger(@PathParam("brugerId") String brugerId) {
         try{
@@ -48,6 +50,7 @@ public class BrugerController {
     }
 
     @POST
+    @Authenticated(RolleEnum.ADMINISTRATOR)
     public Response createBruger(String JSON_user) {
         try{
             User user = mapper.readValue(JSON_user, User.class);
@@ -61,6 +64,7 @@ public class BrugerController {
     }
 
     @PUT
+    @Authenticated(RolleEnum.ADMINISTRATOR)
     public Response updateBruger(String JSON_user) {
         try{
             User user = mapper.readValue(JSON_user, User.class);
@@ -74,6 +78,7 @@ public class BrugerController {
     }
 
     @DELETE
+    @Authenticated(RolleEnum.ADMINISTRATOR)
     @Path("{brugerId}")
     public Response deleteBruger(@PathParam("brugerId") String brugerId) {
         try{

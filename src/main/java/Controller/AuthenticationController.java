@@ -22,12 +22,12 @@ public class AuthenticationController {
     }
 
     @GET
-    @Authenticated
+    @Authenticated(RolleEnum.NULL)
     @Path("/getLogin")
     public Response getLogin(@HeaderParam(HttpHeaders.AUTHORIZATION) String token) {
         try{
             token = token.substring("Bearer".length()).trim();
-            String username = Security.verifyToken(token);
+            String username = Security.verifyToken(token, null);
             User user = iUserDAO.getUserByName(username);
             iUserDAO.end();
             return Response.ok(mapper.writeValueAsString(user)).build();
@@ -54,6 +54,7 @@ public class AuthenticationController {
 
     @POST
     @Path("/createuser")
+    @Authenticated(RolleEnum.ADMINISTRATOR)
     public Response createUser(String JSON_user) {
         try{
             User user = mapper.readValue(JSON_user, User.class);

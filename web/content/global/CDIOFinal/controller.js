@@ -6,11 +6,11 @@
         CDIOFinalService.getLogin();
     };
 
-    $scope.checkRoleAccess = function(accessId){
+    $scope.checkRoleAccess = function(accessIds){
         if(!CDIOFinalModel.user) return false;
         var access = false;
         CDIOFinalModel.user.roller.forEach(function(role){
-            if(role.roleId === accessId) access = true;
+            if(accessIds.indexOf(role.roleId) !== -1) access = true;
         });
         return access;
     };

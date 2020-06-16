@@ -17,6 +17,9 @@ import java.io.IOException;
 @Provider
 @Priority(Priorities.AUTHENTICATION)
 public class AuthenticatedFilter implements ContainerRequestFilter {
+    @Context
+    ResourceInfo resourceInfo;
+
     private static final String AUTHENTICATION_SCHEME = "Bearer";
 
     @Override
@@ -28,7 +31,10 @@ public class AuthenticatedFilter implements ContainerRequestFilter {
         }
         String token = authorizationHeader.substring(AUTHENTICATION_SCHEME.length()).trim();
         try {
-            validateToken(token);
+            Authenticated authenticated = resourceInfo.getResourceMethod().getAnnotation(Authenticated.class);
+            RolleEnum rolleEnum = null;
+            if(authenticated != null) rolleEnum = authenticated.value();
+            validateToken(token, rolleEnum);
         } catch (Exception e) {
             abortWithUnauthorized(requestContext);
         }
@@ -47,7 +53,7 @@ public class AuthenticatedFilter implements ContainerRequestFilter {
                         .build());
     }
 
-    private void validateToken(String token) throws Exception {
-        Security.verifyToken(token);
+    private void validateToken(String token, RolleEnum rolleNeeded) throws Exception {
+        Security.verifyToken(token, rolleNeeded);
     }
 }

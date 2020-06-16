@@ -4,6 +4,7 @@ import Model.DAO.IRolleDAO;
 import Model.DAO.RolleDAO;
 import Model.DTO.Rolle;
 import Security.Authenticated;
+import Security.RolleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.*;
@@ -11,7 +12,6 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.List;
 
-@Authenticated
 @Path("/rolle")
 public class RolleController {
 
@@ -25,6 +25,7 @@ public class RolleController {
 
 
     @GET
+    @Authenticated(RolleEnum.NULL)
     public Response getRoller()
     {
         try{
@@ -38,6 +39,7 @@ public class RolleController {
     }
 
     @GET
+    @Authenticated(RolleEnum.NULL)
     @Path("{rolleId}")
     public Response getRolle(@PathParam("rolleId") String rolleId)
     {
@@ -52,6 +54,7 @@ public class RolleController {
     }
 
     @POST
+    @Authenticated(RolleEnum.ADMINISTRATOR)
     public Response createRolle(String JSON_raavare)
     {
         try{
@@ -66,6 +69,7 @@ public class RolleController {
     }
 
     @PUT
+    @Authenticated(RolleEnum.ADMINISTRATOR)
     public Response updateRolle(String JSON_rolle)
     {
         try{
@@ -80,6 +84,7 @@ public class RolleController {
     }
 
     @DELETE
+    @Authenticated(RolleEnum.ADMINISTRATOR)
     @Path("{rolleId}")
     public Response deleteRaavare(@PathParam("rolleId") String rolleId)
     {

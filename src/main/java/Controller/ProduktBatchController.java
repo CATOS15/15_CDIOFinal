@@ -4,6 +4,7 @@ import Model.DAO.IProduktBatchDAO;
 import Model.DAO.ProduktBatchDAO;
 import Model.DTO.ProduktBatch;
 import Security.Authenticated;
+import Security.RolleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.GET;
@@ -14,7 +15,6 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.List;
 
-@Authenticated
 @Path("/produktbatch")
 public class ProduktBatchController {
     private IProduktBatchDAO iProduktBatchDAO;
@@ -26,6 +26,7 @@ public class ProduktBatchController {
     }
 
     @GET
+    @Authenticated(RolleEnum.NULL)
     public Response getProduktBatches() {
         try{
             List<ProduktBatch> produktBatches = iProduktBatchDAO.getProduktBatches();
@@ -38,6 +39,7 @@ public class ProduktBatchController {
     }
 
     @GET
+    @Authenticated(RolleEnum.NULL)
     @Path("{pbId}")
     public Response getProduktBatch(@PathParam("pbId") String pbId) {
         try{
@@ -51,6 +53,7 @@ public class ProduktBatchController {
     }
 
     @POST
+    @Authenticated(RolleEnum.PRODUKTIONSLEDER)
     public Response createProduktBatch(String JSON_produktbatch) {
         try{
             ProduktBatch produktBatch = mapper.readValue(JSON_produktbatch, ProduktBatch.class);

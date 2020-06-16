@@ -7,6 +7,7 @@ import Model.DAO.UserDAO;
 import Model.DTO.RaavareBatch;
 import Model.DTO.User;
 import Security.Authenticated;
+import Security.RolleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.GET;
@@ -17,7 +18,6 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.List;
 
-@Authenticated
 @Path("/raavarebatch")
 public class RaavareBatchController {
     private IRaavareBatchDAO iRaavareBatchDAO;
@@ -29,6 +29,7 @@ public class RaavareBatchController {
     }
 
     @GET
+    @Authenticated(RolleEnum.NULL)
     public Response getRaavareBatches() {
         try{
             List<RaavareBatch> raavareBatches = iRaavareBatchDAO.getRaavareBatches();
@@ -41,6 +42,7 @@ public class RaavareBatchController {
     }
 
     @GET
+    @Authenticated(RolleEnum.NULL)
     @Path("{rbId}")
     public Response getRaavareBatch(@PathParam("rbId") String rbId) {
         try{
@@ -52,6 +54,7 @@ public class RaavareBatchController {
     }
 
     @POST
+    @Authenticated(RolleEnum.PRODUKTIONSLEDER)
     public Response createRaavareBatch(String JSON_raavareBatch) {
         try{
             RaavareBatch raavareBatch = mapper.readValue(JSON_raavareBatch, RaavareBatch.class);

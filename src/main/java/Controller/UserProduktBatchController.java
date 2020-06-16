@@ -7,6 +7,7 @@ import Model.DAO.UserProduktBatchDAO;
 import Model.DTO.ProduktBatch;
 import Model.DTO.UserProduktBatch;
 import Security.Authenticated;
+import Security.RolleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.GET;
@@ -17,7 +18,6 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.List;
 
-@Authenticated
 @Path("/afvejning")
 public class UserProduktBatchController {
     private IUserProduktBatch iUserProduktBatchDAO;
@@ -29,6 +29,7 @@ public class UserProduktBatchController {
     }
 
     @GET
+    @Authenticated(RolleEnum.LABORANT)
     public Response getUserProduktBatches() {
         try{
             List<UserProduktBatch> userProduktBatches = iUserProduktBatchDAO.getUserProduktBatches();
@@ -41,6 +42,7 @@ public class UserProduktBatchController {
     }
 
     @POST
+    @Authenticated(RolleEnum.LABORANT)
     public Response createUserProduktBatch(String JSON_userproduktbatch) {
         try{
             UserProduktBatch userProduktBatch = mapper.readValue(JSON_userproduktbatch, UserProduktBatch.class);

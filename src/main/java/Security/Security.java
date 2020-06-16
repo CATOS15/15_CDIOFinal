@@ -1,5 +1,9 @@
 package Security;
 
+import Model.DAO.IUserDAO;
+import Model.DAO.UserDAO;
+import Model.DTO.Rolle;
+import Model.DTO.User;
 import Model.Exception.DALException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -12,6 +16,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.Date;
 
 public class Security {
@@ -45,7 +50,7 @@ public class Security {
             throw new DALException("Kunne ikke oprette token");
         }
     }
-    public static String verifyToken(String token) throws DALException {
+    public static String verifyToken(String token, RolleEnum rolleNeeded) throws DALException {
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             JWTVerifier verifier = JWT.require(algorithm)
@@ -53,8 +58,39 @@ public class Security {
                     .build();
             DecodedJWT jwt = verifier.verify(token);
             Claim claim = jwt.getClaim("user");
+
+            if(rolleNeeded != null && rolleNeeded != RolleEnum.NULL){
+                IUserDAO iUserDAO = new UserDAO();
+                boolean accessGranted = false;
+                User user = iUserDAO.getUserByName(claim.asString());
+                for (Rolle rolle : user.getRoller()) {
+                    switch (rolleNeeded){
+                        case ADMINISTRATOR:
+                            if(rolle.getRoleId() == 1){
+                                accessGranted = true;
+                            }
+                        break;
+                        case FARMACEUT:
+                            if(rolle.getRoleId() == 2 || rolle.getRoleId() == 1){
+                                accessGranted = true;
+                            }
+                        break;
+                        case PRODUKTIONSLEDER:
+                            if(rolle.getRoleId() == 3 || rolle.getRoleId() == 2 || rolle.getRoleId() == 1){
+                                accessGranted = true;
+                            }
+                        break;
+                        case LABORANT:
+                            if(rolle.getRoleId() == 4 || rolle.getRoleId() == 3 || rolle.getRoleId() == 2 || rolle.getRoleId() == 1){
+                                accessGranted = true;
+                            }
+                        break;
+                    }
+                }
+                if(!accessGranted) throw new DALException("Din rolle giver der ikke adgang til denne side");
+            }
             return claim.asString();
-        } catch (JWTVerificationException exception){
+        } catch (JWTVerificationException | ClassNotFoundException | SQLException exception){
             throw new DALException("Invalid token");
         }
     }

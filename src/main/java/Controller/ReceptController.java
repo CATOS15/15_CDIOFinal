@@ -5,6 +5,7 @@ import Model.DAO.ReceptDAO;
 import Model.DTO.RaavareBatch;
 import Model.DTO.Recept;
 import Security.Authenticated;
+import Security.RolleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.GET;
@@ -15,7 +16,6 @@ import java.util.List;
 
 import javax.ws.rs.Path;
 
-@Authenticated
 @Path("/recept")
 public class ReceptController {
     private IReceptDAO iReceptDAO;
@@ -27,6 +27,7 @@ public class ReceptController {
     }
 
     @GET
+    @Authenticated(RolleEnum.NULL)
     public Response getRecepter(){
         try{
             List<Recept> recepter = iReceptDAO.getRecepter();
@@ -39,6 +40,7 @@ public class ReceptController {
     }
 
     @POST
+    @Authenticated(RolleEnum.FARMACEUT)
     public Response createRecept(String JSON_recepter) {
         try{
             Recept recept = mapper.readValue(JSON_recepter, Recept.class);

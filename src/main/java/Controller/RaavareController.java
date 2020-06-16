@@ -5,6 +5,7 @@ import Model.DAO.IRaavareDAO;
 import Model.DAO.RaavareDAO;
 import Model.DTO.Raavare;
 import Security.Authenticated;
+import Security.RolleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.*;
@@ -12,7 +13,6 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.List;
 
-@Authenticated
 @Path("/raavare")
 public class RaavareController {
 
@@ -26,6 +26,7 @@ public class RaavareController {
 
 
     @GET
+    @Authenticated(RolleEnum.NULL)
     public Response getRaavarer()
     {
         try{
@@ -39,6 +40,7 @@ public class RaavareController {
     }
 
     @GET
+    @Authenticated(RolleEnum.NULL)
     @Path("{raavareId}")
     public Response getRaavare(@PathParam("raavareId") String raavareId)
     {
@@ -53,6 +55,7 @@ public class RaavareController {
     }
 
     @POST
+    @Authenticated(RolleEnum.FARMACEUT)
     public Response createRaavare(String JSON_raavare)
     {
         try{
@@ -67,6 +70,7 @@ public class RaavareController {
     }
 
     @PUT
+    @Authenticated(RolleEnum.FARMACEUT)
     public Response updateRaavare(String JSON_raavare)
     {
         try{
