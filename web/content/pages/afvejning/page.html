@@ -35,11 +35,13 @@
                         </select>
                     </div>
                     <div style="word-break: break-word" ng-if="afvejning.rbId">
-                        Information omkring råvarebatchen:><br />
+                        Information omkring råvarebatchen:<br />
                         RECEPT NAVN: {{information.receptNavn}} <br />
                         RÅVARE NAVN: {{information.raavareNavn}} <br />
                         NON NETTO: {{information.nonNetto}} <br />
                         TOLERANCE: {{information.tolerance}} <br />
+                        MÆNGDE: {{information.maengde}} <br />
+                        LEVERANDØR: {{information.leverandoer}} <br />
                     </div>
                 </div>
                 <div>
@@ -57,7 +59,7 @@
                     </div>
                 </div>
             </div>
-            <div class="buttonItem receptadd_knap" ng-click="addAfvejning()" ng-if="availableRaavareBatches(raavarebatchesModel.raavareBatches, '').length > 0">Tilføj afvejning</div>
+            <div class="buttonItem receptadd_knap" ng-click="addAfvejning()" ng-if="availableRaavareBatches(raavarebatchesModel.raavareBatches, '').length > 0">Tilføj Komponent</div>
 
         </div>
         <div class="actions"><div class="buttonItem" ng-click="save()">gem</div></div>
