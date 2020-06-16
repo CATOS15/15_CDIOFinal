@@ -10,9 +10,11 @@ angular.module('CDIOFinal').controller('receptController', ['$scope', 'receptMod
             if(recept.receptId.toString() === receptModel.recept.receptId) idExist = true;
         });
         if(idExist){
-            receptModel.error = "En recept med det ID'et " + receptModel.recept.receptId + " eksisterer allerede";
+            receptModel.error = "En recept med det ID eksisterer allerede";
         }else{
-            receptModel.error = "";
+            if(receptModel.error === "En recept med det ID eksisterer allerede"){
+                receptModel.error = "";
+            }
         }
         return idExist;
     };

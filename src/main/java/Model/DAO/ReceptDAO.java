@@ -84,6 +84,18 @@ public class ReceptDAO extends Database implements IReceptDAO {
         if(recept.getReceptNavn() == null || recept.getReceptNavn() .length() < 3 || recept.getReceptNavn() .length() > 20)
             throw new DALException("Receptet navnet skal være mellem 3 og 20 karakterer");
 
+        List<ReceptRaavare> receptRaavarer = recept.getReceptRaavarer();
+        for(ReceptRaavare receptRaavare : receptRaavarer){
+            if(receptRaavare.getRaavareId() < 1){
+                throw new DALException("Udfyld venligst alle Råvarer");
+            }
+            if(receptRaavare.getNonNetto() < 1){
+                throw new DALException("Udfyld venligst alle NonNettoer");
+            }
+            if(receptRaavare.getTolerance() < 1){
+                throw new DALException("Udfyld venligst alle Tolerancer");
+            }
+        }
 
         try{
             ResultSet receptExist = this.executeSelect(String.format("SELECT receptId FROM Recept WHERE receptName = '%s' AND receptId != %d", recept.getReceptNavn(), recept.getReceptId()));

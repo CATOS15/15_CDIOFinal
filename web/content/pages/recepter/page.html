@@ -1,7 +1,4 @@
  <div>
-    <div>
-        {{receptModel.error}}
-    </div>
     <div class="headerContent">
         <div class="header">Recept</div>
         <div class="header_buttonItem" ng-click="toggleNewItem()">+</div>
@@ -29,7 +26,7 @@
             <div class="item_2_elements">
                 <div>
                     <label>ReceptID:</label>
-                    <input type="text" ng-model="receptModel.recept.receptId" ng-disabled="!newItem || receptModel.recept.receptRaavarer.length > 0" />
+                    <input type="text" ng-model="receptModel.recept.receptId" ng-disabled="!newItem || receptModel.recept.receptRaavarer.length > 0" ng-change="validateReceptId()" />
                 </div>
                 <div>
                     <label>ReceptNavn:</label>
@@ -45,7 +42,7 @@
                     <div>
                         <label> Råvare: </label>
                         <select ng-disabled="!newItem" ng-model="receptRaavare.raavareId">
-                            <option ng-repeat="x in raavareModel.raavarer track by x.raavareId" ng-value="x.raavareId">{{x.raavareNavn}}</option>
+                            <option ng-repeat="raavare in availableRaavare(raavareModel.raavarer, receptRaavare.raavareId) track by $index" ng-value="raavare.raavareId">{{raavare.raavareNavn}}</option>
                         </select>
                     </div>
                     <div>
@@ -61,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <div class="buttonItem receptadd_knap" ng-click="addReceptRaavare();" ng-if="receptModel.recept.receptId && newItem">Tilføj Komponent</div>
+            <div class="buttonItem receptadd_knap" ng-click="addReceptRaavare();" ng-if="receptModel.recept.receptId && newItem && !validateReceptId()">Tilføj Komponent</div>
         </div>
         <div class="actions"><div class="buttonItem" ng-click="save()" ng-if="newItem && receptModel.recept.receptRaavarer.length > 0">gem</div></div>
     </div>
