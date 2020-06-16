@@ -11,12 +11,17 @@ angular.module('CDIOFinal').service('raavarebatchesService', ['$http', 'raavareb
     };
 
     this.createRavareBatch = function(raavareBatch){
+        raavarebatchesModel.error = "";
+        raavarebatchesModel.msg = "";
         $http({
             method: "POST",
             url: CDIOFinalModel.apiURL + "raavarebatch",
             data: raavareBatch
         }).then(function () {
+            raavarebatchesModel.msg = "Råvarebatch " + raavareBatch.rbId + " oprettet";
             raavarebatchesModel.raavareBatches.push(raavareBatch);
+            raavarebatchesModel.newItem = false;
+            raavarebatchesModel.raavareBatch = null;
         }, function (errorResp) {
             raavarebatchesModel.error = errorResp.data;
         });

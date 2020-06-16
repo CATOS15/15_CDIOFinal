@@ -1,7 +1,7 @@
  <div>
     <div class="headerContent">
         <div class="header">Recept</div>
-        <div class="header_buttonItem" ng-click="toggleNewItem()">+</div>
+        <div class="header_buttonItem turquoise_hover" ng-click="toggleNewItem()">+</div>
     </div>
     <div class="tableContent">
         <table>
@@ -50,8 +50,8 @@
                         <input type="text" ng-model="receptRaavare.nonNetto" ng-disabled="!newItem" />
                     </div>
                     <div>
-                        <label>Tolerance</label>
-                        <input type="text" ng-model="receptRaavare.tolerance" ng-disabled="!newItem" />
+                        <label>Tolerance (%)</label>
+                        <input type="number" ng-model="receptRaavare.tolerance" ng-disabled="!newItem" />
                     </div>
                     <div class="div_with_button">
                         <div class="minus_buttonItem" ng-click="removeReceptRaavare(receptRaavare)" ng-hide="!newItem">-</div>

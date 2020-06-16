@@ -29,7 +29,7 @@
     </div>
     <div class="itemContent" ng-if="brugereModel.bruger">
         <div class="item">
-            <div class="item_2_elements">
+            <div>
                 <div>
                     <label>Bruger id</label>
                     <input type="number" placeholder="Bruger id" ng-model="brugereModel.bruger.userId" ng-disabled="!brugereModel.newItem" />
@@ -38,6 +38,8 @@
                     <label>Bruger navn</label>
                     <input type="text" ng-model="brugereModel.bruger.userName" />
                 </div>
+            </div>
+            <div>
                 <div>
                     <label>Bruger password</label>
                     <input type="password" ng-model="brugereModel.bruger.password" />
@@ -47,7 +49,7 @@
                     <input type="text" ng-model="brugereModel.bruger.userIni" />
                 </div>
             </div>
-            <div class="item_1_element">
+            <div>
                 <div>
                     <label>Bruger CPR nummer:</label>
                     <input type="text" ng-model="brugereModel.bruger.cprnummer" />
@@ -61,8 +63,8 @@
                 </div>
             </div>
         </div>
-        <div class="actions"><div class="buttonItem" ng-click="save()"><span ng-if="brugereModel.newItem">Opret bruger</span><span ng-if="!brugereModel.newItem">Opdater bruger</span></div></div>
     </div>
+    <div class="actions"><div class="buttonItem" ng-click="save()"><span ng-if="brugereModel.newItem">Opret bruger</span><span ng-if="!brugereModel.newItem">Opdater bruger</span></div></div>
 </div>
 
 <style>

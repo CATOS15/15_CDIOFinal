@@ -3,5 +3,6 @@ angular.module('CDIOFinal').service('raavarebatchesModel', function () {
     this.raavareBatches = [];
 
     this.error = "";
+    this.msg = "";
 
 });
