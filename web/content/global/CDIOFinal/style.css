@@ -22,7 +22,6 @@ body{
     height:calc(100vh - 30px);
     padding: 0 100px;
     box-sizing:border-box;
-    position: absolute;
     overflow:auto;
     /*
     background: rgb(54,185,224);
@@ -31,10 +30,20 @@ body{
 }
 .pageContainer > div{
     width:100%;
-    height: 100%;
+    height: auto;
+    min-height:100%;
     background: #f3f3f3;
     padding: 0 10px 10px 10px;
     border-radius: 10px;
+    box-sizing:border-box;
+    display:flex;
+    flex-direction:column;
+}
+
+.pageContainer > div > div {
+    width:100%;
+    flex-grow:0;
+    align-items: stretch;
 }
 
 /*body scrollbar */
@@ -73,45 +82,65 @@ input::-webkit-inner-spin-button {
     display: block;
     font-weight: 600;
     font-size: 32px;
-    float: left;
     margin: auto;
     padding: 7px 70px;
 }
 
 .header_buttonItem{
-user-select: none;
-color:white;
-background: rgb(54, 185, 224);
-position: absolute;
-top: 15px;
-right: 5px;
-border-radius: 5px;
-font-size: 30px;
-padding: 0 6px;
-cursor:pointer;
-display:block;
-width:30px;
-height:30px;
+    user-select: none;
+    color:white;
+    background: rgb(54, 185, 224);
+    position: absolute;
+    top: 15px;
+    right: 5px;
+    border-radius: 5px;
+    font-size: 30px;
+    padding: 0 6px;
+    cursor:pointer;
+    display:block;
+    width:30px;
+    height:30px;
+    transition : 0.3s;
+}
+
+.header_buttonItem:hover {
+    transition : 0.3s;
+    box-shadow : 0 0 1px 2px rgb(54, 185, 224) ;
+    background-color : #1c98bd ;
 }
 
 /* itemContent */
 .itemContent{
     padding: 10px 10px 40px 10px;
-    margin:auto;
     width:100%;
-    justify-content: center;
+    min-height:100%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow:1 !important;
 }
+
 .item{
     padding-top:10px;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
-    flex-direction: column;
-
     width: 50%;
-    height:auto;
-    margin:auto;
+    box-sizing:border-box;
+    align-content: center;
+    flex-direction: column;
+    min-height:100%;
+
+    margin: 0 auto 0 auto;
+}
+
+.item > div{
+    display: flex;
+    align-items: stretch;
+    width:100%
+}
+.item > div > div {
+    width: 100%;
+    flex-grow: 1;
+    margin:5px;
+    box-sizing:border-box;
 }
 
 input[type=text], select, input[type=password], input[type=number]  {
@@ -123,74 +152,44 @@ input[type=text], select, input[type=password], input[type=number]  {
     margin-top:5px;
 }
 
-.item_1_element{
-    width:100%;
-}
-
-.item_1_element > div, .item_2_elements > div ,.item_5_elements > div {
-    padding: 5px;
-    box-sizing:border-box;
-    display:inline-block;
-    float:left;
-}
-
-.item_1_element > div{
-    width:100%;
-}
-
-.item_2_elements > div{
-    width:50%;
-}
-
-.item_5_elements > div {
-    padding: 5px;
-    width:23%;
-}
-
-.item_2_elements input, label{
-    display:inline-block;
-    width:100%;
-}
-
-.item_1_element input, label{
-    display:inline-block;
-    width:100%;
-}
-
-.rolle_checkboxes{
-    width:100%;
-    display: flex;
-    box-sizing:border-box;
-    padding:5px;
-}
-
-.rolle_checkboxes > div{
-    flex: 1 1 auto;
-}
-
-.rolle_checkboxes > label, input {
-    display:inline-block;
-    width:auto;
-    vertical-align:middle;
-}
-
 .actions{
     width:100%;
-    justify-content: center;
-    text-align:center;
-    padding-top:5px;
+    text-align:right;
+    padding: 0 15px 15px 0;
 }
 
 .buttonItem{
-    background: rgb(54, 185, 224);
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-image: none;
+    border: 1px solid transparent;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    background: #337ab7;
+    padding: 6px 12px;
     font-size: 20px;
-    padding: 7px 30px;
     cursor:pointer;
-    text-transform:uppercase;
+    text-transform:capitalize;
     width:auto;
     color:white;
-    display:inline-block;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition : 0.3s;
 }
+
+.buttonItem:hover {
+    transition : 0.3s;
+    box-shadow : 0 0 1px 3px #337ab7 ;
+    background-color : #255885 ;
+}
+
 .div_with_button{
     width:8% !important;
     padding: 32px 5px 8px 5px !important;
@@ -211,16 +210,49 @@ input[type=text], select, input[type=password], input[type=number]  {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition : 0.3s;
+}
+
+.minus_buttonItem:hover {
+    transition : 0.3s;
+    box-shadow : 0 0 1px 2px rgb(54, 185, 224) ;
+    background-color : #1c98bd ;
 }
 
 .receptadd_knap{
     width: max-content; !important;
+    background: rgb(54, 185, 224);
     display: table;
+    transition : 0.3s;
+}
+
+.receptadd_knap:hover {
+    transition : 0.3s;
+    box-shadow : 0 0 1px 3px rgb(54, 185, 224) ;
+    background-color : #1c98bd ;
+}
+
+.rolle_checkboxes{
+    width:100%;
+    display: flex;
+    box-sizing:border-box;
+    padding:5px;
+    justify-content: center;
+}
+
+.rolle_checkboxes > div{
+    width:auto;
+    flex: 1 1 auto;
+}
+
+.rolle_checkboxes > label, input {
+    display:inline-block;
+    width:auto;
+    vertical-align:middle;
 }
 
 /* tables */
 .tableContent{
-    float:left;
     width:100%;
     height: auto;
     max-height: 400px;
