@@ -4,6 +4,7 @@ angular.module('CDIOFinal').controller('afvejningController', ['$scope', 'afvejn
     $scope.raavarebatchesModel = raavarebatchesModel;
     $scope.raavareModel = raavareModel;
     $scope.receptModel = receptModel;
+    $scope.afvejningRecept = null;
 
     $scope.availableRaavareBatches = function(raavareBatches, rbId){
         var availableRaavareBatches = [];
@@ -103,9 +104,11 @@ angular.module('CDIOFinal').controller('afvejningController', ['$scope', 'afvejn
     $scope.toggleItem = function(userProduktBatch){
         if(afvejningModel.userProduktBatch === userProduktBatch){
             afvejningModel.userProduktBatch = null;
+            $scope.afvejningRecept = null;
         }
         else{
             afvejningModel.userProduktBatch = userProduktBatch;
+            $scope.afvejningRecept = $scope.getReceptFromId($scope.getProduktBatchFromId(afvejningModel.userProduktBatch.pbId).receptId);
         }
     };
 
