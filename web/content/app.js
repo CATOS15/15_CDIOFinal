@@ -34,6 +34,10 @@ CDIOFinal.config(['$routeProvider', '$httpProvider', function ($routeProvider, $
             templateUrl: "content/pages/brugere/page.html",
             controller: "brugereController"
         })
+        .when("/produktvisning", {
+            templateUrl: "content/pages/produktvisning/page.html",
+            controller: "produktvisningController"
+        })
         //Hvis siden ikke eksistester
         .otherwise({
             templateUrl: "content/pages/404/404.html"

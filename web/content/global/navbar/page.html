@@ -7,6 +7,7 @@
         <div ng-click="changeLocation('/raavarebatches')" ng-if="checkRoleAccess([1, 2, 3])">RÅVAREBATCHES</div>
         <div ng-click="changeLocation('/produktionsbatch')" ng-if="checkRoleAccess([1, 2, 3])">PRODUKTBATCHES</div>
         <div ng-click="changeLocation('/afvejning')" ng-if="checkRoleAccess([1, 2, 3, 4])">AFVEJNING</div>
+        <div ng-click="changeLocation('/produktvisning')" ng-if="checkRoleAccess([1, 2, 3, 4])">PRODUKT VISNING</div>
     </div>
     <div class="right">
         <div ng-click="logout()">Log ud</div>
