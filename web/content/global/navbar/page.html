@@ -1,7 +1,7 @@
 <div class="navbar">
     <div class="left">
         <div ng-click="changeLocation('/')">HJEM</div>
-        <div ng-click="changeLocation('/brugere')">BRUGERE</div>
+        <div ng-click="changeLocation('/brugere')" ng-if="checkRoleAccess(1)">BRUGERE</div>
         <div ng-click="changeLocation('/raavare')">RÅVAREADMINISTRATION</div>
         <div ng-click="changeLocation('/recepter')">RECEPTER</div>
         <div ng-click="changeLocation('/raavarebatches')">RÅVAREBATCHES</div>

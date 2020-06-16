@@ -6,6 +6,15 @@
         CDIOFinalService.getLogin();
     };
 
+    $scope.checkRoleAccess = function(accessId){
+        if(!CDIOFinalModel.user) return false;
+        var access = false;
+        CDIOFinalModel.user.roller.forEach(function(role){
+            if(role.roleId === accessId) access = true;
+        });
+        return access;
+    };
+
     $rootScope.$on('loginRequired', function() {
         $location.path('/login');
     });
