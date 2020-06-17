@@ -29,7 +29,7 @@
             <div>
                 <div>
                     <label>ReceptID</label>
-                    <input type="number" ng-model="receptModel.recept.receptId" ng-disabled="!receptModel.newItem|| receptModel.recept.receptRaavarer.length > 0" ng-change="validateReceptId()" />
+                    <input type="number" validate-decimal ng-model="receptModel.recept.receptId" ng-disabled="!receptModel.newItem|| receptModel.recept.receptRaavarer.length > 0" ng-change="validateReceptId()" />
                 </div>
                 <div>
                     <label>ReceptNavn</label>
@@ -39,7 +39,7 @@
             <div class="recept_komponent" ng-repeat="receptRaavare in receptModel.recept.receptRaavarer track by $index">
                 <div>
                     <label>Recept id</label>
-                    <input type="number" ng-model="receptRaavare.receptId" ng-disabled="true" />
+                    <input type="number" validate-decimal ng-model="receptRaavare.receptId" ng-disabled="true" />
                 </div>
                 <div>
                     <label> Råvare </label>
@@ -49,11 +49,11 @@
                 </div>
                 <div>
                     <label>Non netto (kg)</label>
-                    <input type="number" ng-model="receptRaavare.nonNetto" ng-disabled="!receptModel.newItem" step="0.01" min="0.05" max="20.00" lang="en" />
+                    <input type="number" validate-decimal ng-model="receptRaavare.nonNetto" ng-disabled="!receptModel.newItem" />
                 </div>
                 <div>
                     <label>Tolerance (%)</label>
-                    <input type="number" ng-model="receptRaavare.tolerance" ng-disabled="!receptModel.newItem"/>
+                    <input type="number" validate-decimal ng-model="receptRaavare.tolerance" ng-disabled="!receptModel.newItem"/>
                 </div>
                 <div class="div_with_button">
                     <div class="minus_buttonItem" ng-click="removeReceptRaavare(receptRaavare)" ng-hide="!receptModel.newItem">-</div>

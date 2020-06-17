@@ -33,7 +33,7 @@
             <div>
                 <div>
                     <label>RåvarebatchID:</label>
-                    <input type="number" ng-model="raavarebatchesModel.raavareBatch.rbId" ng-disabled="!raavarebatchesModel.newItem" />
+                    <input type="number" validate-decimal ng-model="raavarebatchesModel.raavareBatch.rbId" ng-disabled="!raavarebatchesModel.newItem" />
                 </div>
                 <div>
                     <label>Råvare:</label>
@@ -45,7 +45,7 @@
             <div>
                 <div>
                     <label>Mængde (kg)</label>
-                    <input type="number" ng-model="raavarebatchesModel.raavareBatch.maengde" ng-disabled="!raavarebatchesModel.newItem"/>
+                    <input type="number" validate-decimal ng-model="raavarebatchesModel.raavareBatch.maengde" ng-disabled="!raavarebatchesModel.newItem"/>
                 </div>
                 <div>
                     <label>Leverandør</label>
