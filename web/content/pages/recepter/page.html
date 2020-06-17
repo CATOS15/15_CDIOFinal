@@ -49,7 +49,7 @@
                 </div>
                 <div>
                     <label>Non netto (kg)</label>
-                    <input type="number" ng-model="receptRaavare.nonNetto" ng-disabled="!receptModel.newItem" ng-change="receptRaavare.nonNetto = changeCommaToDot(receptRaavare.nonNetto)" />
+                    <input type="number" ng-model="receptRaavare.nonNetto" ng-disabled="!receptModel.newItem" step="0.01" min="0.05" max="20.00" lang="en" />
                 </div>
                 <div>
                     <label>Tolerance (%)</label>
