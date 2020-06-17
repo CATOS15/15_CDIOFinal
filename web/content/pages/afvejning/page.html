@@ -68,7 +68,7 @@
                             </div>
                             <div>
                                 <label>Mængde (kg)</label>
-                                <input disabled type="number" ng-model="information.maengde">
+                                <input disabled type="number" validate-decimal ng-model="information.maengde">
                             </div>
                             <div>
                                 <label>Leverandør</label>
@@ -79,15 +79,15 @@
                         <div>
                             <div>
                                 <label>Tara vægt (kg)</label>
-                                <input type="number" ng-model="afvejning.tara" ng-disabled="!afvejning.rbId || !afvejning.newItem">
+                                <input type="number" validate-decimal ng-model="afvejning.tara" ng-disabled="!afvejning.rbId || !afvejning.newItem">
                             </div>
                             <div>
                                 <label>Netto (kg)</label>
-                                <input type="number" ng-model="afvejning.netto" ng-disabled="!afvejning.rbId || !afvejning.newItem">
+                                <input type="number" validate-decimal ng-model="afvejning.netto" ng-disabled="!afvejning.rbId || !afvejning.newItem">
                             </div>
                             <div>
                                 <label>Terminal</label>
-                                <input type="number" ng-model="afvejning.terminal" ng-disabled="!afvejning.rbId || !afvejning.newItem">
+                                <input type="number" validate-decimal ng-model="afvejning.terminal" ng-disabled="!afvejning.rbId || !afvejning.newItem">
                             </div>
                         </div>
                     </div>

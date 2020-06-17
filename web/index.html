@@ -61,9 +61,10 @@
 
     <script type="text/javascript" src ="content/global/directives/globalLoading.js"></script>
     <script type="text/javascript" src ="content/global/directives/ngEnter.js"></script>
+    <script type="text/javascript" src ="content/global/directives/validateDecimal.js"></script>
 
 </head>
-<body ng-app="CDIOFinal" ng-controller="CDIOFinalController">
+<body ng-app="CDIOFinal" ng-controller="CDIOFinalController" lang="DK">
     <div ng-include="'content/global/navbar/page.html'" ng-controller="navbarController" class="navbarContainer" ng-if="CDIOFinalModel.user"></div>
     <div ng-view class="pageContainer"></div>
     <global-loading ng-if="CDIOFinalModel.loadingCounter > 0"></global-loading>
