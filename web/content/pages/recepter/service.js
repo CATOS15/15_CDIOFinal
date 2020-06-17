@@ -1,4 +1,5 @@
 angular.module('CDIOFinal').service('receptService', ['$http', 'receptModel', 'CDIOFinalModel','raavareService',function ($http, receptModel,CDIOFinalModel, raavareService) {
+    var _this = this;
 
     this.getRecepter = function(){
         receptModel.error = "";
@@ -8,6 +9,7 @@ angular.module('CDIOFinal').service('receptService', ['$http', 'receptModel', 'C
             url: CDIOFinalModel.apiURL + "recept"
         }).then(function (resp) {
             receptModel.recepter = resp.data;
+            _this.resetItem();
         }, function (errorResp) {
             receptModel.error = errorResp.data;
         });
@@ -23,10 +25,15 @@ angular.module('CDIOFinal').service('receptService', ['$http', 'receptModel', 'C
         }).then(function () {
             receptModel.msg = "Recept " + recept.receptId + " oprettet";
             receptModel.recepter.push(recept);
-            receptModel.newItem = false;
-            receptModel.recept = null;
+            _this.resetItem();
         }, function (errorResp) {
             receptModel.error = errorResp.data;
         });
+    };
+
+
+    this.resetItem = function(){
+        receptModel.newItem = false;
+        receptModel.recept = null;
     };
 }]);

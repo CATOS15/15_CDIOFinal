@@ -1,10 +1,13 @@
 angular.module('CDIOFinal').service('produktionsbatchService', ['$http', 'produktionsbatchModel','CDIOFinalModel', function ($http, produktionsbatchModel,CDIOFinalModel) {
+    var _this = this;
+
     this.getProduktBatches = function(){
         $http({
             method: "GET",
             url: CDIOFinalModel.apiURL + "produktbatch"
         }).then(function (resp) {
             produktionsbatchModel.produktBatches = resp.data;
+            _this.resetItem();
         }, function (errorResp) {
             produktionsbatchModel.error = errorResp.data;
         });
@@ -20,10 +23,14 @@ angular.module('CDIOFinal').service('produktionsbatchService', ['$http', 'produk
         }).then(function (resp) {
             produktionsbatchModel.msg = "produktbatch " + produktBatch.pbId + " oprettet";
             produktionsbatchModel.produktBatches.push(resp.data);
-            produktionsbatchModel.newItem = false;
-            produktionsbatchModel.produktBatches = null;
+            _this.resetItem();
         }, function (errorResp) {
             produktionsbatchModel.error = errorResp.data;
         });
+    };
+
+    this.resetItem = function(){
+        produktionsbatchModel.newItem = false;
+        produktionsbatchModel.produktBatch = null;
     };
 }]);

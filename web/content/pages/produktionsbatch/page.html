@@ -35,11 +35,11 @@
             <div>
                 <div>
                     <label>Produktbatch ID:</label>
-                    <input type="number" ng-model="produktionsbatchModel.produktBatch.pbId" ng-disabled="!newItem" />
+                    <input type="number" ng-model="produktionsbatchModel.produktBatch.pbId" ng-disabled="!produktionsbatchModel.newItem" />
                 </div>
                 <div>
                     <label>Recept ID:</label>
-                    <select ng-model="produktionsbatchModel.produktBatch.receptId" ng-disabled="!newItem">
+                    <select ng-model="produktionsbatchModel.produktBatch.receptId" ng-disabled="!produktionsbatchModel.newItem">
                         <option ng-repeat="recept in receptModel.recepter track by $index" ng-value="recept.receptId">{{recept.receptNavn}} ({{recept.receptId}})</option>
                     </select>
                 </div>

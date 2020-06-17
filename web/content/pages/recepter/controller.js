@@ -1,13 +1,12 @@
 angular.module('CDIOFinal').controller('receptController', ['$scope', 'receptModel','receptService','raavareModel', 'raavareService', function ($scope, receptModel, receptService, raavareModel, raavareService) {
     $scope.receptModel = receptModel;
     $scope.raavareModel = raavareModel;
-    $scope.newItem = receptModel.newItem;
 
     $scope.validateReceptId = function(){
-        if(!$scope.newItem) return;
+        if(!receptModel.newItem) return;
         var idExist = false;
         receptModel.recepter.forEach(function(recept) {
-            if(recept.receptId.toString() === receptModel.recept.receptId) idExist = true;
+            if(recept.receptId === receptModel.recept.receptId) idExist = true;
         });
         if(idExist){
             receptModel.error = "En recept med det ID eksisterer allerede";
@@ -39,9 +38,9 @@ angular.module('CDIOFinal').controller('receptController', ['$scope', 'receptMod
         raavareService.getRaavarer();
     };
     $scope.toggleItem = function(recept){
-        $scope.newItem = false;
-        if(receptModel.recept ===  recept){
-            receptModel.recept = null;
+        receptModel.newItem = false;
+        if(receptModel.newItem ===  recept){
+            receptModel.newItem = null;
         }
         else{
             receptModel.recept = recept;
@@ -61,8 +60,8 @@ angular.module('CDIOFinal').controller('receptController', ['$scope', 'receptMod
     };
 
     $scope.toggleNewItem = function(){
-        if($scope.newItem) return;
-        $scope.newItem = true;
+        if(receptModel.newItem) return;
+        receptModel.newItem = true;
         receptModel.recept = {
             receptId: '',
             receptNavn: '',
