@@ -5,10 +5,14 @@
     <div class="tableContent">
         <table>
             <tr>
-                <th>ProduktBatch ID</th>
+                <th>Produktbatch ID</th>
+                <th>Produktbatch Status</th>
+                <th>Tilknyttet Recept</th>
             </tr>
             <tr ng-repeat="userProduktBatch in afvejningModel.userProduktBatches" ng-click="toggleItem(userProduktBatch)" ng-class="{'active' :afvejningModel.userProduktBatch === userProduktBatch}">
                 <td>{{userProduktBatch.pbId}}</td>
+                <td>{{getProduktBatchFromId(userProduktBatch.pbId).status}}</td>
+                <td>{{getReceptFromId(getProduktBatchFromId(userProduktBatch.pbId).receptId).receptNavn}}</td>
             </tr>
         </table>
     </div>
@@ -38,6 +42,13 @@
                                 <td>{{receptRavare.tolerance}}</td>
                             </tr>
                         </table>
+                        <div ng-if="!existInRb(raavarebatchesModel.raavareBatches, afvejningRecept.receptRaavarer)">
+                            <span style="color:#a6000c;">
+                                Der mangler at blive oprettet<br />
+                                en eller flere Råvare Batches<br />
+                                for at kunne færdiggøre Produkt Batchen
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="afvejning_afvejninger">
