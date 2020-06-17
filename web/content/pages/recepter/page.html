@@ -29,7 +29,7 @@
             <div>
                 <div>
                     <label>ReceptID</label>
-                    <input type="Number" ng-model="receptModel.recept.receptId" ng-disabled="!receptModel.newItem|| receptModel.recept.receptRaavarer.length > 0" ng-change="validateReceptId()" />
+                    <input type="number" ng-model="receptModel.recept.receptId" ng-disabled="!receptModel.newItem|| receptModel.recept.receptRaavarer.length > 0" ng-change="validateReceptId()" />
                 </div>
                 <div>
                     <label>ReceptNavn</label>
@@ -49,7 +49,7 @@
                 </div>
                 <div>
                     <label>Non netto (kg)</label>
-                    <input type="number" ng-model="receptRaavare.nonNetto" ng-disabled="!receptModel.newItem" />
+                    <input type="number" ng-model="receptRaavare.nonNetto" ng-disabled="!receptModel.newItem" ng-change="receptRaavare.nonNetto = changeCommaToDot(receptRaavare.nonNetto)" />
                 </div>
                 <div>
                     <label>Tolerance (%)</label>
