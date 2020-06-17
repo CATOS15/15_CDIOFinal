@@ -123,7 +123,7 @@ public class ProduktBatchDAO extends Database implements IProduktBatchDAO {
             throw new DALException("Produktbatch ID skal bestå af et tal og være på mindste værdien 1, og være højst på 8 cifre");
         }
         if(produktBatch.getReceptId() < 1){
-            throw new DALException("Vælg en rigtig Recept");
+            throw new DALException("En recept mangler at blive valgt");
         }
 
         try{

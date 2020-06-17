@@ -98,12 +98,12 @@ public class RaavareBatchDAO extends Database implements IRaavareBatchDAO {
             throw new DALException("Råvarebatchet ID skal bestå af et tal og være på mindste værdien 1, og være højst på 8 cifre");
         }
         if(raavareBatch.getRaavareId() < 1){
-            throw new DALException("Der skal være valgt en Råvare");
+            throw new DALException("En råvare mangler at blive valgt");
         }
-        if(raavareBatch.getMaengde() < 0){
-            throw new DALException("Mængden skal bestå af et tal og være større end 0");
+        if(raavareBatch.getMaengde() <= 0){
+            throw new DALException("Mængden skal angives og være større end 0");
         }
-        if(raavareBatch.getLeverandoer().length() < 2  || raavareBatch.getLeverandoer().length() > 21){
+        if(raavareBatch.getLeverandoer().length() < 3  || raavareBatch.getLeverandoer().length() > 20){
             throw new DALException("Leverandør navnet skal være mellem 3 og 20 karakterer");
         }
 

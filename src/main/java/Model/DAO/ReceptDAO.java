@@ -81,7 +81,7 @@ public class ReceptDAO extends Database implements IReceptDAO {
     private void validateRecept(Recept recept) throws DALException {
         if(recept.getReceptId() < 1 || recept.getReceptId() >= 100000000)
             throw new DALException("Recept ID skal bestå af et tal og være på mindste værdien 1, og være højst på 8 cifre");
-        if(recept.getReceptNavn() == null || recept.getReceptNavn() .length() < 3 || recept.getReceptNavn() .length() > 20)
+        if(recept.getReceptNavn() == null || recept.getReceptNavn().length() < 3 || recept.getReceptNavn().length() > 20)
             throw new DALException("Receptet navnet skal være mellem 3 og 20 karakterer");
 
         List<ReceptRaavare> receptRaavarer = recept.getReceptRaavarer();
@@ -90,13 +90,13 @@ public class ReceptDAO extends Database implements IReceptDAO {
         }
         for(ReceptRaavare receptRaavare : receptRaavarer){
             if(receptRaavare.getRaavareId() < 1){
-                throw new DALException("Udfyld venligst alle Råvarer");
+                throw new DALException("Alle råvare skal vælges");
             }
-            if(receptRaavare.getNonNetto() < 1){
-                throw new DALException("Udfyld venligst alle NonNettoer");
+            if(receptRaavare.getNonNetto() < 0.05 || receptRaavare.getNonNetto() > 20.0){
+                throw new DALException("Non Netto skal være mellem 0.05 og 20.0");
             }
-            if(receptRaavare.getTolerance() < 1){
-                throw new DALException("Udfyld venligst alle Tolerancer");
+            if(receptRaavare.getTolerance() < 0.1 || receptRaavare.getTolerance() > 10.0){
+                throw new DALException("Tolerance skal være mellem 0.1 og 10.0");
             }
         }
 
