@@ -35,7 +35,30 @@ public class ReceptDAO extends Database implements IReceptDAO {
 
     @Override
     public Recept getRecept(String receptId) throws DALException {
-        return null;
+        try{
+            Recept recept = new Recept();
+            ResultSet rs = this.executeSelect(String.format("SELECT receptId, receptName FROM Recept WHERE receptId = %s", receptId));
+            while(rs.next()) {
+                recept.setReceptId(rs.getInt(1));
+                recept.setReceptNavn(rs.getString(2));
+
+                List<ReceptRaavare> receptRaavarer = new ArrayList<>();
+                ResultSet rs2 = this.executeSelect(String.format("SELECT receptId, raavareId, nonNetto, tolerance FROM ReceptRaavare WHERE receptId = %d;", recept.getReceptId()));
+                while(rs2.next()){
+                    ReceptRaavare receptRaavare = new ReceptRaavare();
+                    receptRaavare.setReceptId(rs2.getInt(1));
+                    receptRaavare.setRaavareId(rs2.getInt(2));
+                    receptRaavare.setNonNetto(rs2.getDouble(3));
+                    receptRaavare.setTolerance(rs2.getDouble(4));
+                    receptRaavarer.add(receptRaavare);
+                }
+                recept.setReceptRaavarer(receptRaavarer);
+            }
+            return recept;
+        }
+        catch(SQLException sqlEx){
+            throw new DALException("Fejl ved hent af recept");
+        }
     }
 
     @Override

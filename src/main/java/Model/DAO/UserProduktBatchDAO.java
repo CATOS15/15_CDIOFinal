@@ -88,6 +88,33 @@ public class UserProduktBatchDAO extends Database implements IUserProduktBatch {
 
     }
     @Override
+    public UserProduktBatch getUserProduktBatch(String pbId) throws DALException {
+        try{
+            UserProduktBatch userProduktBatch = new UserProduktBatch();
+            ResultSet rs = this.executeSelect(String.format("SELECT DISTINCT pbId FROM ProduktBatch WHERE pbId = %s", pbId));
+            if(rs.next()){
+                userProduktBatch.setPbId(rs.getInt(1));
+                List<Afvejning> afvejninger = new ArrayList<>();
+                ResultSet rs2 = this.executeSelect(String.format("SELECT pbId, userId, rbId, tara, netto, terminal FROM UserProduktBatch WHERE pbId = %d", userProduktBatch.getPbId()));
+                while (rs2.next()){
+                    Afvejning afvejning = new Afvejning();
+                    afvejning.setUserId(rs2.getInt(2));
+                    afvejning.setRbId(rs2.getInt(3));
+                    afvejning.setTara(rs2.getDouble(4));
+                    afvejning.setNetto(rs2.getDouble(5));
+                    afvejning.setTerminal(rs2.getInt(6));
+                    afvejninger.add(afvejning);
+                }
+                userProduktBatch.setAfvejninger(afvejninger);
+            }
+            return userProduktBatch;
+        }
+        catch (SQLException sqlException){
+            throw new DALException("Fejl ved hent af afvejning " + pbId);
+        }
+    }
+
+    @Override
     public void end() throws DALException {
         try{
             this.disconnect();
