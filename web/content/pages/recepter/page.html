@@ -44,7 +44,7 @@
                 <div>
                     <label> Råvare </label>
                     <select ng-disabled="!receptModel.newItem" ng-model="receptRaavare.raavareId">
-                        <option ng-repeat="raavare in availableRaavare(raavareModel.raavarer, receptRaavare.raavareId) track by $index" ng-value="raavare.raavareId">{{raavare.raavareNavn}}</option>
+                        <option ng-repeat="raavare in availableRaavare(raavareModel.raavarer, receptRaavare.raavareId) track by $id(raavare)" ng-value="raavare.raavareId">{{raavare.raavareNavn}}</option>
                     </select>
                 </div>
                 <div>
@@ -59,7 +59,7 @@
                     <div class="minus_buttonItem" ng-click="removeReceptRaavare(receptRaavare)" ng-hide="!receptModel.newItem">-</div>
                 </div>
             </div>
-            <div class="buttonItem receptadd_knap" ng-click="addReceptRaavare();" ng-if="receptModel.recept.receptId && receptModel.newItem && !validateReceptId() && availableRaavare(raavareModel.raavarer, '').length > 0">Tilføj Råvare</div>
+            <div class="buttonItem receptadd_knap" ng-click="addReceptRaavare();" ng-if="receptModel.recept.receptId && receptModel.newItem && !validateReceptId() && availableRaavare(raavareModel.raavarer,'').length > 0">Tilføj Råvare</div>
         </div>
     </div>
      <div class="actions"><div class="buttonItem" ng-click="save()" ng-if="receptModel.newItem && receptModel.recept.receptRaavarer.length > 0">gem</div></div>
