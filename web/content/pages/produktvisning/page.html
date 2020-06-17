@@ -2,17 +2,23 @@
     <div class="headerContent">
         <div class="header">Produkt visning</div>
     </div>
-    <div class="itemContent myDivToPrint">
+    <div>
+        <label>Vælg produktionsbatch id</label>
+        <select ng-model="pbId" ng-change="onProduktionBatchSelect(pbId)">
+            <option ng-repeat="pb in produktionsbatchModel.produktBatches track by $index" ng-value="pb.pbId">{{pb.pbId}}</option>
+        </select>
+    </div>
+    <div class="itemContent myDivToPrint" ng-if="produktvisningModel.produktVisning">
         <div class="produktvisning">
             <div>
-                <p>Udskrevet 02-06-05</p>
-                <p>Produkt Batch nr. 	00000111</p>
-                <p>Recept  nr.	00002222</p>
+                <p>Udskrevet {{now}}</p>
+                <p>Produkt Batch nr. {{produktvisningModel.produktVisning.pbId}}</p>
+                <p>Recept  nr. {{produktvisningModel.produktVisning.receptId}}</p>
             </div>
-            <div class="raavare_linje">
+            <div class="raavare_linje" ng-repeat="produktvisningItem in produktvisningModel.produktVisning.produktVisningItems track by $index">
                 <div class="pvisningtable">
-                    <p>Råvare nr.00000011</p>
-                    <p>Råvare navn: Vand</p>
+                    <p>Råvare nr. {{produktvisningItem.raavareId}}</p>
+                    <p>Råvare navn: {{produktvisningItem.raavareNavn}}</p>
 
                     <table>
                         <tr>
@@ -27,57 +33,28 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td>5,500</td>
-                            <td><span>±</span>0.3 %Italy</td>
-                            <td>0,100</td>
-                            <td>5,534</td>
-                            <td>0000010</td>
-                            <td>SH</td>
-                            <td>1</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="raavare_linje">
-                <div class="pvisningtable">
-                    <p>Råvare nr.00000011</p>
-                    <p>Råvare navn: Vand</p>
-
-                    <table>
-                        <tr>
-                            <th>Del</th>
-                            <th>Mængde</th>
-                            <th>Tolerance</th>
-                            <th>Tara </th>
-                            <th>Netto (kg)</th>
-                            <th>Batch </th>
-                            <th>Opr.</th>
-                            <th>Terminal</th>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>5,500</td>
-                            <td><span>±</span>0.3 %Italy</td>
-                            <td>0,100</td>
-                            <td>5,534</td>
-                            <td>0000010</td>
-                            <td>SH</td>
-                            <td>1</td>
+                            <td>{{produktvisningItem.maengde}}</td>
+                            <td><span>±</span>{{produktvisningItem.tolerance}}%</td>
+                            <td>{{produktvisningItem.tara}}</td>
+                            <td>{{produktvisningItem.netto}}</td>
+                            <td>{{produktvisningItem.rbId}}</td>
+                            <td>{{produktvisningItem.userIni}}</td>
+                            <td>{{produktvisningItem.terminal}}</td>
                         </tr>
                     </table>
                 </div>
             </div>
             <div class="paddingtop">
-                <p>Sum Tara: 0,130</p>
-                <p>Sum Netto: 5,958</p>
+                <p>Sum Tara: {{produktvisningModel.produktVisning.totalTara}}</p>
+                <p>Sum Netto: {{produktvisningModel.produktVisning.totalNetto}}</p>
             </div>
             <div class="paddingtop">
-                <p>Produktion Status:	Afsluttet</p>
-                <p>Produktion Startet:	2005-06-01 15:33:10</p>
-                <p>Produktion Slut:	2005-06-02 07:42:34</p>
+                <p>Produktion Status: {{produktvisningModel.produktVisning.status}}</p>
+                <p>Produktion Startet: {{produktvisningModel.produktVisning.opretDato}}</p>
+                <p>Produktion Slut:	{{produktvisningModel.produktVisning.slutDato}}</p>
             </div>
 
         </div>
     </div>
-    <div class="actions" onclick="window.print();"><div class="buttonItem">Print</div></div>
+    <div class="actions" ng-if="produktvisningModel.produktVisning" ng-click="print()"><div class="buttonItem">Print</div></div>
 </div>
