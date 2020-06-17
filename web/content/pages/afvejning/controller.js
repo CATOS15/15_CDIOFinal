@@ -6,6 +6,23 @@ angular.module('CDIOFinal').controller('afvejningController', ['$scope', 'afvejn
     $scope.receptModel = receptModel;
     $scope.afvejningRecept = null;
 
+    $scope.$watch('afvejningModel', function(afvejningModel){
+        $scope.afvejningModel.userProduktBatch = null;
+        $scope.init();
+    });
+
+    $scope.existInRb = function(raavareBatches, receptRaavarer){
+        var exist;
+        receptRaavarer.forEach(function (receptRaavare) {
+            exist = false;
+            raavareBatches.forEach(function (raavareBatch) {
+                if(receptRaavare.raavareId === raavareBatch.raavareId) exist = true;
+            });
+            if(!exist) return exist;
+        });
+        return exist;
+    };
+
     $scope.availableRaavareBatches = function(raavareBatches, rbId){
         var availableRaavareBatches = [];
 
