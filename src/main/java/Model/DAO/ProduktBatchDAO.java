@@ -119,7 +119,7 @@ public class ProduktBatchDAO extends Database implements IProduktBatchDAO {
     }
 
     private void validateProduktBatch(ProduktBatch produktBatch) throws DALException {
-        if(produktBatch.getPbId() < 1 && produktBatch.getPbId() >= 100000000){
+        if(produktBatch.getPbId() < 1 || produktBatch.getPbId() >= 100000000){
             throw new DALException("Produktbatch ID skal bestå af et tal og være på mindste værdien 1, og være højst på 8 cifre");
         }
         if(produktBatch.getReceptId() < 1){
