@@ -44,7 +44,7 @@
                 <div>
                     <label> Råvare </label>
                     <select ng-disabled="!receptModel.newItem" ng-model="receptRaavare.raavareId">
-                        <option ng-repeat="raavare in availableRaavare(raavareModel.raavarer, receptRaavare.raavareId) track by $id(raavare)" ng-value="raavare.raavareId">{{raavare.raavareNavn}}</option>
+                        <option ng-repeat="raavare in availableRaavare(raavareModel.raavarer, receptRaavare.raavareId)" ng-value="raavare.raavareId">{{raavare.raavareNavn}}</option>
                     </select>
                 </div>
                 <div>
@@ -53,7 +53,7 @@
                 </div>
                 <div>
                     <label>Tolerance (%)</label>
-                    <input type="number" ng-model="receptRaavare.tolerance" ng-disabled="!receptModel.newItem" />
+                    <input type="number" ng-model="receptRaavare.tolerance" ng-disabled="!receptModel.newItem"/>
                 </div>
                 <div class="div_with_button">
                     <div class="minus_buttonItem" ng-click="removeReceptRaavare(receptRaavare)" ng-hide="!receptModel.newItem">-</div>
