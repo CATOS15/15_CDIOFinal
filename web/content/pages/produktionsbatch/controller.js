@@ -1,7 +1,6 @@
 angular.module('CDIOFinal').controller('produktionsbatchController', ['$scope', 'produktionsbatchModel','receptModel', 'produktionsbatchService','receptService',function ($scope, produktionsbatchModel,receptModel,produktionsbatchService,receptService) {
     $scope.produktionsbatchModel = produktionsbatchModel;
     $scope.receptModel = receptModel;
-    $scope.newItem = false;
 
     $scope.init = function(){
         produktionsbatchService.getProduktBatches();
@@ -9,7 +8,9 @@ angular.module('CDIOFinal').controller('produktionsbatchController', ['$scope', 
     };
 
     $scope.toggleItem = function(produktBatch){
-        $scope.newItem = false;
+        produktionsbatchModel.newItem = false;
+        produktionsbatchModel.msg = "";
+        produktionsbatchModel.error = "";
         if(produktionsbatchModel.produktBatch === produktBatch){
             produktionsbatchModel.produktBatch = null;
         }
@@ -18,13 +19,13 @@ angular.module('CDIOFinal').controller('produktionsbatchController', ['$scope', 
         }
     };
     $scope.toggleNewItem = function(){
-        if($scope.newItem) return;
-        $scope.newItem = true;
+        if(produktionsbatchModel.newItem) return;
+        produktionsbatchModel.newItem = true;
         produktionsbatchModel.produktBatch = {pbId: "", receptId: ""};
     };
 
     $scope.save = function(){
-        if($scope.newItem){
+        if(produktionsbatchModel.newItem){
             produktionsbatchService.createProduktBatch(produktionsbatchModel.produktBatch);
         }
     };

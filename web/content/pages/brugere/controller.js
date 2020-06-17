@@ -20,6 +20,8 @@ angular.module('CDIOFinal').controller('brugereController', ['$scope', 'brugereM
     };
 
     $scope.toggleRolle = function(rolle){
+        brugereModel.msg = "";
+        brugereModel.error = "";
         var rolleIndex = $scope.getRolleIndex(rolle);
         if(rolleIndex !== -1){
             brugereModel.bruger.roller.splice(rolleIndex, 1);
@@ -30,6 +32,8 @@ angular.module('CDIOFinal').controller('brugereController', ['$scope', 'brugereM
 
     $scope.toggleItem = function(bruger){
         brugereModel.newItem = false;
+        brugereModel.msg = "";
+        brugereModel.error = "";
         if(brugereModel.bruger && brugereModel.bruger.userId === bruger.userId){
             brugereModel.bruger = null;
         }

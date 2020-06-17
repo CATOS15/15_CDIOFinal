@@ -1,11 +1,12 @@
 angular.module('CDIOFinal').service('raavarebatchesService', ['$http', 'raavarebatchesModel','CDIOFinalModel','raavareService', function ($http, raavarebatchesModel,CDIOFinalModel,raavareService) {
-
+    var _this = this;
     this.getRaavareBatches = function(){
         $http({
             method: "GET",
             url: CDIOFinalModel.apiURL + "raavarebatch"
         }).then(function (resp) {
             raavarebatchesModel.raavareBatches = resp.data;
+            _this.resetItem();
         }, function (errorResp) {
             raavarebatchesModel.error = errorResp.data;
         });
@@ -21,12 +22,16 @@ angular.module('CDIOFinal').service('raavarebatchesService', ['$http', 'raavareb
         }).then(function () {
             raavarebatchesModel.msg = "Råvarebatch " + raavareBatch.rbId + " oprettet";
             raavarebatchesModel.raavareBatches.push(raavareBatch);
-
-            raavarebatchesModel.newItem = false;
-            raavarebatchesModel.raavareBatch = null;
+            _this.resetItem();
         }, function (errorResp) {
             raavarebatchesModel.error = errorResp.data;
         });
+    };
+
+
+    this.resetItem = function(){
+        raavarebatchesModel.newItem = false;
+        raavarebatchesModel.raavareBatch = null;
     };
 
 

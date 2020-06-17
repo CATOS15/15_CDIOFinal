@@ -1,7 +1,7 @@
 <div>
     <div class="headerContent">
         <div class="header">Produktbatch</div>
-        <div class="header_buttonItem" ng-click="toggleNewItem()">+</div>
+        <div  class="header_buttonItem" ng-click="toggleNewItem()" ng-if="receptModel.recepter.length > 0" >+</div>
     </div>
     <div class="tableContent">
         <table>
@@ -21,8 +21,11 @@
             </tr>
         </table>
     </div>
+    <div style="color:#a6000c;" ng-if="receptModel.recepter.length < 1">
+        Der mangler at blive oprettet en recept
+    </div>
     <div style="color:#009116;" ng-if="produktionsbatchModel.msg">
-        {{produktionsbatchModel.msg}}
+        {{produktionsbatchModel.msg}}æ
     </div>
     <div style="color:#a6000c;" ng-if="produktionsbatchModel.error">
         {{produktionsbatchModel.error}}
@@ -32,11 +35,11 @@
             <div>
                 <div>
                     <label>Produktbatch ID:</label>
-                    <input type="number" ng-model="produktionsbatchModel.produktBatch.pbId" ng-disabled="!newItem" />
+                    <input type="number" ng-model="produktionsbatchModel.produktBatch.pbId" ng-disabled="!produktionsbatchModel.newItem" />
                 </div>
                 <div>
                     <label>Recept ID:</label>
-                    <select ng-model="produktionsbatchModel.produktBatch.receptId" ng-disabled="!newItem">
+                    <select ng-model="produktionsbatchModel.produktBatch.receptId" ng-disabled="!produktionsbatchModel.newItem">
                         <option ng-repeat="recept in receptModel.recepter track by $index" ng-value="recept.receptId">{{recept.receptNavn}} ({{recept.receptId}})</option>
                     </select>
                 </div>

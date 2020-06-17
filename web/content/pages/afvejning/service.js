@@ -1,4 +1,4 @@
-angular.module('CDIOFinal').service('afvejningService', ['$http', 'afvejningModel','CDIOFinalModel', function ($http, afvejningModel,CDIOFinalModel) {
+angular.module('CDIOFinal').service('afvejningService', ['$http', 'afvejningModel','CDIOFinalModel', 'produktionsbatchService', function ($http, afvejningModel,CDIOFinalModel, produktionsbatchService) {
     this.getAfvejninger = function(){
         $http({
             method: "GET",
@@ -21,6 +21,7 @@ angular.module('CDIOFinal').service('afvejningService', ['$http', 'afvejningMode
             url: CDIOFinalModel.apiURL + "afvejning",
             data: userProduktBatch
         }).then(function (resp) {
+            produktionsbatchService.getProduktBatches();
             afvejningModel.userProduktBatches.push(resp.data);
         }, function (errorResp) {
             afvejningModel.error = errorResp.data;

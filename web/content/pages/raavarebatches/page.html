@@ -1,7 +1,7 @@
 <div>
     <div class="headerContent">
         <div class="header">Råvarebatch</div>
-        <div class="header_buttonItem" ng-click="toggleNewItem()">+</div>
+        <div  class="header_buttonItem" ng-click="toggleNewItem()" ng-if="raavareModel.raavarer.length > 0">+</div>
     </div>
     <div class="tableContent">
         <table>
@@ -19,6 +19,9 @@
             </tr>
         </table>
     </div>
+    <div style="color:#a6000c;" ng-if="raavareModel.raavarer.length < 1">
+        Der mangler at blive oprettet en råvare
+    </div>
     <div style="color:#009116;" ng-if="raavarebatchesModel.msg">
         {{raavarebatchesModel.msg}}
     </div>
@@ -30,28 +33,28 @@
             <div>
                 <div>
                     <label>RåvarebatchID:</label>
-                    <input type="number" ng-model="raavarebatchesModel.raavareBatch.rbId" ng-disabled="!newItem" />
+                    <input type="number" ng-model="raavarebatchesModel.raavareBatch.rbId" ng-disabled="!raavarebatchesModel.newItem" />
                 </div>
                 <div>
                     <label>Råvare:</label>
-                    <select ng-disabled="!newItem" ng-model="raavarebatchesModel.raavareBatch.raavareId">
-                        <option ng-repeat="x in raavareModel.raavarer track by x.raavareId" ng-value="x.raavareId">{{x.raavareNavn}}</option>
+                    <select ng-disabled="!raavarebatchesModel.newItem" ng-model="raavarebatchesModel.raavareBatch.raavareId">
+                        <option ng-repeat="raavare in raavareModel.raavarer track by raavare.raavareId" ng-value="raavare.raavareId">{{raavare.raavareNavn}}</option>
                     </select>
                 </div>
             </div>
             <div>
                 <div>
                     <label>Mængde:</label>
-                    <input type="number" ng-model="raavarebatchesModel.raavareBatch.maengde" ng-disabled="!newItem"/>
+                    <input type="number" ng-model="raavarebatchesModel.raavareBatch.maengde" ng-disabled="!raavarebatchesModel.newItem"/>
                 </div>
                 <div>
                     <label>Leverandør:</label>
-                    <input type="text" ng-model="raavarebatchesModel.raavareBatch.leverandoer" ng-disabled="!newItem"/>
+                    <input type="text" ng-model="raavarebatchesModel.raavareBatch.leverandoer" ng-disabled="!raavarebatchesModel.newItem"/>
                 </div>
             </div>
         </div>
     </div>
-    <div class="actions"><div class="buttonItem" ng-click="save()" ng-hide="!newItem">Gem</div></div>
+    <div class="actions"><div class="buttonItem" ng-click="save()" ng-hide="!raavarebatchesModel.newItem">Gem</div></div>
 </div>
 
 <style>

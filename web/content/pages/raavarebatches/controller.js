@@ -11,7 +11,9 @@ angular.module('CDIOFinal').controller('raavarebatchesController', ['$scope', 'r
         raavareService.getRaavarer();
     };
     $scope.toggleItem = function(raavareBatch){
-        $scope.newItem = false;
+        raavarebatchesModel.newItem = false;
+        raavarebatchesModel.msg = "";
+        raavarebatchesModel.error = "";
         if(raavarebatchesModel.raavareBatch === raavareBatch){
             raavarebatchesModel.raavareBatch = null;
         }
@@ -20,8 +22,8 @@ angular.module('CDIOFinal').controller('raavarebatchesController', ['$scope', 'r
         }
     };
     $scope.toggleNewItem = function(){
-        if($scope.newItem) return;
-        $scope.newItem = true;
+        if(raavarebatchesModel.newItem) return;
+        raavarebatchesModel.newItem = true;
         raavarebatchesModel.raavareBatch = {rbId: "", raavareId: "", maengde: "", leverandoer: ""};
     };
     $scope.save = function(){
