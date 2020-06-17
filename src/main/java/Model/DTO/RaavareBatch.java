@@ -3,7 +3,7 @@ package Model.DTO;
 public class RaavareBatch {
     private int rbId;
     private int raavareId;
-    private int maengde;
+    private double maengde;
     private String leverandoer;
 
     public int getRbId() {
@@ -22,11 +22,11 @@ public class RaavareBatch {
         this.raavareId = raavareId;
     }
 
-    public int getMaengde() {
+    public double getMaengde() {
         return maengde;
     }
 
-    public void setMaengde(int maengde) {
+    public void setMaengde(double maengde) {
         this.maengde = maengde;
     }
 
@@ -37,7 +37,4 @@ public class RaavareBatch {
     public void setLeverandoer(String leverandoer) {
         this.leverandoer = leverandoer;
     }
-
-
-
 }

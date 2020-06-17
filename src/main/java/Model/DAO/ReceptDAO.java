@@ -24,7 +24,7 @@ public class ReceptDAO extends Database implements IReceptDAO {
             }
             this.executeUpdate(String.format("INSERT INTO Recept VALUES (%d, '%s');", recept.getReceptId(), recept.getReceptNavn()));
             for (ReceptRaavare receptRaavare : recept.getReceptRaavarer()) {
-                this.executeUpdate(String.format("INSERT INTO ReceptRaavare VALUES (%d, %d, %d, %d);", receptRaavare.getReceptId(), receptRaavare.getRaavareId(), receptRaavare.getNonNetto(), receptRaavare.getTolerance()));
+                this.executeUpdate(String.format("INSERT INTO ReceptRaavare VALUES (%d, %d, %s, %s);", receptRaavare.getReceptId(), receptRaavare.getRaavareId(), receptRaavare.getNonNetto(), receptRaavare.getTolerance()));
             }
             return recept;
         }
@@ -54,8 +54,8 @@ public class ReceptDAO extends Database implements IReceptDAO {
                     ReceptRaavare receptRaavare = new ReceptRaavare();
                     receptRaavare.setReceptId(rs2.getInt(1));
                     receptRaavare.setRaavareId(rs2.getInt(2));
-                    receptRaavare.setNonNetto(rs2.getInt(3));
-                    receptRaavare.setTolerance(rs2.getInt(4));
+                    receptRaavare.setNonNetto(rs2.getDouble(3));
+                    receptRaavare.setTolerance(rs2.getDouble(4));
                     receptRaavarer.add(receptRaavare);
                 }
                 recept.setReceptRaavarer(receptRaavarer);

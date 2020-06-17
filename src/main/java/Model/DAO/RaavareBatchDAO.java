@@ -7,8 +7,12 @@ import Model.Exception.DALException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static Security.Security.crypt;
 
@@ -17,6 +21,11 @@ public class RaavareBatchDAO extends Database implements IRaavareBatchDAO {
         super();
     }
 
+    Locale locale = Locale.ENGLISH;
+    NumberFormat nf = NumberFormat.getNumberInstance(locale);
+
+
+    private static DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
     @Override
     public RaavareBatch createRavareBatch(RaavareBatch raavareBatch) throws DALException {
@@ -30,11 +39,11 @@ public class RaavareBatchDAO extends Database implements IRaavareBatchDAO {
             ResultSet rs = this.executeSelect(String.format("SELECT * FROM Raavare WHERE raavareId = %s;",raavareBatch.getRaavareId()));
             if(rs.next()) {
                 try{
-                    this.executeUpdate(String.format("INSERT INTO RaavareBatch VALUES (%d,%d,%d,'%s');",raavareBatch.getRbId(),raavareBatch.getRaavareId(),raavareBatch.getMaengde(),raavareBatch.getLeverandoer()));
+                    this.executeUpdate(String.format("INSERT INTO RaavareBatch VALUES (%d,%d,%s,'%s');",raavareBatch.getRbId(),raavareBatch.getRaavareId(),raavareBatch.getMaengde(),raavareBatch.getLeverandoer()));
                     return raavareBatch;
                 }
                 catch(SQLException sqlEx){
-                    throw new DALException("Fejl ved oprettelse af råvarebatch");
+                        throw new DALException("Fejl ved oprettelse af råvarebatch");
                 }
             }else{
                 throw new DALException("Råvarer eksisterer ikke");
@@ -52,7 +61,7 @@ public class RaavareBatchDAO extends Database implements IRaavareBatchDAO {
                 RaavareBatch raavareBatch = new RaavareBatch();
                 raavareBatch.setRbId(rs.getInt(1));
                 raavareBatch.setRaavareId(rs.getInt(2));
-                raavareBatch.setMaengde(rs.getInt(3));
+                raavareBatch.setMaengde(rs.getDouble(3));
                 raavareBatch.setLeverandoer(rs.getString(4));
                 return raavareBatch;
             }else{
@@ -73,7 +82,7 @@ public class RaavareBatchDAO extends Database implements IRaavareBatchDAO {
                 RaavareBatch raavareBatch = new RaavareBatch();
                 raavareBatch.setRbId(rs.getInt(1));
                 raavareBatch.setRaavareId(rs.getInt(2));
-                raavareBatch.setMaengde(rs.getInt(3));
+                raavareBatch.setMaengde(rs.getDouble(3));
                 raavareBatch.setLeverandoer(rs.getString(4));
                 raavareBatches.add(raavareBatch);
             }

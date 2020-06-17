@@ -3,8 +3,8 @@ package Model.DTO;
 public class ReceptRaavare {
     private int receptId;
     private int raavareId;
-    private int nonNetto;
-    private int tolerance;
+    private double nonNetto;
+    private double tolerance;
 
     public int getReceptId() {
         return receptId;
@@ -22,19 +22,19 @@ public class ReceptRaavare {
         this.raavareId = raavareId;
     }
 
-    public int getNonNetto() {
+    public double getNonNetto() {
         return nonNetto;
     }
 
-    public void setNonNetto(int nonNetto) {
+    public void setNonNetto(double nonNetto) {
         this.nonNetto = nonNetto;
     }
 
-    public int getTolerance() {
+    public double getTolerance() {
         return tolerance;
     }
 
-    public void setTolerance(int tolerance) {
+    public void setTolerance(double tolerance) {
         this.tolerance = tolerance;
     }
 }

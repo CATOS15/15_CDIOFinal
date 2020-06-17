@@ -22,7 +22,7 @@ public class UserProduktBatchDAO extends Database implements IUserProduktBatch {
                 if(rs.next()) {
                     continue;
                 }
-                this.executeUpdate(String.format("INSERT INTO UserProduktBatch VALUES (%d, %d, %d, %d, %d, %d);", userProduktBatch.getPbId(), afvejning.getUserId(), afvejning.getRbId(), afvejning.getTara(), afvejning.getNetto(), afvejning.getTerminal()));
+                this.executeUpdate(String.format("INSERT INTO UserProduktBatch VALUES (%d, %d, %d, %s, %s, %d);", userProduktBatch.getPbId(), afvejning.getUserId(), afvejning.getRbId(), afvejning.getTara(), afvejning.getNetto(), afvejning.getTerminal()));
             }
             String test = String.format("SELECT DISTINCT COUNT(*) FROM produktbatch as pb NATURAL JOIN receptraavare as r WHERE pb.pbId = %d;", userProduktBatch.getPbId());
             ResultSet rs = this.executeSelect(test);
@@ -57,8 +57,8 @@ public class UserProduktBatchDAO extends Database implements IUserProduktBatch {
                     Afvejning afvejning = new Afvejning();
                     afvejning.setUserId(rs2.getInt(2));
                     afvejning.setRbId(rs2.getInt(3));
-                    afvejning.setTara(rs2.getInt(4));
-                    afvejning.setNetto(rs2.getInt(5));
+                    afvejning.setTara(rs2.getDouble(4));
+                    afvejning.setNetto(rs2.getDouble(5));
                     afvejning.setTerminal(rs2.getInt(6));
                     afvejninger.add(afvejning);
                 }

@@ -55,8 +55,8 @@ public class ProduktBatchDAO extends Database implements IProduktBatchDAO {
                         Afvejning afvejning = new Afvejning();
                         afvejning.setUserId(rs2.getInt(2));
                         afvejning.setRbId(rs2.getInt(3));
-                        afvejning.setTara(rs2.getInt(4));
-                        afvejning.setNetto(rs2.getInt(5));
+                        afvejning.setTara(rs2.getDouble(4));
+                        afvejning.setNetto(rs2.getDouble(5));
                         afvejning.setTerminal(rs2.getInt(6));
                         afvejninger.add(afvejning);
                     }
@@ -100,8 +100,8 @@ public class ProduktBatchDAO extends Database implements IProduktBatchDAO {
                         Afvejning afvejning = new Afvejning();
                         afvejning.setUserId(rs3.getInt(2));
                         afvejning.setRbId(rs3.getInt(3));
-                        afvejning.setTara(rs3.getInt(4));
-                        afvejning.setNetto(rs3.getInt(5));
+                        afvejning.setTara(rs3.getDouble(4));
+                        afvejning.setNetto(rs3.getDouble(5));
                         afvejning.setTerminal(rs3.getInt(6));
                         afvejninger.add(afvejning);
                     }

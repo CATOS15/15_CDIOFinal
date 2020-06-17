@@ -3,8 +3,8 @@ package Model.DTO;
 public class Afvejning{
     private int userId;
     private int rbId;
-    private int tara;
-    private int netto;
+    private double tara;
+    private double netto;
     private int terminal;
 
     public int getUserId() {
@@ -23,19 +23,19 @@ public class Afvejning{
         this.rbId = rbId;
     }
 
-    public int getTara() {
+    public double getTara() {
         return tara;
     }
 
-    public void setTara(int tara) {
+    public void setTara(double tara) {
         this.tara = tara;
     }
 
-    public int getNetto() {
+    public double getNetto() {
         return netto;
     }
 
-    public void setNetto(int netto) {
+    public void setNetto(double netto) {
         this.netto = netto;
     }
 
