@@ -17,7 +17,7 @@ public class ReceptDAO extends Database implements IReceptDAO {
     @Override
     public Recept createRecept(Recept recept) throws DALException {
         try{
-            validateUser(recept);
+            validateRecept(recept);
             ResultSet receptIdExist =  this.executeSelect(String.format("SELECT * FROM Recept WHERE receptId = %d;", recept.getReceptId()));
             if(receptIdExist.next()){
                 throw new DALException("En bruger med det ID findes allerede");
@@ -78,7 +78,7 @@ public class ReceptDAO extends Database implements IReceptDAO {
     }
 
 
-    private void validateUser(Recept recept) throws DALException {
+    private void validateRecept(Recept recept) throws DALException {
         if(recept.getReceptId() < 1 && recept.getReceptId() >= 100000000)
             throw new DALException("Recept ID skal bestå af et tal og være på mindste værdien 1, og være højst på 8 cifre");
         if(recept.getReceptNavn() == null || recept.getReceptNavn() .length() < 3 || recept.getReceptNavn() .length() > 20)
