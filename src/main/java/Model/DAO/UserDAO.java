@@ -179,7 +179,7 @@ public class UserDAO extends Database implements IUserDAO {
     }
 
     private void validateUser(User user) throws DALException {
-        if(user.getUserId() < 1 && user.getUserId()  >= 100000000)
+        if(user.getUserId() < 1 || user.getUserId()  >= 100000000)
             throw new DALException("Brugerens ID skal bestå af et tal og være på mindste værdien 1, og være højst på 8 cifre");
         if(user.getUserName() == null || user.getUserName().length() < 3 || user.getUserName().length() > 16)
             throw new DALException("Bruger navnet skal være mellem 3 og 15 karakterer");

@@ -79,7 +79,7 @@ public class ReceptDAO extends Database implements IReceptDAO {
 
 
     private void validateUser(Recept recept) throws DALException {
-        if(recept.getReceptId() < 1 && recept.getReceptId() >= 100000000)
+        if(recept.getReceptId() < 1 || recept.getReceptId() >= 100000000)
             throw new DALException("Recept ID skal bestå af et tal og være på mindste værdien 1, og være højst på 8 cifre");
         if(recept.getReceptNavn() == null || recept.getReceptNavn() .length() < 3 || recept.getReceptNavn() .length() > 20)
             throw new DALException("Receptet navnet skal være mellem 3 og 20 karakterer");
