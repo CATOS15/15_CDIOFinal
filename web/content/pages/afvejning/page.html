@@ -33,7 +33,7 @@
                         <table>
                             <tr>
                                 <th>Råvare</th>
-                                <th>Non netto</th>
+                                <th>Non netto (kg)</th>
                                 <th>Tolerance (%)</th>
                             </tr>
                             <tr ng-repeat="receptRavare in afvejningRecept.receptRaavarer track by $index">
@@ -96,7 +96,7 @@
             <div class="buttonItem receptadd_knap" ng-click="addAfvejning()" ng-if="availableRaavareBatches(raavarebatchesModel.raavareBatches, '').length > 0">Tilføj afvejning</div>
         </div>
     </div>
-    <div class="actions" ng-if="afvejningModel.userProduktBatch"><div class="buttonItem" ng-click="save()">gem</div></div>
+    <div class="actions" ng-if="afvejningModel.userProduktBatch && afvejningModel.userProduktBatch.afvejninger.length > 0"><div class="buttonItem" ng-click="save()">gem</div></div>
 </div>
 <style>
 </style>

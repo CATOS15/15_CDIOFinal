@@ -30,7 +30,7 @@ angular.module('CDIOFinal').service('afvejningService', ['$http', 'afvejningMode
             url: CDIOFinalModel.apiURL + "afvejning",
             data: userProduktBatch
         }).then(function (resp) {
-            afvejningModel.msg = "Afvejning " + userProduktBatch.rbId + " oprettet";
+            afvejningModel.msg = "Afvejning " + userProduktBatch.pdId + " oprettet";
             produktionsbatchService.getProduktBatches();
             afvejningModel.userProduktBatches.push(resp.data);
             _this.resetItem();

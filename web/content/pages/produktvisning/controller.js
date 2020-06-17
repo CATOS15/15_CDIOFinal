@@ -12,7 +12,7 @@ angular.module('CDIOFinal').controller('produktvisningController', ['$scope', 'p
     $scope.onProduktionBatchSelect = function(pbId){
         produktvisningService.getProduktVisning(pbId);
         var date = new Date();
-        $scope.now = date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear();
+        $scope.now = date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear();
     };
 
     $scope.print = function(){

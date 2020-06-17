@@ -1,9 +1,6 @@
 package Model.DAO;
 
-import Model.DTO.Afvejning;
-import Model.DTO.RaavareBatch;
-import Model.DTO.ReceptRaavare;
-import Model.DTO.UserProduktBatch;
+import Model.DTO.*;
 import Model.Exception.DALException;
 
 import java.sql.ResultSet;
@@ -41,7 +38,7 @@ public class UserProduktBatchDAO extends Database implements IUserProduktBatch {
 
             return userProduktBatch;
         }
-        catch(SQLException e){
+        catch(SQLException | ClassNotFoundException e){
             throw new DALException("Fejl ved oprettelse af afvejning");
         }
     }
@@ -74,18 +71,6 @@ public class UserProduktBatchDAO extends Database implements IUserProduktBatch {
         catch (SQLException sqlException){
             throw new DALException("Fejl ved hent af afvejninger");
         }
-    }
-    private void validateUserProduktBatch(UserProduktBatch userProduktBatch) throws DALException {
-
-        for (Afvejning afvejning: userProduktBatch.getAfvejninger()) {
-            if(afvejning.getTara() < 1 || afvejning.getTara() >= 10000)
-                throw new DALException("Tara skal bestå af et tal og være på mindste værdien 1, og være højst på 4 cifre");
-            if(afvejning.getNetto() < 1 || afvejning.getNetto() >= 10000)
-                throw new DALException("Netto skal bestå af et tal og være på mindste værdien 1, og være højst på 4 cifre");
-            if(afvejning.getTerminal() < 1 || afvejning.getTerminal() >= 10 )
-                throw new DALException("Terminal skal bestå af et tal og være på mindste værdien 1 og maks 10");
-        }
-
     }
     @Override
     public UserProduktBatch getUserProduktBatch(String pbId) throws DALException {
@@ -121,5 +106,54 @@ public class UserProduktBatchDAO extends Database implements IUserProduktBatch {
         }catch (SQLException se){
             throw new DALException("Forbindelsen kunne ikke lukkes");
         }
+    }
+
+    private void validateUserProduktBatch(UserProduktBatch userProduktBatch) throws DALException, SQLException, ClassNotFoundException {
+        IRaavareBatchDAO iRaavareBatchDAO = new RaavareBatchDAO();
+        IReceptDAO iReceptDAO = new ReceptDAO();
+        IProduktBatchDAO iProduktBatchDAO = new ProduktBatchDAO();
+
+        ProduktBatch produktBatch = iProduktBatchDAO.getProduktBatch(String.valueOf(userProduktBatch.getPbId()));
+        iProduktBatchDAO.end();
+        Recept recept = iReceptDAO.getRecept(String.valueOf(produktBatch.getReceptId()));
+        iReceptDAO.end();
+
+        for (Afvejning afvejning: userProduktBatch.getAfvejninger()) {
+            if (afvejning.getTara() < 0.01 || afvejning.getTara() >= 30) {
+                iRaavareBatchDAO.end();
+                throw new DALException("Tara skal bestå af et tal og være på mindste værdien 0.0100 og være højst på værdien 30.0000");
+            }
+            if (afvejning.getNetto() < 0.01 || afvejning.getNetto() >= 30){
+                iRaavareBatchDAO.end();
+                throw new DALException("Netto skal bestå af et tal og være på mindste værdien 0.0100 og være højst på værdien 30.0000");
+            }
+
+            RaavareBatch rb = iRaavareBatchDAO.getRaavareBatch(String.valueOf(afvejning.getRbId()));
+            for(ReceptRaavare receptRaavare : recept.getReceptRaavarer()){
+                if(rb.getRaavareId() == receptRaavare.getRaavareId()){
+                    double tolerance = receptRaavare.getTolerance();
+                    double nonNetto = receptRaavare.getNonNetto();
+                    double match, afvigelse;
+                    if(afvejning.getNetto() > nonNetto) {
+                        match = (nonNetto / afvejning.getNetto()) * 100;
+                    }
+                    else {
+                        match = (afvejning.getNetto() / nonNetto) * 100;
+                    }
+                    afvigelse = 100 - match;
+                    if (afvigelse > tolerance) {
+                        iRaavareBatchDAO.end();
+                        throw new DALException("Netto afviger med mere end den tilladte tolerance på " + tolerance + "%. Din angivne afvigelse er på " + afvigelse + "%");
+                    }
+
+                    break;
+                }
+            }
+            iRaavareBatchDAO.end();
+
+            if(afvejning.getTerminal() < 1 || afvejning.getTerminal() >= 10 )
+                throw new DALException("Terminal skal bestå af et tal og være på mindste værdien 1 og maks 10");
+        }
+
     }
 }

@@ -80,10 +80,20 @@ public class ProduktVisningController {
             produktVisning.setTotalNetto(totaleNetto);
             produktVisning.setTotalTara(totaleTara);
             iProduktBatchDAO.end();
+            iUserDAO.end();
+            iRaavareDAO.end();
+            iRaavareBatchDAO.end();
+            iReceptDAO.end();
+            iUserProduktBatch.end();
             return Response.ok(mapper.writeValueAsString(produktVisning)).build();
         }
         catch (Exception e){
             iProduktBatchDAO.end();
+            iUserDAO.end();
+            iRaavareDAO.end();
+            iRaavareBatchDAO.end();
+            iReceptDAO.end();
+            iUserProduktBatch.end();
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
