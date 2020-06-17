@@ -1,6 +1,8 @@
 package Model.DAO;
 
 import Model.DTO.Afvejning;
+import Model.DTO.RaavareBatch;
+import Model.DTO.ReceptRaavare;
 import Model.DTO.UserProduktBatch;
 import Model.Exception.DALException;
 
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserProduktBatchDAO extends Database implements IUserProduktBatch {
+
     public UserProduktBatchDAO() throws ClassNotFoundException, SQLException {
         super();
     }
@@ -17,6 +20,7 @@ public class UserProduktBatchDAO extends Database implements IUserProduktBatch {
     @Override
     public UserProduktBatch createUserProduktBatch(UserProduktBatch userProduktBatch) throws DALException {
         try{
+            validateUserProduktBatch(userProduktBatch);
             for (Afvejning afvejning: userProduktBatch.getAfvejninger()) {
                 ResultSet rs = this.executeSelect(String.format("SELECT pbId, rbId FROM UserProduktBatch WHERE pbId = %d AND rbId = %d", userProduktBatch.getPbId(), afvejning.getRbId()));
                 if(rs.next()) {
@@ -37,7 +41,7 @@ public class UserProduktBatchDAO extends Database implements IUserProduktBatch {
 
             return userProduktBatch;
         }
-        catch(SQLException sqlEx){
+        catch(SQLException e){
             throw new DALException("Fejl ved oprettelse af afvejning");
         }
     }
@@ -71,7 +75,18 @@ public class UserProduktBatchDAO extends Database implements IUserProduktBatch {
             throw new DALException("Fejl ved hent af afvejninger");
         }
     }
+    private void validateUserProduktBatch(UserProduktBatch userProduktBatch) throws DALException {
 
+        for (Afvejning afvejning: userProduktBatch.getAfvejninger()) {
+            if(afvejning.getTara() < 1 || afvejning.getTara() >= 10000)
+                throw new DALException("Tara skal bestå af et tal og være på mindste værdien 1, og være højst på 4 cifre");
+            if(afvejning.getNetto() < 1 || afvejning.getNetto() >= 10000)
+                throw new DALException("Netto skal bestå af et tal og være på mindste værdien 1, og være højst på 4 cifre");
+            if(afvejning.getTerminal() < 1 || afvejning.getTerminal() >= 10 )
+                throw new DALException("Netto skal bestå af et tal og være på mindste værdien 1 og maks 10");
+        }
+
+    }
     @Override
     public void end() throws DALException {
         try{

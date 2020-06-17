@@ -1,5 +1,7 @@
 angular.module('CDIOFinal').service('afvejningService', ['$http', 'afvejningModel','CDIOFinalModel', 'produktionsbatchService', function ($http, afvejningModel,CDIOFinalModel, produktionsbatchService) {
     this.getAfvejninger = function(){
+        afvejningModel.error = "";
+        afvejningModel.msg = "";
         $http({
             method: "GET",
             url: CDIOFinalModel.apiURL + "afvejning"
@@ -11,6 +13,8 @@ angular.module('CDIOFinal').service('afvejningService', ['$http', 'afvejningMode
     };
 
     this.createAfvejning = function(userProduktBatch){
+        afvejningModel.error = "";
+        afvejningModel.msg = "";
         for(var i = 0;i<userProduktBatch.afvejninger.length;i++){
             if(userProduktBatch.afvejninger[i].newItem){
                 delete(userProduktBatch.afvejninger[i].newItem)
@@ -21,6 +25,7 @@ angular.module('CDIOFinal').service('afvejningService', ['$http', 'afvejningMode
             url: CDIOFinalModel.apiURL + "afvejning",
             data: userProduktBatch
         }).then(function (resp) {
+            afvejningModel.msg = "Afvejning " + userProduktBatch.rbId + " oprettet";
             produktionsbatchService.getProduktBatches();
             afvejningModel.userProduktBatches.push(resp.data);
         }, function (errorResp) {
