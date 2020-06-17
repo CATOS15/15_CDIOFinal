@@ -13,13 +13,14 @@ angular.module('CDIOFinal').controller('afvejningController', ['$scope', 'afvejn
 
     $scope.existInRb = function(raavareBatches, receptRaavarer){
         var exist;
-        receptRaavarer.forEach(function (receptRaavare) {
+        for(var i = 0;i<receptRaavarer.length;i++){
+            var receptRaavare = receptRaavarer[i];
             exist = false;
             raavareBatches.forEach(function (raavareBatch) {
                 if(receptRaavare.raavareId === raavareBatch.raavareId) exist = true;
             });
-            if(!exist) return exist;
-        });
+            if(!exist) break;
+        }
         return exist;
     };
 
