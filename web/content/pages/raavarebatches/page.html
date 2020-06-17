@@ -38,7 +38,7 @@
                 <div>
                     <label>Råvare:</label>
                     <select ng-disabled="!raavarebatchesModel.newItem" ng-model="raavarebatchesModel.raavareBatch.raavareId">
-                        <option ng-repeat="raavare in raavareModel.raavarer track by raavare.raavareId" ng-value="raavare.raavareId">{{x.raavareNavn}}</option>
+                        <option ng-repeat="raavare in raavareModel.raavarer track by raavare.raavareId" ng-value="raavare.raavareId">{{raavare.raavareNavn}}</option>
                     </select>
                 </div>
             </div>
