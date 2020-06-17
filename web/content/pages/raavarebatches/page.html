@@ -1,7 +1,7 @@
 <div>
     <div class="headerContent">
         <div class="header">Råvarebatch</div>
-        <div class="header_buttonItem" ng-click="toggleNewItem()">+</div>
+        <div  class="header_buttonItem" ng-click="toggleNewItem()" ng-if="raavareModel.raavarer.length > 0">+</div>
     </div>
     <div class="tableContent">
         <table>
@@ -18,6 +18,9 @@
                 <td>{{raavareBatch.leverandoer}}</td>
             </tr>
         </table>
+    </div>
+    <div style="color:#a6000c;" ng-if="raavareModel.raavarer.length < 1">
+        Der mangler at blive oprettet en råvare
     </div>
     <div style="color:#009116;" ng-if="raavarebatchesModel.msg">
         {{raavarebatchesModel.msg}}

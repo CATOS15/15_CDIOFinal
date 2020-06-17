@@ -1,7 +1,7 @@
  <div>
-    <div class="headerContent">
+    <div class="headerContent" >
         <div class="header">Recept</div>
-        <div class="header_buttonItem turquoise_hover" ng-click="toggleNewItem()">+</div>
+        <div   class="header_buttonItem turquoise_hover" ng-click="toggleNewItem()" ng-if="raavareModel.raavarer.length > 0">+</div>
     </div>
     <div class="tableContent">
         <table>
@@ -15,6 +15,9 @@
             </tr>
         </table>
     </div>
+     <div style="color:#a6000c;" ng-if="raavareModel.raavarer.length < 1">
+         Der mangler at blive oprettet en råvare
+     </div>
      <div style="color:#009116;" ng-if="receptModel.msg">
          {{receptModel.msg}}
      </div>
