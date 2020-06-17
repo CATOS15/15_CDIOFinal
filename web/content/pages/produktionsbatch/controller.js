@@ -9,6 +9,8 @@ angular.module('CDIOFinal').controller('produktionsbatchController', ['$scope', 
 
     $scope.toggleItem = function(produktBatch){
         produktionsbatchModel.newItem = false;
+        produktionsbatchModel.msg = "";
+        produktionsbatchModel.error = "";
         if(produktionsbatchModel.produktBatch === produktBatch){
             produktionsbatchModel.produktBatch = null;
         }

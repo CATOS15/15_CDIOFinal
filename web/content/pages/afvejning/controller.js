@@ -119,6 +119,8 @@ angular.module('CDIOFinal').controller('afvejningController', ['$scope', 'afvejn
     };
 
     $scope.toggleItem = function(userProduktBatch){
+        afvejningModel.msg = "";
+        afvejningModel.error = "";
         if(afvejningModel.userProduktBatch === userProduktBatch){
             afvejningModel.userProduktBatch = null;
             $scope.afvejningRecept = null;

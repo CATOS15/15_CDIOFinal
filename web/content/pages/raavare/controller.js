@@ -7,6 +7,8 @@ angular.module('CDIOFinal').controller('raavareController', ['$scope', 'raavareM
 
     $scope.toggleItem = function(raavare){
         raavareModel.newItem = false;
+        raavareModel.msg = "";
+        raavareModel.error = "";
         if(raavareModel.raavare && raavareModel.raavare.raavareId === raavare.raavareId){
             raavareModel.raavare = null;
         }
@@ -17,6 +19,8 @@ angular.module('CDIOFinal').controller('raavareController', ['$scope', 'raavareM
     $scope.toggleNewItem = function(){
         if(raavareModel.newItem) return;
         raavareModel.newItem = true;
+        raavareModel.msg = "";
+        raavareModel.error = "";
         raavareModel.raavare = {raavareId: "", raavareNavn: ""};
     };
 

@@ -39,6 +39,8 @@ angular.module('CDIOFinal').controller('receptController', ['$scope', 'receptMod
     };
     $scope.toggleItem = function(recept){
         receptModel.newItem = false;
+        receptModel.msg = "";
+        receptModel.error = "";
         if(receptModel.newItem ===  recept){
             receptModel.newItem = null;
         }

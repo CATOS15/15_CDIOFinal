@@ -12,6 +12,8 @@ angular.module('CDIOFinal').controller('raavarebatchesController', ['$scope', 'r
     };
     $scope.toggleItem = function(raavareBatch){
         raavarebatchesModel.newItem = false;
+        raavarebatchesModel.msg = "";
+        raavarebatchesModel.error = "";
         if(raavarebatchesModel.raavareBatch === raavareBatch){
             raavarebatchesModel.raavareBatch = null;
         }
