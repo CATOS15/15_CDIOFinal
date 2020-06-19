@@ -1,4 +1,6 @@
-angular.module('CDIOFinal').service('loginService', ['$http', 'loginModel', 'CDIOFinalModel', '$location', function ($http, loginModel, CDIOFinalModel, $location) {
+angular.module('CDIOFinal').service('loginService',
+    ['$http', 'loginModel', 'CDIOFinalModel', '$location',
+        function ($http, loginModel, CDIOFinalModel, $location) {
     this.login = function(user){
         $http({
             method: "POST",
@@ -7,17 +9,6 @@ angular.module('CDIOFinal').service('loginService', ['$http', 'loginModel', 'CDI
         }).then(function (resp) {
             CDIOFinalModel.userToken = resp.data.substr(1, resp.data.length-2);
             $location.path("/");
-        }, function (errorResp) {
-            loginModel.error = errorResp.data;
-        });
-    };
-    this.createUser = function(user){
-        $http({
-            method: "POST",
-            url: CDIOFinalModel.apiURL + "authentication/createuser",
-            data: user
-        }).then(function (resp) {
-            loginModel.msg = "Bruger oprettet " + resp.data.userName;
         }, function (errorResp) {
             loginModel.error = errorResp.data;
         });
