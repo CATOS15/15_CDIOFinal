@@ -11,16 +11,15 @@ import java.util.List;
 import static Security.Security.crypt;
 
 public class UserDAO extends Database implements IUserDAO {
-    private IRolleDAO iRolleDAO;
 
     public UserDAO() throws ClassNotFoundException, SQLException {
         super();
-        iRolleDAO = new RolleDAO();
     }
 
     @Override
     public List<User> getUsers() throws DALException {
         try{
+            IRolleDAO iRolleDAO = new RolleDAO();
             List<User> users = new ArrayList<>();
             ResultSet rs = this.executeSelect("SELECT userId, userName, userIni, CPRnummer, tilstand FROM users");
             while(rs.next()) {
@@ -35,6 +34,7 @@ public class UserDAO extends Database implements IUserDAO {
                 ResultSet rs2 = this.executeSelect(String.format("SELECT roleId FROM rolesusers WHERE userId = %d;", user.getUserId()));
                 while(rs2.next()) {
                     Rolle rolle = iRolleDAO.getRolle(String.valueOf(rs2.getInt(1)));
+                    iRolleDAO.end();
                     roller.add(rolle);
                 }
                 user.setRoller(roller);
@@ -42,7 +42,7 @@ public class UserDAO extends Database implements IUserDAO {
             }
             return users;
         }
-        catch(SQLException sqlEx){
+        catch(SQLException | ClassNotFoundException sqlEx){
             throw new DALException("Fejl ved hent af brugere");
         }
     }
@@ -50,6 +50,7 @@ public class UserDAO extends Database implements IUserDAO {
     @Override
     public User getUserByName(String username) throws DALException {
         try{
+            IRolleDAO iRolleDAO = new RolleDAO();
             ResultSet rs = this.executeSelect(String.format("SELECT userId, userName, userIni, CPRnummer, tilstand FROM Users WHERE userName = '%s';", username));
             if(rs.next()) {
                 User user = new User();
@@ -63,6 +64,7 @@ public class UserDAO extends Database implements IUserDAO {
                 ResultSet rs2 = this.executeSelect(String.format("SELECT roleId FROM rolesusers WHERE userId = %d;", user.getUserId()));
                 while(rs2.next()) {
                     Rolle rolle = iRolleDAO.getRolle(String.valueOf(rs2.getInt(1)));
+                    iRolleDAO.end();
                     roller.add(rolle);
                 }
                 user.setRoller(roller);
@@ -72,7 +74,7 @@ public class UserDAO extends Database implements IUserDAO {
                 throw new DALException("Brugeren eksisterer ikke");
             }
         }
-        catch(SQLException sqlEx){
+        catch(SQLException | ClassNotFoundException sqlEx){
             throw new DALException("Fejl ved hent af brugeren " + username);
         }
     }
