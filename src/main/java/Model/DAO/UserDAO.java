@@ -36,10 +36,10 @@ public class UserDAO extends Database implements IUserDAO {
                     Rolle rolle = iRolleDAO.getRolle(String.valueOf(rs2.getInt(1)));
                     roller.add(rolle);
                 }
-                iRolleDAO.end();
                 user.setRoller(roller);
                 users.add(user);
             }
+            iRolleDAO.end();
             return users;
         }
         catch(SQLException | ClassNotFoundException sqlEx){
