@@ -34,9 +34,9 @@ public class UserDAO extends Database implements IUserDAO {
                 ResultSet rs2 = this.executeSelect(String.format("SELECT roleId FROM rolesusers WHERE userId = %d;", user.getUserId()));
                 while(rs2.next()) {
                     Rolle rolle = iRolleDAO.getRolle(String.valueOf(rs2.getInt(1)));
-                    iRolleDAO.end();
                     roller.add(rolle);
                 }
+                iRolleDAO.end();
                 user.setRoller(roller);
                 users.add(user);
             }
