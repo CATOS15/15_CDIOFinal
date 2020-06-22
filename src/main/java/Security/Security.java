@@ -40,7 +40,7 @@ public class Security {
         try {
             Date dateOneDay = new Date(System.currentTimeMillis() + 3600 * 1000 * 24);
 
-            Algorithm algorithm = Algorithm.HMAC256("secret");
+            Algorithm algorithm = Algorithm.HMAC256("privatekey_n!sseMand3_5");
             return JWT.create()
                     .withIssuer("auth0")
                     .withExpiresAt(dateOneDay)
