@@ -52,7 +52,7 @@ public class Security {
     }
     public static String verifyToken(String token, RolleEnum rolleNeeded) throws DALException {
         try {
-            Algorithm algorithm = Algorithm.HMAC256("secret");
+            Algorithm algorithm = Algorithm.HMAC256("privatekey_n!sseMand3_5");
             JWTVerifier verifier = JWT.require(algorithm)
                     .withIssuer("auth0")
                     .build();
