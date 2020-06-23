@@ -149,11 +149,10 @@ public class UserProduktBatchDAO extends Database implements IUserProduktBatch {
                     break;
                 }
             }
-            iRaavareBatchDAO.end();
-
             if(afvejning.getTerminal() < 1 || afvejning.getTerminal() >= 10 )
                 throw new DALException("Terminal skal bestå af et tal og være på mindste værdien 1 og maks 10");
         }
+        iRaavareBatchDAO.end();
 
     }
 }
